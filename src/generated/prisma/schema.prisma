@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum State {
+  Active
+  Inactive
+  Blocked
+  Expired
+}
+
+enum Role {
+  DIRECTOR //solo lectura
+  SUPERVISOR //lectura y escritura, sistema de trazas
+  ECONOMICO //lectura y escritura
+  ENCARGADO //lectura y escritura
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  nickname    String   @unique
+  password    String
+  role        Role     @default(ECONOMICO)
+  isAvailable Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Chofer {
+  uuid        String     @id @default(uuid())
+  nombre      String
+  ci          String
+  licencia    String?
+  isAvailable Boolean    @default(true)
+  vehiculos   Vehiculo[]
+
+  @@map("choferes")
+}
+
+model AreaTrabajo {
+  uuid        String     @id @default(uuid())
+  nombre      String
+  descripcion String
+  isAvailable Boolean    @default(true)
+  vehiculos   Vehiculo[]
+
+  @@map("areas-trabajo")
+}
+
+model TarjetaCombustible {
+  uuid              String    @id @default(uuid())
+  numero            String
+  pin               Int
+  estado            State     @default(Active)
+  fecha_vencimiento DateTime
+  isAvailable       Boolean   @default(true)
+  vehiculo          Vehiculo? @relation(fields: [vehiculoUuid], references: [uuid])
+  vehiculoUuid      String?   @unique
+
+  @@map("tarjetas-combustible")
+}
+
+model Vehiculo {
+  uuid        String  @id @default(uuid())
+  chapa       String
+  marca       String
+  tipo        String
+  jefe        String
+  isAvailable Boolean @default(true)
+
+  areaTrabajo     AreaTrabajo @relation(fields: [areaTrabajoUuid], references: [uuid])
+  areaTrabajoUuid String
+
+  chofer     Chofer? @relation(fields: [choferUuid], references: [uuid])
+  choferUuid String?
+
+  tarjeta TarjetaCombustible?
+
+  @@map("vehiculos")
+}
