@@ -1,48 +1,43 @@
-/*'use client';
-import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { Inputs } from '../choferes/data/FormDataPost';
+import { UseFormReset } from 'react-hook-form';
 
 type ApiPost = {
     url: string;
+    onClose: () => void;
+    reset: UseFormReset<Inputs>;
 }
 
-export default function useApiPost({ url}: ApiPost) {
-    const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const [isSubmitting, setIsSubmitting] = useState(false);
+export default function useApiPost({ url, onClose, reset }: ApiPost) {
     const [submitSuccess, setSubmitSuccess] = useState(false);
-    const [submitError, setSubmitError] = useState<string | null>(null);
 
-    const onSubmit = async (data) => {
-        setIsSubmitting(true);
-        setSubmitError(null);
+    const onSubmitData = async (data: Inputs) => {
         
         try {
-        const response = await fetch( url, {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
+            const response = await fetch( url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
 
-        if (!response.ok) {
-            throw new Error('Error al enviar los datos');
-        }
+            if (!response.ok) {
+                throw new Error('Error al enviar los datos');
+            }
 
-        const result = await response.json();
-        console.log('Éxito:', result);
-        setSubmitSuccess(true);
-        reset(); // Limpiar el formulario después del envío exitoso
+            setSubmitSuccess(true);
+            reset();
+            onClose();
+        
         } catch (err) {
-        setSubmitError(err instanceof Error ? err.message : 'An unknown error occurred');
-        } finally {
-        setIsSubmitting(false);
+            throw new Error(err instanceof Error ? err.message : 'An unknown error occurred');
         }
     };
-    
-    
 
     return {
-        register, handleSubmit, isSubmitting,submitSuccess, submitError, onSubmit
-    };
-}*/
+        onSubmitData,
+        submitSuccess,
+        setSubmitSuccess
+    }
+}

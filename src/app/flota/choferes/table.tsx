@@ -1,57 +1,109 @@
-import React from 'react'
-import { Chofer } from './types';
+import React from "react";
+import { Chofer } from "./types";
+import useApiDelete from "../hooks/useApiDelete";
+import Modal from "@/app/components/modal";
+import FilaTable from "./components/FilaTable";
 
 type TableProps = {
-    data?: Chofer[];
-}
+  data?: Chofer[];
+};
 
 function Table({ data }: TableProps) {
+  const columns = [
+    "Nombre y Apellidos",
+    "Carnet de Identidad",
+    "Licencia de Conduccion",
+  ];
 
-    const columns = ["Nombre y Apellidos", "Carnet de Identidad", "Licencia de Conduccion"]
+  const { onDeleteChofer, deleteSuccess, setDeleteSuccess } = useApiDelete();
 
-    return (
-        <div className="min-h-screen bg-gray-50">
-            
-            <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                <div className="px-4 py-6 sm:px-0">
-                
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                    <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50">
-                        <tr>
-                            {columns.map((column, index) => (
-                                <th key={index} scope="col" className="px-6 py-3 text-left font-medium  uppercase tracking-wider text-black">{ column }</th>
-                            ))}
-                            <th scope="col" className="relative px-6 py-3">
-                                <span className="sr-only">Acciones</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                        {data && data.map((chofer, index) => (
-                            <tr key={index}>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className=" font-medium text-gray-900">{chofer.nombre}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className=" text-gray-900">{chofer.ci}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    <div className=" text-gray-900">{chofer.licencia}</div>
-                                </td>
-                                <td className="px-6 py-4 whitespace-nowrap text-right  font-medium">
-                                    <a href="#" className="text-blue-600 hover:text-blue-900 mr-3">Editar</a>
-                                    <a href="#" className="text-red-600 hover:text-red-900">Eliminar</a>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                    </table>
-                </div>
-                </div>
-            </main>
+  const onDelete = (id: string) => {
+    onDeleteChofer({ url: `http://localhost:3000/api/choferes/${id}` });
+  };
+
+  return (
+    <div>
+      <div className="min-h-screen bg-gray-50">
+        <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+          <div className="px-4 py-6 sm:px-0">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
+                  <tr>
+                    {columns.map((column, index) => (
+                      <th
+                        key={index}
+                        scope="col"
+                        className="px-6 py-3 text-left font-medium  uppercase tracking-wider text-black"
+                      >
+                        {column}
+                      </th>
+                    ))}
+                    <th scope="col" className="relative px-6 py-3">
+                      <span className="sr-only">Acciones</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {data &&
+                    data.map((chofer, index) => (
+                      <tr key={index}>
+                        <FilaTable>
+                          <div className=" font-medium text-gray-900">
+                            {chofer.nombre}
+                          </div>
+                        </FilaTable>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className=" text-gray-900">{chofer.ci}</div>
+                        </td>
+                        <FilaTable>
+                          <div className=" text-gray-900">
+                            {chofer.licencia}
+                          </div>
+                        </FilaTable>
+                        <FilaTable>
+                          <button className="text-blue-600 hover:text-blue-900 mr-3">
+                            Editar
+                          </button>
+                          <button
+                            onClick={() => onDelete(chofer.uuid)}
+                            className="text-red-600 hover:text-red-900"
+                          >
+                            Eliminar
+                          </button>
+                        </FilaTable>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+      <Modal isOpen={deleteSuccess} onClose={() => setDeleteSuccess(false)}>
+        <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div className="sm:flex sm:items-start">
+            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+              <h3 className="text-base font-semibold leading-6 text-red-500">
+                Chofer eliminado correctamente
+              </h3>
+              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <button
+                  onClick={() => {
+                    setDeleteSuccess(false);
+                    window.location.reload();
+                  }}
+                  className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
+                >
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-    )
+      </Modal>
+    </div>
+  );
 }
 
-export default Table
+export default Table;

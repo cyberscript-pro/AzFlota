@@ -1,5 +1,5 @@
 export type Chofer = {
-    id: string;
+    uuid: string;
     nombre: string;
     ci: string;
     licencia: string;
@@ -8,5 +8,5 @@ export type Chofer = {
 export type ChoferPost = {
     nombre: string;
     ci: string;
-    licencia: string;
+    licencia?: string;
 }

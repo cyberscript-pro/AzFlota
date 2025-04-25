@@ -16,9 +16,10 @@
 # next.js
 /.next/
 /out/
-/.data/
+/data/
 # production
 /build
+/prisma/migrations
 
 # misc
 .DS_Store
