@@ -68,7 +68,7 @@ model TarjetaCombustible {
   numero            String
   pin               Int
   estado            State     @default(Active)
-  fecha_vencimiento DateTime
+  fecha_vencimiento DateTime @db.Date
   isAvailable       Boolean   @default(true)
   vehiculo          Vehiculo? @relation(fields: [vehiculoUuid], references: [uuid])
   vehiculoUuid      String?  @unique

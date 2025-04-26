@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import prisma from '../../../../lib/prisma'
+import { choferSchemaUpdate } from '@/app/validations/backend/chofer-update.schema';
 
 async function findOne(uuid:string) {
   const chofer = await prisma.chofer.findUnique({
@@ -50,7 +51,15 @@ export async function PATCH(
       return NextResponse.json({ error: 'Driver not found' }, { status: 404 })
     }
 
-    const { nombre, ci, licencia, isAvailable } = await request.json()
+    const body = await request.json();
+
+    const result = choferSchemaUpdate.safeParse(body);
+
+    if(result.error) {
+      return NextResponse.json(result.error, { status: 400 });
+    }
+
+    const { nombre, ci, licencia, isAvailable } = result.data;
     
     const updated = await prisma.chofer.update({
       where: { uuid: params.uuid },
@@ -87,7 +96,7 @@ export async function DELETE(
     const chofer = await findOne(params.uuid);
 
     if (!chofer) {
-      return NextResponse.json({ error: 'Driver not found' }, { status: 404 })
+      return NextResponse.json({ error: 'Chofer no encontrado' }, { status: 404 })
     }
 
     await prisma.chofer.update({

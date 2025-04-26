@@ -1,8 +1,12 @@
 import React from "react";
+import Image from "next/image";
+
 import { Chofer } from "./types";
 import useApiDelete from "../hooks/useApiDelete";
-import Modal from "@/app/components/modal";
-import FilaTable from "./components/FilaTable";
+import Modal from "@/app/flota/components/modal";
+import FilaTable from "../components/FilaTable";
+import ModalButton from "../components/ModalButton";
+import { Pagination } from "../hooks/useApiGet";
 
 type TableProps = {
   data?: Chofer[];
@@ -15,15 +19,15 @@ function Table({ data }: TableProps) {
     "Licencia de Conduccion",
   ];
 
-  const { onDeleteChofer, deleteSuccess, setDeleteSuccess } = useApiDelete();
+  const { onDelete, deleteSuccess, setDeleteSuccess } = useApiDelete();
 
-  const onDelete = (id: string) => {
-    onDeleteChofer({ url: `http://localhost:3000/api/choferes/${id}` });
+  const onDeleteFuncion = (id: string) => {
+    onDelete({ url: `http://localhost:3000/api/choferes/${id}` });
   };
 
   return (
     <div>
-      <div className="min-h-screen bg-gray-50">
+      <div className="bg-gray-50">
         <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -66,7 +70,7 @@ function Table({ data }: TableProps) {
                             Editar
                           </button>
                           <button
-                            onClick={() => onDelete(chofer.uuid)}
+                            onClick={() => onDeleteFuncion(chofer.uuid)}
                             className="text-red-600 hover:text-red-900"
                           >
                             Eliminar
@@ -88,15 +92,14 @@ function Table({ data }: TableProps) {
                 Chofer eliminado correctamente
               </h3>
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
+                <ModalButton
+                  children="Aceptar"
                   onClick={() => {
                     setDeleteSuccess(false);
                     window.location.reload();
                   }}
                   className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
-                >
-                  Aceptar
-                </button>
+                />
               </div>
             </div>
           </div>

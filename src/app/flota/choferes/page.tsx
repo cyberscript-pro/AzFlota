@@ -1,27 +1,34 @@
 "use client";
+
 import React, { useState } from "react";
 import Image from "next/image";
 
 import useApiGet from "../hooks/useApiGet";
-import { Chofer } from "./types";
+import { Chofer, ChoferExcel, ChoferPost } from "./types";
 import Table from "./table";
-import Modal from "@/app/components/modal";
+import Modal from "@/app/flota/components/modal";
 import FormDataPost from "./data/FormDataPost";
 import AddChofer from "./formularios/AddChofer";
-import InputRadioButton from "./components/InputRadioButton";
-import ModalButton from "./components/ModalButton";
-import ModalBasicStyle from "./components/ModalBasicStyle";
+import ModalButton from "../components/ModalButton";
+import ModalBasicStyle from "../components/ModalBasicStyle";
 import ModalGenerateReporte from "./components/ModalGenerateReporte";
-import GeneratePDF from "./data/GeneratePDF";
+import GeneratePDF from "./utils/GeneratePDF";
+import { GenerateExcel } from "./utils/GenerateExcel";
+import { ChoferMapper } from "./mappers/chofer.mapper";
+import mapped from "./mapped";
 
 function Choferes() {
-
   const [isCreateChofer, setIsCreateChofer] = useState(false);
   const [isReporte, setIsReporte] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>("pdf");
-  const { loading, error, data } = useApiGet<Chofer>({
-    url: "http://localhost:3000/api/choferes/",
+  const [pageActual, setPageActual] = useState(1);
+
+  const { loading, error, data, pagination, statePage } = useApiGet<Chofer>({
+    url: `http://localhost:3000/api/choferes?page=${pageActual}&limit=${10}`,
   });
+
+  const { dataMap } = mapped(data);
+
   const {
     register,
     handleSubmit,
@@ -30,9 +37,18 @@ function Choferes() {
     setSubmitSuccess,
     onSubmit,
   } = FormDataPost({ onClose: () => setIsCreateChofer(false) });
-  
-  const { generatePDF } = GeneratePDF({ data })
-  
+
+  if (!pagination) {
+  }
+
+  const { generatePDF } = GeneratePDF({ data });
+
+  const generateExcel = () => {
+    GenerateExcel({
+      data: dataMap,
+      fileName: "reporte_choferes",
+    });
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -40,8 +56,22 @@ function Choferes() {
   };
 
   const onGenerate = (value: string) => {
-    if(value == 'pdf') {
+    if (value == "pdf") {
       generatePDF();
+    } else if (value == "excel") {
+      generateExcel();
+    }
+  };
+
+  const onDisabledBack = (): boolean | undefined => {
+    if (!pagination?.hasPrevPage) {
+      return true;
+    }
+  };
+
+  const onDisabledNext = (): boolean | undefined => {
+    if (!pagination?.hasNextPage) {
+      return true;
     }
   };
 
@@ -69,9 +99,52 @@ function Choferes() {
 
       <div className="w-full h-10"></div>
 
-      <main className="mt-2">
+      <main className="mt-2 h-[100vh-40px]">
         <Table data={data} />
       </main>
+
+      <footer className="w-full fixed bottom-0 my-5">
+        <div className="w-lg mx-auto flex justify-between items-center">
+          <ModalButton
+            disabled={onDisabledBack()}
+            onClick={() => {
+              setPageActual(Number(pagination?.currentPage) - 1);
+              statePage(pageActual);
+            }}
+            className={`inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto`}
+          >
+            <Image
+              className=""
+              src="/back.svg"
+              alt="Back"
+              width={50}
+              height={50}
+            />
+          </ModalButton>
+
+          <div className="flex">
+            <h4 className="mr-6">Pagina Actual: {pagination?.currentPage}</h4>
+            <h4 className="ml-6">Ultima Pagina: {pagination?.totalPages}</h4>
+          </div>
+
+          <ModalButton
+            disabled={onDisabledNext()}
+            onClick={() => {
+              setPageActual(Number(pagination?.currentPage) + 1);
+              statePage(pageActual);
+            }}
+            className={`inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto`}
+          >
+            <Image
+              className=""
+              src="/next.svg"
+              alt="Next"
+              width={50}
+              height={50}
+            />
+          </ModalButton>
+        </div>
+      </footer>
 
       {loading && (
         <div className="fixed inset-0 z-50 flex justify-center items-center">
@@ -109,8 +182,6 @@ function Choferes() {
         }}
         onClickCancelar={() => setIsReporte(false)}
       />
-
-      
 
       <Modal isOpen={isCreateChofer} onClose={() => setIsCreateChofer(false)}>
         <ModalBasicStyle

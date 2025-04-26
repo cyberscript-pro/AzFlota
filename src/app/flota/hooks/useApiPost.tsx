@@ -1,17 +1,17 @@
 import { useState } from 'react';
 import { Inputs } from '../choferes/data/FormDataPost';
-import { UseFormReset } from 'react-hook-form';
+import { FieldValues, UseFormReset } from 'react-hook-form';
 
 type ApiPost = {
     url: string;
     onClose: () => void;
-    reset: UseFormReset<Inputs>;
+    reset: any;
 }
 
-export default function useApiPost({ url, onClose, reset }: ApiPost) {
+export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
-    const onSubmitData = async (data: Inputs) => {
+    const onSubmitData = async (data: T) => {
         
         try {
             const response = await fetch( url, {

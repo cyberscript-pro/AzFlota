@@ -1,4 +1,4 @@
-import { choferSchema } from "@/validations/frontend/choferSchema";
+import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form"
 import useApiPost from "../../hooks/useApiPost";

@@ -7,7 +7,7 @@ type ApiDelete = {
 export default function useApiDelete() {
     const [deleteSuccess, setDeleteSuccess] = useState(false);
 
-    const onDeleteChofer = async ({ url }: ApiDelete) => {
+    const onDelete = async ({ url }: ApiDelete) => {
         try {
             const response = await fetch( url, {
                 method: 'DELETE',
@@ -17,7 +17,7 @@ export default function useApiDelete() {
             });
 
             if (!response.ok) {
-                throw new Error('Error al eliminar el chofer');
+                throw new Error('Error al realizar la eliminacion');
             }
 
             setDeleteSuccess(true);
@@ -28,7 +28,7 @@ export default function useApiDelete() {
     };
 
     return {
-        onDeleteChofer,
+        onDelete,
         deleteSuccess,
         setDeleteSuccess
     }
