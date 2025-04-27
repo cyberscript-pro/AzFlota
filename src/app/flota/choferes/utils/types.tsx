@@ -5,6 +5,13 @@ export interface Chofer {
     licencia: string;
 }
 
+export interface ChoferFront {
+  id: string;
+  nombre: string;
+  ci: string;
+  licencia: string;
+}
+
 export type ChoferPost = {
     nombre: string;
     ci: string;

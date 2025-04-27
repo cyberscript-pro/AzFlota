@@ -7,10 +7,15 @@ export const choferSchema = z.object({
 
   ci: z
     .string()
-    .refine(value => /^\d{11}$/.test(value), {
-      message: 'El carnet debe contener exactamente 11 dígitos numéricos'
+    .refine((value) => /^\d{11}$/.test(value), {
+      message: "El carnet debe contener exactamente 11 dígitos numéricos",
     })
-    .transform(val => val.trim()),
+    .transform((val) => val.trim()),
 
-  licencia: z.string().optional(),
+  licencia: z
+    .string()
+    .refine((value) => /^\d{4}$/.test(value), {
+      message: "El licencia debe contener exactamente 4 dígitos numéricos",
+    })
+    .transform((val) => val.trim()),
 });

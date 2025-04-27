@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import prisma from '../../../lib/prisma'
 import { tarjetaSchemaPost, dateSchema } from '@/app/validations/backend/tarjeta-post.schema'
 
@@ -9,8 +9,21 @@ export enum State {
   VENCIDO = 'Expired'
 }
 
-export async function GET() {
+export async function GET(
+  request: NextRequest,
+) {
   try {
+    const searchParams = request.nextUrl.searchParams;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
+
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+      return NextResponse.json(
+        { error: "Parámetros page y limit deben ser números positivos" },
+        { status: 400 }
+      );
+    }
+
     const tarjetas = await prisma.tarjetaCombustible.findMany({
       where: {
         isAvailable: true
@@ -25,8 +38,26 @@ export async function GET() {
           },
         },
       },
-    })
-    return NextResponse.json(tarjetas)
+    });
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const totalItems = tarjetas.length;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    const paginatedItems = tarjetas.slice(startIndex, endIndex);
+
+    return NextResponse.json({
+      data: paginatedItems,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalItems,
+        itemsPerPage: limit,
+        hasNextPage: endIndex < totalItems,
+        hasPrevPage: startIndex > 0,
+      },
+    });
   } catch (error) {
     return NextResponse.json({ error: 'Error fetching fuel cards'}, { status: 500 })
   }
@@ -43,7 +74,7 @@ export async function POST(request: Request) {
       return NextResponse.json(result.error, { status: 400 });
     }
 
-    const { numero, pin, estado, fecha_vencimiento, vehiculo } = result.data;
+    const { numero, pin, estado, fecha_vencimiento } = result.data;
     
     const vencimiento = dateSchema.parse(fecha_vencimiento);
 
@@ -52,8 +83,7 @@ export async function POST(request: Request) {
         numero,
         pin,
         estado,
-        fecha_vencimiento: vencimiento,
-        vehiculoUuid: vehiculo
+        fecha_vencimiento: vencimiento
       }
     })
     

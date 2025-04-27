@@ -5,98 +5,101 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import { ChoferFront, ChoferPost } from "../utils/types";
-import useApiUpdate from "../../hooks/useApiUpdate";
-import { Inputs } from "../components/table";
+import { Inputs } from "../data/FormDataPost";
 
-type UpdateChoferProps = {
-  id: string;
+type AddTarjetaCombustibleProps = {
+  onSubmit: SubmitHandler<Inputs>;
   register: UseFormRegister<Inputs>;
   handleSubmit: UseFormHandleSubmit<Inputs, Inputs>;
   errors: FieldErrors<Inputs>;
   onClose: () => void;
-  data: ChoferFront;
-  reset: any;
 };
 
-function UpdateChofer({
-  id,
+function AddTarjetaCombustible({
+  onSubmit,
   handleSubmit,
   register,
   errors,
   onClose,
-}: UpdateChoferProps) {
-  const { onSubmitData, submitSuccess, setSubmitSuccess } =
-    useApiUpdate<ChoferPost>({
-      url: `http://localhost:3000/api/choferes/${id}`,
-      onClose: onClose,
-    });
-
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    onSubmitData({
-      nombre: data.nombre,
-      ci: data.ci,
-      licencia: data.licencia,
-    });
-  };
-
+}: AddTarjetaCombustibleProps) {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-4">
         <div>
           <label
-            htmlFor="nombre"
+            htmlFor="numero"
             className="block text-sm font-medium text-gray-700"
           >
-            Nombre y Apellidos
+            Numero de Tarjeta de Combustible{" "}
+            <span className="text-red-500 text-lg">*</span>
           </label>
           <input
-            id="nombre"
+            id="numero"
             type="text"
-            {...register("nombre")}
+            {...register("numero")}
             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
           />
-          {errors.nombre?.message && (
+          {errors.numero?.message && (
             <span className="text-red-500 text-sm">
-              {errors.nombre.message}
+              {errors.numero.message}
             </span>
           )}
         </div>
 
         <div>
           <label
-            htmlFor="ci"
+            htmlFor="pin"
             className="block text-sm font-medium text-gray-700"
           >
-            Carnet de Identidad
+            Pin <span className="text-red-500 text-lg">*</span>
           </label>
           <input
-            id="ci"
+            id="pin"
             type="text"
-            {...register("ci")}
+            {...register("pin")}
             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
           />
-          {errors.ci?.message && (
-            <span className="text-red-500 text-sm">{errors.ci.message}</span>
+          {errors.pin?.message && (
+            <span className="text-red-500 text-sm">{errors.pin.message}</span>
           )}
         </div>
 
         <div>
           <label
-            htmlFor="licencia"
+            htmlFor="estado"
             className="block text-sm font-medium text-gray-700"
           >
-            Licencia de Conducción
+            Estado <span className="text-red-500 text-lg">*</span>
+          </label>
+          <select name="estado" id="estado">
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+            <option value="Bloqueado">Bloqueado</option>
+            <option value="Expirado">Expirado</option>
+          </select>
+          {errors.estado?.message && (
+            <span className="text-red-500 text-sm">
+              {errors.estado.message}
+            </span>
+          )}
+        </div>
+
+        <div>
+          <label
+            htmlFor="fecha_vencimiento"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Fecha de Vencimiento <span className="text-red-500 text-lg">*</span>
           </label>
           <input
-            id="licencia"
-            type="text"
-            {...register("licencia")}
+            id="fecha_vencimiento"
+            type="date"
+            {...register("fecha_vencimiento")}
             className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
           />
-          {errors.licencia?.message && (
+          {errors.fecha_vencimiento?.message && (
             <span className="text-red-500 text-sm">
-              {errors.licencia.message}
+              {errors.fecha_vencimiento.message}
             </span>
           )}
         </div>
@@ -104,10 +107,9 @@ function UpdateChofer({
         <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
           <button
             type="submit"
-            onClick={() => window.location.reload()}
             className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
           >
-            Actualizar
+            Registrar
           </button>
           <button
             type="button"
@@ -122,4 +124,4 @@ function UpdateChofer({
   );
 }
 
-export default UpdateChofer;
+export default AddTarjetaCombustible;

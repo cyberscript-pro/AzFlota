@@ -1,26 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server'
-import prisma from '../../../lib/prisma'
-import { choferSchemaPost } from '@/app/validations/backend/chofer-post.schema'
-import { Chofer } from '@/app/flota/choferes/types'
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "../../../lib/prisma";
+import { choferSchemaPost } from "@/app/validations/backend/chofer-post.schema";
 
-export async function GET(
-  request: NextRequest,
-) {
+export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const page = Number(searchParams.get('page')) || 1;
-    const limit = Number(searchParams.get('limit')) || 10;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || 10;
 
     if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
       return NextResponse.json(
-        { error: 'Parámetros page y limit deben ser números positivos' },
+        { error: "Parámetros page y limit deben ser números positivos" },
         { status: 400 }
-      )
+      );
     }
 
     const choferes = await prisma.chofer.findMany({
       where: {
-        isAvailable: true
+        isAvailable: true,
       },
       include: {
         vehiculos: {
@@ -32,7 +29,7 @@ export async function GET(
           },
         },
       },
-    })
+    });
 
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
@@ -49,12 +46,14 @@ export async function GET(
         totalItems,
         itemsPerPage: limit,
         hasNextPage: endIndex < totalItems,
-        hasPrevPage: startIndex > 0
-      }
-    })
-
+        hasPrevPage: startIndex > 0,
+      },
+    });
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching drivers', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching drivers", message: error },
+      { status: 500 }
+    );
   }
 }
 
@@ -64,8 +63,8 @@ export async function POST(request: Request) {
 
     const result = choferSchemaPost.safeParse(body);
 
-    if(result.error) {
-      return NextResponse.json(result.error, { status: 400 })
+    if (result.error) {
+      return NextResponse.json(result.error, { status: 400 });
     }
 
     const { nombre, ci, licencia } = result.data;
@@ -74,13 +73,15 @@ export async function POST(request: Request) {
       data: {
         nombre,
         ci,
-        licencia
+        licencia,
       },
-    })
-    
-    
-    return NextResponse.json(chofer, { status: 201 })
+    });
+
+    return NextResponse.json(chofer, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Error creating driver' }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error creating driver" },
+      { status: 500 }
+    );
   }
 }

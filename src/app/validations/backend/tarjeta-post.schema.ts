@@ -11,7 +11,6 @@ export const tarjetaSchemaPost = z.object({
     .refine((date) => new Date(date).toString() !== "Invalid Date", {
       message: "Por favor ingrese una fecha valida",
     }),
-  vehiculo: z.string().optional(),
 });
 
 export const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/)

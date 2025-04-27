@@ -12,7 +12,7 @@ export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
     const [submitSuccess, setSubmitSuccess] = useState(false);
 
     const onSubmitData = async (data: T) => {
-        
+
         try {
             const response = await fetch( url, {
                 method: 'POST',

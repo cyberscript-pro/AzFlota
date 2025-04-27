@@ -1,28 +1,29 @@
 import React from "react";
 import Image from "next/image";
 
-import { Chofer } from "./types";
-import useApiDelete from "../hooks/useApiDelete";
+import { TarjetaCombustibleFront } from "../utils/types";
+import useApiDelete from "../../hooks/useApiDelete";
 import Modal from "@/app/flota/components/modal";
-import FilaTable from "../components/FilaTable";
-import ModalButton from "../components/ModalButton";
-import { Pagination } from "../hooks/useApiGet";
+import FilaTable from "../../components/FilaTable";
+import ModalButton from "../../components/ModalButton";
 
 type TableProps = {
-  data?: Chofer[];
+  data?: TarjetaCombustibleFront[];
 };
 
 function Table({ data }: TableProps) {
   const columns = [
-    "Nombre y Apellidos",
-    "Carnet de Identidad",
-    "Licencia de Conduccion",
+    "Numero de Tarjeta",
+    "Pin",
+    "Estado",
+    "Fecha de Vencimiento",
+    "Acciones"
   ];
 
   const { onDelete, deleteSuccess, setDeleteSuccess } = useApiDelete();
 
   const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `http://localhost:3000/api/choferes/${id}` });
+    onDelete({ url: `http://localhost:3000/api/tarjetas-combustible/${id}` });
   };
 
   return (
@@ -50,19 +51,24 @@ function Table({ data }: TableProps) {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {data &&
-                    data.map((chofer, index) => (
-                      <tr key={index}>
+                    data.map((tarjeta) => (
+                      <tr key={tarjeta.id}>
                         <FilaTable>
                           <div className=" font-medium text-gray-900">
-                            {chofer.nombre}
+                            {tarjeta.numero}
                           </div>
                         </FilaTable>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          <div className=" text-gray-900">{chofer.ci}</div>
+                          <div className=" text-gray-900">{tarjeta.pin}</div>
                         </td>
                         <FilaTable>
                           <div className=" text-gray-900">
-                            {chofer.licencia}
+                            {tarjeta.estado}
+                          </div>
+                        </FilaTable>
+                        <FilaTable>
+                          <div className=" text-gray-900">
+                            {tarjeta.fecha_vencimiento}
                           </div>
                         </FilaTable>
                         <FilaTable>
@@ -70,7 +76,7 @@ function Table({ data }: TableProps) {
                             Editar
                           </button>
                           <button
-                            onClick={() => onDeleteFuncion(chofer.uuid)}
+                            onClick={() => onDeleteFuncion(tarjeta.id)}
                             className="text-red-600 hover:text-red-900"
                           >
                             Eliminar

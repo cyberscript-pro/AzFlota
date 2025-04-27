@@ -1,9 +1,9 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { ChoferExcel } from "./types";
+import { TarjetaCombustibleExcel } from "./types";
 
 interface GenerateExcelProps {
-  data?: ChoferExcel[];
+  data?: TarjetaCombustibleExcel[];
   fileName?: string;
 }
 
@@ -12,9 +12,11 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   const worksheet = workbook.addWorksheet("Reporte de Choferes");
 
   const columns = [
-    { header: "Nombre y Apellidos", key: "nombre", width: 30 },
-    { header: "Carnet de Identidad", key: "carnet", width: 20 },
-    { header: "Número de la Licencia", key: "licencia", width: 20 },
+    { header: "Número de Tarjeta", key: "tarjeta", width: 30 },
+    { header: "Pin", key: "pin", width: 20 },
+    { header: "Estado", key: "estado", width: 20 },
+    { header: "Fecha de Vencimiento", key: "fecha_vencimiento", width: 30 },
+    { header: "Vehiculo", key: "vehiculo", width: 20 },
   ];
 
   worksheet.addRow([]);
@@ -45,9 +47,11 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
 
   data?.forEach((item) => {
     const dataRow = worksheet.addRow([]);
-    dataRow.getCell(2).value = item.nombre;
-    dataRow.getCell(3).value = item.ci;
-    dataRow.getCell(4).value = item.licencia || "N/A";
+    dataRow.getCell(2).value = item.numero;
+    dataRow.getCell(3).value = item.pin;
+    dataRow.getCell(4).value = item.estado;
+    dataRow.getCell(5).value = item.fecha_vencimiento;
+    dataRow.getCell(6).value = item.vehiculo || "N/A";
 
     [2, 3, 4].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
@@ -72,5 +76,5 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
+  saveAs(new Blob([buffer]), "reporte_tarjetas.xlsx");
 }
