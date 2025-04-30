@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-import useApiGet from "../hooks/useApiGet";
+import useApiGet from "../../hooks/useApiGet";
 import { TarjetaCombustible } from "./utils/types";
 import Table from "./components/table";
 import Modal from "@/app/flota/components/modal";
 import FormDataPost from "./data/FormDataPost";
 import ModalButton from "../components/ModalButton";
-import ModalBasicStyle from "../components/ModalBasicStyle";
+import ModalBasicStyle from "../../components/ModalBasicStyle";
 import ModalGenerateReporte from "./components/ModalGenerateReporte";
 import GeneratePDF from "./utils/GeneratePDF";
 import { GenerateExcel } from "./utils/GenerateExcel";

@@ -1,9 +1,9 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { ChoferExcel } from "./types";
+import { ChoferFront } from "./types";
 
 interface GenerateExcelProps {
-  data?: ChoferExcel[];
+  data: ChoferFront[];
   fileName?: string;
 }
 
@@ -43,7 +43,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
     worksheet.getColumn(index + 2).width = 30;
   });
 
-  data?.forEach((item) => {
+  data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
     dataRow.getCell(2).value = item.nombre;
     dataRow.getCell(3).value = item.ci;

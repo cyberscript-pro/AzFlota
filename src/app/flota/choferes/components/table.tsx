@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 import { ChoferFront } from "../utils/types";
-import useApiDelete from "../../hooks/useApiDelete";
+import useApiDelete from "../../../hooks/useApiDelete";
 import Modal from "@/app/flota/components/modal";
 import FilaTable from "../../components/FilaTable";
 import ModalButton from "../../components/ModalButton";

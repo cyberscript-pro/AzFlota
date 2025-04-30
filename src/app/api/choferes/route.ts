@@ -4,17 +4,6 @@ import { choferSchemaPost } from "@/app/validations/backend/chofer-post.schema";
 
 export async function GET(request: NextRequest) {
   try {
-    const searchParams = request.nextUrl.searchParams;
-    const page = Number(searchParams.get("page")) || 1;
-    const limit = Number(searchParams.get("limit")) || 10;
-
-    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
-      return NextResponse.json(
-        { error: "Parámetros page y limit deben ser números positivos" },
-        { status: 400 }
-      );
-    }
-
     const choferes = await prisma.chofer.findMany({
       where: {
         isAvailable: true,
@@ -30,6 +19,17 @@ export async function GET(request: NextRequest) {
         },
       },
     });
+
+    const searchParams = request.nextUrl.searchParams;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || choferes.length;
+
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+      return NextResponse.json(
+        { error: "Parámetros page y limit deben ser números positivos" },
+        { status: 400 }
+      );
+    }
 
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;

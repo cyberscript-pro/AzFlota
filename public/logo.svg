@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+<style>
+.trending {
+      animation: trending 2s infinite cubic-bezier(0.99, -0.1, 0.01, 1.02); 
+      stroke-dashoffset: 100;
+      stroke-dasharray: 100;
+    }
+
+    @keyframes trending {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+</style>
+  <rect width="16" height="16" x="4" y="4" stroke="#FFFFFF" stroke-width="1.5" rx="2.075"/>
+  <path class="trending" stroke="oklch(57.7% 0.245 27.325)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.5 15l2.658-4.5 3.158 3.5L16.5 9"/>
+</svg>

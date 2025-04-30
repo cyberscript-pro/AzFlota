@@ -2,33 +2,39 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-import useApiGet from "../hooks/useApiGet";
+import useApiGet from "../../hooks/useApiGet";
 import { Chofer } from "./utils/types";
 import Table from "./components/table";
 import Modal from "@/app/flota/components/modal";
 import FormDataPost from "./data/FormDataPost";
 import AddChofer from "./formularios/AddChofer";
 import ModalButton from "../components/ModalButton";
-import ModalBasicStyle from "../components/ModalBasicStyle";
+import ModalBasicStyle from "../../components/ModalBasicStyle";
 import ModalGenerateReporte from "./components/ModalGenerateReporte";
-import GeneratePDF from "./utils/GeneratePDF";
-import { GenerateExcel } from "./utils/GenerateExcel";
 import { ChoferMapper } from "./mappers/chofer.mapper";
+import GenerateData from "./data/GenerateData";
 
 function Choferes() {
+  const router = useRouter();
   const [isCreateChofer, setIsCreateChofer] = useState(false);
   const [isReporte, setIsReporte] = useState(false);
   const [selectedValue, setSelectedValue] = useState<string>("pdf");
   const [pageActual, setPageActual] = useState(1);
 
-  const { loading, error, data, pagination, statePage } = useApiGet<Chofer>({
-    url: `http://localhost:3000/api/choferes?page=${pageActual}&limit=${10}`,
-  });
-
+  const { loading, error, data, pagination, statePage } =
+    useApiGet<Chofer>({
+      url: `http://localhost:3000/api/choferes?page=${pageActual}&limit=${10}`,
+    });
+  
+  const { generate } = GenerateData();
+  
   const { dataFront } = ChoferMapper.fromApiToFront(data);
 
-  const { dataMap } = ChoferMapper.fromApiToExcel(dataFront);
+  const handleNavigate = (path: string) => {
+    router.push(path);
+  };
 
   const {
     register,
@@ -42,26 +48,13 @@ function Choferes() {
   if (!pagination) {
   }
 
-  const { generatePDF } = GeneratePDF({ data: dataFront });
-
-  const generateExcel = () => {
-    GenerateExcel({
-      data: dataMap,
-      fileName: "reporte_choferes",
-    });
-  };
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSelectedValue(value);
   };
 
   const onGenerate = (value: string) => {
-    if (value == "pdf") {
-      generatePDF();
-    } else if (value == "excel") {
-      generateExcel();
-    }
+    generate(value);
   };
 
   const onDisabledBack = (): boolean | undefined => {
@@ -85,7 +78,7 @@ function Choferes() {
       <div className="fixed top-0 left-0 m-1 z-50">
         <ModalButton
           className={`rounded-4xl p-2`}
-          onClick={() => alert("Back")}
+          onClick={() => handleNavigate("/dashboard")}
         >
           <Image
             className=""
@@ -96,6 +89,7 @@ function Choferes() {
           />
         </ModalButton>
       </div>
+
       <header className="fixed w-full bg-white shadow">
         <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-gray-900">

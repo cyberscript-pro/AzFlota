@@ -6,7 +6,7 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { ChoferFront, ChoferPost } from "../utils/types";
-import useApiUpdate from "../../hooks/useApiUpdate";
+import useApiUpdate from "../../../hooks/useApiUpdate";
 import { Inputs } from "../components/table";
 
 type UpdateChoferProps = {

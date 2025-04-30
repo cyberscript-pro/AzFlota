@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Inputs } from "../choferes/data/FormDataPost";
+import { Inputs } from "../flota/choferes/data/FormDataPost";
 import { FieldValues, UseFormReset } from "react-hook-form";
 
 type ApiUpdate = {

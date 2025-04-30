@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import useApiPost from "../../hooks/useApiPost";
+import useApiPost from "../../../hooks/useApiPost";
 import { tarjetaSchemaPost } from "@/app/validations/frontend/tarjeta-post.schema";
 import { TarjetaCombustibleMapper } from "../mappers/tarjeta-combustible.mapper";
 

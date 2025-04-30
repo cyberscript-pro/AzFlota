@@ -1,5 +1,5 @@
 import Modal from "@/app/flota/components/modal";
-import ModalBasicStyle from "../../components/ModalBasicStyle";
+import ModalBasicStyle from "../../../components/ModalBasicStyle";
 import InputRadioButton from "../../components/InputRadioButton";
 import ModalButton from "../../components/ModalButton";
 

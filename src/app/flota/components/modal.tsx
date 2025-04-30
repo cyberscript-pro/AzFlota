@@ -16,7 +16,6 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
       document.body.style.overflow = "auto";
     }
 
-    // Limpiar al desmontar
     return () => {
       document.body.style.overflow = "auto";
     };

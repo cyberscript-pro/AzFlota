@@ -11,4 +11,4 @@ export const choferSchemaPost = z.object({
     .transform(val => val.trim()),
 
   licencia: z.string().optional(),
-});
+}); 

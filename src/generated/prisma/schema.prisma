@@ -30,7 +30,9 @@ enum Role {
 
 model User {
   id          Int      @id @default(autoincrement())
-  nickname    String   @unique
+  nickname    String?  @unique
+  nombre      String
+  ci          String?  @unique
   password    String
   role        Role     @default(ECONOMICO)
   isAvailable Boolean  @default(true)

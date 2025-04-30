@@ -1,21 +1,20 @@
 import { Chofer, ChoferExcel, ChoferFront } from "../utils/types";
 
 export class ChoferMapper {
-  static fromApiToExcel(choferes?: ChoferFront[]): { dataMap: ChoferExcel[] } {
-    const dataMap: ChoferExcel[] = [];
+  // static fromApiToExcel(choferes?: ChoferFront[]): {dataExcel}
+  // {
+  //   const dataExcel: ChoferExcel[] = [];
 
-    choferes?.map((chofer) =>
-      dataMap.push({
-        nombre: chofer.nombre,
-        ci: chofer.ci,
-        licencia: chofer.licencia ?? "",
-      })
-    );
+  //   choferes?.map((chofer) =>
+  //     dataExcel.push({
+  //       nombre: chofer.nombre,
+  //       ci: chofer.ci,
+  //       licencia: chofer.licencia ?? "",
+  //     })
+  //   );
 
-    return {
-      dataMap,
-    };
-  }
+  //   return dataExcel;
+  // }
 
   static fromApiToFront(choferes?: Chofer[]): { dataFront: ChoferFront[] } {
     const dataFront: ChoferFront[] = [];

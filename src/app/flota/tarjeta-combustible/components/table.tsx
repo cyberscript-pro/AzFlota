@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import { TarjetaCombustibleFront } from "../utils/types";
-import useApiDelete from "../../hooks/useApiDelete";
+import useApiDelete from "../../../hooks/useApiDelete";
 import Modal from "@/app/flota/components/modal";
 import FilaTable from "../../components/FilaTable";
 import ModalButton from "../../components/ModalButton";
@@ -17,7 +17,7 @@ function Table({ data }: TableProps) {
     "Pin",
     "Estado",
     "Fecha de Vencimiento",
-    "Acciones"
+    "Acciones",
   ];
 
   const { onDelete, deleteSuccess, setDeleteSuccess } = useApiDelete();
@@ -62,9 +62,7 @@ function Table({ data }: TableProps) {
                           <div className=" text-gray-900">{tarjeta.pin}</div>
                         </td>
                         <FilaTable>
-                          <div className=" text-gray-900">
-                            {tarjeta.estado}
-                          </div>
+                          <div className=" text-gray-900">{tarjeta.estado}</div>
                         </FilaTable>
                         <FilaTable>
                           <div className=" text-gray-900">

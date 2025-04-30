@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
-import prisma from '../../../lib/prisma'
-import bcrypt from 'bcryptjs'
+import { NextResponse } from "next/server";
+import prisma from "../../../lib/prisma";
+import bcrypt from "bcryptjs";
+import { userSchemaBack } from "@/app/validations/backend/user.schema";
 
 // GET all users
 export async function GET() {
@@ -9,52 +10,71 @@ export async function GET() {
       select: {
         id: true,
         nickname: true,
+        nombre: true,
+        ci: true,
+        password: true,
         role: true,
-        isActive: true,
         isAvailable: true,
         createdAt: true,
         updatedAt: true,
       },
-    })
-    return NextResponse.json(users)
+    });
+    return NextResponse.json(users);
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching users' }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching users" },
+      { status: 500 }
+    );
   }
 }
 
 // POST create new user
 export async function POST(request: Request) {
   try {
-    const { nickname, password, role } = await request.json()
-    
-    // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
-      where: { nickname },
-    })
-    
-    if (existingUser) {
-      return NextResponse.json({ error: 'User already exists' }, { status: 400 })
+    const body = await request.json();
+
+    const result = userSchemaBack.safeParse(body);
+
+    if (result.error) {
+      return NextResponse.json(result.error, { status: 400 });
     }
-    
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10)
-    
+
+    const { nickname, nombre, ci, password, role } = result.data;
+
+    const existingUsername = await prisma.user.findUnique({
+      where: { nickname },
+    });
+
+    const existingCI = await prisma.user.findUnique({
+      where: { ci },
+    });
+
+    if (existingUsername || existingCI) {
+      return NextResponse.json({ error: "Usuario ya existe" }, { status: 400 });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const user = await prisma.user.create({
       data: {
         nickname,
+        nombre,
+        ci,
         password: hashedPassword,
         role,
       },
-    })
-    
-    return NextResponse.json({
-      id: user.id,
-      nickname: user.nickname,
-      role: user.role,
-      isActive: user.isActive,
-      isAvailable: user.isAvailable,
-    }, { status: 201 })
+    });
+
+    return NextResponse.json(
+      {
+        id: user.id,
+        nickname: user.nickname,
+        role: user.role,
+        isAvailable: user.isAvailable,
+      },
+      { status: 201 }
+    );
   } catch (error) {
-    return NextResponse.json({ error: 'Error creating user' }, { status: 500 })
+    return NextResponse.json({ error: "Error creating user" }, { status: 500 });
   }
-} 
+}

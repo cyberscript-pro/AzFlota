@@ -71,7 +71,7 @@ function AddTarjetaCombustible({
           >
             Estado <span className="text-red-500 text-lg">*</span>
           </label>
-          <select name="estado" id="estado">
+          <select id="estado" {...register("estado")}>
             <option value="Activo">Activo</option>
             <option value="Inactivo">Inactivo</option>
             <option value="Bloqueado">Bloqueado</option>
