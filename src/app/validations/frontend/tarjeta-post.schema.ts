@@ -24,7 +24,7 @@ export const tarjetaSchemaPost = z.object({
       message: "El pin debe contener exactamente 4 dígitos numéricos",
     })
     .transform((val) => val.trim()),
-  estado: z.enum(state).optional(),
+    estado: z.string().min(1, "Selecciona el sexo"),
   fecha_vencimiento: z
     .string()
     .refine((date) => new Date(date).toString() !== "Invalid Date", {

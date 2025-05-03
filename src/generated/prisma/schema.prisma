@@ -10,8 +10,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 enum State {
@@ -29,10 +30,9 @@ enum Role {
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  nickname    String?  @unique
+  nickname    String   @unique
   nombre      String
-  ci          String?  @unique
+  ci          String   @unique
   password    String
   role        Role     @default(ECONOMICO)
   isAvailable Boolean  @default(true)
@@ -43,12 +43,14 @@ model User {
 }
 
 model Chofer {
-  uuid        String     @id @default(uuid())
   nombre      String
-  ci          String
-  licencia    String?
-  isAvailable Boolean    @default(true)
+  edad        Int
+  sexo        String
+  ci          String     @unique
+  licencia    String
+  telefono    String
   vehiculos   Vehiculo[]
+  isAvailable Boolean    @default(true)
 
   @@map("choferes")
 }
@@ -57,6 +59,7 @@ model AreaTrabajo {
   uuid        String     @id @default(uuid())
   nombre      String
   descripcion String
+  jefe        String
   isAvailable Boolean    @default(true)
   vehiculos   Vehiculo[]
 
@@ -87,8 +90,8 @@ model Vehiculo {
   areaTrabajo     AreaTrabajo @relation(fields: [areaTrabajoUuid], references: [uuid])
   areaTrabajoUuid String
 
-  chofer     Chofer? @relation(fields: [choferUuid], references: [uuid])
-  choferUuid String?
+  chofer   Chofer? @relation(fields: [choferCI], references: [ci])
+  choferCI String?
 
   tarjeta TarjetaCombustible?
 

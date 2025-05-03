@@ -1,30 +1,19 @@
-import { Chofer, ChoferExcel, ChoferFront } from "../utils/types";
+import { DataUpdate } from "../components/TableComponent";
+import { Chofer, ChoferFront } from "../utils/types";
 
 export class ChoferMapper {
-  // static fromApiToExcel(choferes?: ChoferFront[]): {dataExcel}
-  // {
-  //   const dataExcel: ChoferExcel[] = [];
-
-  //   choferes?.map((chofer) =>
-  //     dataExcel.push({
-  //       nombre: chofer.nombre,
-  //       ci: chofer.ci,
-  //       licencia: chofer.licencia ?? "",
-  //     })
-  //   );
-
-  //   return dataExcel;
-  // }
 
   static fromApiToFront(choferes?: Chofer[]): { dataFront: ChoferFront[] } {
     const dataFront: ChoferFront[] = [];
 
     choferes?.map((chofer) =>
       dataFront.push({
-        id: chofer.uuid,
         nombre: chofer.nombre,
+        edad: chofer.edad.toString(),
+        sexo: chofer.sexo,
         ci: chofer.ci,
-        licencia: chofer.licencia ?? "",
+        licencia: chofer.licencia,
+        telefono: chofer.telefono,
       })
     );
 
@@ -32,4 +21,5 @@ export class ChoferMapper {
       dataFront,
     };
   }
+
 }

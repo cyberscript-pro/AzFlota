@@ -6,7 +6,7 @@ import { redirect, useRouter } from "next/navigation";
 import SidebarDashboard from "../components/SidebarDashboard";
 import DashboardComponent from "../components/DashboardComponent";
 import { useEffect, useState } from "react";
-import LoadingSpinner from "./loading";
+import LoadingSpinner from "../components/loading";
 
 export default function Dashboard() {
   const { data: session, status } = useSession();

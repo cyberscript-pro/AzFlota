@@ -1,9 +1,9 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { TarjetaCombustibleExcel } from "./types";
+import { ChoferFront } from "./types";
 
 interface GenerateExcelProps {
-  data?: TarjetaCombustibleExcel[];
+  data: ChoferFront[];
   fileName?: string;
 }
 
@@ -12,11 +12,12 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   const worksheet = workbook.addWorksheet("Reporte de Choferes");
 
   const columns = [
-    { header: "Número de Tarjeta", key: "tarjeta", width: 30 },
-    { header: "Pin", key: "pin", width: 20 },
-    { header: "Estado", key: "estado", width: 20 },
-    { header: "Fecha de Vencimiento", key: "fecha_vencimiento", width: 30 },
-    { header: "Vehiculo", key: "vehiculo", width: 20 },
+    { header: "Nombre y Apellidos", key: "nombre", width: 30 },
+    { header: "Edad", key: "licencia", width: 20 },
+    { header: "Sexo", key: "licencia", width: 20 },
+    { header: "Carnet de Identidad", key: "carnet", width: 20 },
+    { header: "Número de la Licencia", key: "licencia", width: 20 },
+    { header: "Teléfono", key: "telefono", width: 20 },
   ];
 
   worksheet.addRow([]);
@@ -42,18 +43,23 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         right: { style: "thin", color: { argb: "00000000" } },
       },
     };
-    worksheet.getColumn(index + 2).width = 30;
+    worksheet.getColumn(2).width = 30;
+    worksheet.getColumn(3).width = 20;
+    worksheet.getColumn(4).width = 20;
+    worksheet.getColumn(5).width = 30;
+    worksheet.getColumn(6).width = 30;
+    worksheet.getColumn(7).width = 30;
   });
 
-  data?.forEach((item) => {
+  data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
-    dataRow.getCell(2).value = item.numero;
-    dataRow.getCell(3).value = item.pin;
-    dataRow.getCell(4).value = item.estado;
-    dataRow.getCell(5).value = item.fecha_vencimiento;
-    dataRow.getCell(6).value = item.vehiculo || "N/A";
-
-    [2, 3, 4].forEach((colNumber) => {
+    dataRow.getCell(2).value = item.nombre;
+    dataRow.getCell(3).value = item.ci;
+    dataRow.getCell(4).value = item.ci;
+    dataRow.getCell(5).value = item.ci;
+    dataRow.getCell(6).value = item.licencia;
+    dataRow.getCell(7).value = item.telefono;
+    [2, 3, 4, 5, 6, 7].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
       cell.style = {
         font: { size: 11 },
@@ -71,10 +77,8 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
     });
   });
 
-  worksheet.spliceRows(worksheet.rowCount, 100);
-
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_tarjetas.xlsx");
+  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
 }

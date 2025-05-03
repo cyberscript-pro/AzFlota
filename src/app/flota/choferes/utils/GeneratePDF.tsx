@@ -17,9 +17,9 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
     autoTable(doc, {
       startY: 30,
       head: [
-        ["Nombre y Apellidos", "Carnet de Identidad", "Numero de Licencia"],
+        ["Nombre y Apellidos", "Carnet de Identidad", "Numero de Licencia", "Teléfono"],
       ],
-      body: data?.map((item) => [item.nombre, item.ci, item.licencia ?? ""]),
+      body: data?.map((item) => [item.nombre, item.ci, item.licencia, item.telefono]),
       styles: {
         fontSize: 10,
         cellPadding: 1.5,

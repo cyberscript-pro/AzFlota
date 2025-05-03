@@ -1,25 +1,23 @@
 export interface Chofer {
-    uuid: string;
     nombre: string;
+    edad: number;
+    sexo: "M" | "F";
     ci: string;
     licencia: string;
+    telefono: string;
 }
 
 export interface ChoferFront {
-  id: string;
   nombre: string;
+  edad: string;
+  sexo: "M" | "F";
   ci: string;
   licencia: string;
+  telefono: string;
 }
 
 export type ChoferPost = {
     nombre: string;
     ci: string;
     licencia?: string;
-}
-
-export interface ChoferExcel {
-  nombre: string;
-  ci: string;
-  licencia: string;
 }

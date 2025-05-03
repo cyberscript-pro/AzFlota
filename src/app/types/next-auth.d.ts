@@ -5,14 +5,14 @@ declare module "next-auth" {
     user: {
       id: string; // CI
       name: string; // nickname
-      role: "encargado" | "supervisor" | "económico" | "director";
+      role: "encargado" | "supervisor" | "economico" | "director";
     };
   }
 
   interface User {
     id: string;
     name: string;
-    role: "encargado" | "supervisor" | "económico" | "director";
+    role: "encargado" | "supervisor" | "economico" | "director";
   }
 }
 

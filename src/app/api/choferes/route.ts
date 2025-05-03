@@ -18,6 +18,9 @@ export async function GET(request: NextRequest) {
           },
         },
       },
+      orderBy: {
+        nombre: 'asc'
+      }
     });
 
     const searchParams = request.nextUrl.searchParams;
@@ -67,21 +70,71 @@ export async function POST(request: Request) {
       return NextResponse.json(result.error, { status: 400 });
     }
 
-    const { nombre, ci, licencia } = result.data;
+    const { nombre, edad, sexo, ci, licencia, telefono } = result.data;
 
     const chofer = await prisma.chofer.create({
       data: {
         nombre,
+        edad,
+        sexo,
         ci,
         licencia,
+        telefono,
       },
     });
 
     return NextResponse.json(chofer, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error creating driver" },
+      { error: "Error creando chofer" },
       { status: 500 }
     );
   }
 }
+
+// export async function PATCH(request: NextRequest) {
+//   try {
+//     const { searchParams } = new URL(request.url);
+//     const id = searchParams.get('id');
+
+//     if (!id) {
+//       return NextResponse.json(
+//         { error: "ID no proporcionado" },
+//         { status: 400 }
+//       );
+//     }
+
+//     const body = await request.json();
+//     const { nombre, edad, sexo, ci, licencia } = body;
+
+//     const chofer = await prisma.chofer.update({
+//       where: {
+//         ci
+//       },
+//       data: {
+//         nombre,
+//         edad,
+//         sexo,
+//         ci,
+//         licencia,
+//       },
+//       include: {
+//         vehiculos: {
+//           select: {
+//             uuid: true,
+//             chapa: true,
+//             marca: true,
+//             tipo: true,
+//           },
+//         },
+//       },
+//     });
+
+//     return NextResponse.json(chofer);
+//   } catch (error) {
+//     return NextResponse.json(
+//       { error: "Error actualizando chofer", message: error },
+//       { status: 500 }
+//     );
+//   }
+// }

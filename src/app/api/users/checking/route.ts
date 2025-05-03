@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       nickname: user.nickname,
-      role: user.role,
+      role: user.role.toLowerCase(),
       ci: user.ci,
     });
   } catch (error) {

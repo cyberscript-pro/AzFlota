@@ -1,10 +1,12 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-type User = {
-  ci: string;
-  nickname: string;
-  role: "encargado" | "supervisor" | "económico" | "director";
+type Role = "encargado" | "supervisor" | "economico" | "director";
+
+interface User {
+  id: string;
+  name: string;
+  role: Role;
 }
 
 const authOptions: NextAuthOptions = {
@@ -16,23 +18,29 @@ const authOptions: NextAuthOptions = {
         nickname: { label: "Usuario", type: "text" },
         password: { label: "Contraseña", type: "password" },
       },
-      async authorize(credentials) {
-        const res = await fetch(`${process.env.NEXTAUTH_URL}/api/users/checking`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            nickname: credentials?.nickname,
-            password: credentials?.password,
-          }),
-        });
+      async authorize(credentials): Promise<User | null> {
+        const res = await fetch(
+          `${process.env.NEXTAUTH_URL}/api/users/checking`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              nickname: credentials?.nickname,
+              password: credentials?.password,
+            }),
+          }
+        );
 
-        const user: User = await res.json();
+        const user = await res.json();
 
         if (res.ok) {
           return {
             id: user.ci,
             name: user.nickname,
-            role: user.role,
+            role: user.role
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .toLowerCase(),
           };
         }
 
@@ -53,11 +61,7 @@ const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.id = token.id as string;
         session.user.name = token.name as string;
-        session.user.role = token.role as
-          | "encargado"
-          | "supervisor"
-          | "económico"
-          | "director";
+        session.user.role = token.role as Role;
       }
       return session;
     },

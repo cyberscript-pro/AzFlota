@@ -45,8 +45,6 @@ export default function Login() {
       password: data.password,
     });
 
-    console.log(res);
-
     if (res && res.ok) {
       router.push("/dashboard");
     } else {

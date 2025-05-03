@@ -5,119 +5,132 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import { ChoferFront, ChoferPost } from "../utils/types";
+import { Chofer, ChoferFront, ChoferPost } from "../utils/types";
 import useApiUpdate from "../../../hooks/useApiUpdate";
-import { Inputs } from "../components/table";
+import InputSelect from "../components/InputSelect";
+import { Form } from "@/components/ui/form";
+import InputComponent from "@/app/components/InputComponent";
+import { toast } from "sonner";
 
 type UpdateChoferProps = {
   id: string;
-  register: UseFormRegister<Inputs>;
-  handleSubmit: UseFormHandleSubmit<Inputs, Inputs>;
-  errors: FieldErrors<Inputs>;
+  form: any;
   onClose: () => void;
   data: ChoferFront;
-  reset: any;
+  onSuccess?: () => Promise<void>;
+};
+
+type Inputs = {
+  nombre: string;
+  edad: string;
+  sexo: string;
+  ci: string;
+  licencia: string;
+  telefono: string;
 };
 
 function UpdateChofer({
   id,
-  handleSubmit,
-  register,
-  errors,
+  form,
+  data,
   onClose,
+  onSuccess
 }: UpdateChoferProps) {
-  const { onSubmitData, submitSuccess, setSubmitSuccess } =
-    useApiUpdate<ChoferPost>({
-      url: `http://localhost:3000/api/choferes/${id}`,
-      onClose: onClose,
-    });
+  const { loading, error, updateData } = useApiUpdate<Chofer>({
+    url: `http://localhost:3000/api/choferes/${id}`,
+    onSuccess: async () => {
+      toast.success("Chofer actualizado correctamente");
+      if (onSuccess) {
+        await onSuccess();
+      }
+      onClose();
+    }
+  });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    onSubmitData({
-      nombre: data.nombre,
-      ci: data.ci,
-      licencia: data.licencia,
-    });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      await updateData({
+        nombre: data.nombre,
+        edad: Number(data.edad),
+        sexo: data.sexo == "M" ? "M" : "F",
+        ci: data.ci,
+        licencia: data.licencia,
+        telefono: data.telefono,
+      });
+    } catch (error) {
+      toast.error("Error al actualizar el chofer");
+    }
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-4 space-y-4">
-        <div>
-          <label
-            htmlFor="nombre"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Nombre y Apellidos
-          </label>
-          <input
-            id="nombre"
-            type="text"
-            {...register("nombre")}
-            className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
+          <InputComponent
+            name="nombre"
+            label="Nombre y Apellidos"
+            placeholder="Ingresa tu nombre"
+            control={form.control}
           />
-          {errors.nombre?.message && (
-            <span className="text-red-500 text-sm">
-              {errors.nombre.message}
-            </span>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="ci"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Carnet de Identidad
-          </label>
-          <input
-            id="ci"
-            type="text"
-            {...register("ci")}
-            className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
+          <InputComponent
+            name="edad"
+            label="Edad"
+            placeholder="Ingresa tu edad"
+            control={form.control}
           />
-          {errors.ci?.message && (
-            <span className="text-red-500 text-sm">{errors.ci.message}</span>
-          )}
-        </div>
-
-        <div>
-          <label
-            htmlFor="licencia"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Licencia de Conducción
-          </label>
-          <input
-            id="licencia"
-            type="text"
-            {...register("licencia")}
-            className="mt-1 block w-full rounded-md text-black border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 p-2 border"
+          <InputSelect
+            label="Sexo"
+            name="sexo"
+            control={form.control}
+            placeholder="Selecciona una opción"
+            options={[
+              { value: "M", label: "Masculino" },
+              { value: "F", label: "Femenino" },
+            ]}
+            required={true}
           />
-          {errors.licencia?.message && (
-            <span className="text-red-500 text-sm">
-              {errors.licencia.message}
-            </span>
-          )}
-        </div>
+          <InputComponent
+            name="ci"
+            label="Carnet de Identidad"
+            placeholder="Ingresa tu CI"
+            control={form.control}
+          />
+          <InputComponent
+            name="licencia"
+            label="Licencia de Conducción"
+            placeholder="Ingresa tu Licencia"
+            control={form.control}
+          />
+          <InputComponent
+            name="telefono"
+            label="Teléfono"
+            placeholder="Ingresa tu numero de teléfono"
+            control={form.control}
+          />
 
-        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-          <button
-            type="submit"
-            onClick={() => window.location.reload()}
-            className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
-          >
-            Actualizar
-          </button>
-          <button
-            type="button"
-            onClick={onClose}
-            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-          >
-            Cancelar
-          </button>
-        </div>
-      </form>
+          <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+            <button
+              type="submit"
+              disabled={loading}
+              className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
+                loading ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+            >
+              {loading ? 'Actualizando...' : 'Actualizar'}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onClose();
+                form.reset();
+              }}
+              className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </Form>
     </div>
   );
 }

@@ -28,6 +28,9 @@ export async function GET(
       where: {
         isAvailable: true
       },
+      orderBy: {
+        numero: 'desc'
+      },
       include: {
         vehiculo: {
           select: {
@@ -81,7 +84,7 @@ export async function POST(request: Request) {
     const tarjeta = await prisma.tarjetaCombustible.create({
       data: {
         numero,
-        pin,
+        pin: parseInt(pin),
         estado,
         fecha_vencimiento: vencimiento
       }

@@ -1,36 +1,24 @@
-enum State {
-  ACTIVO = 'Activo',
-  INACTIVO = 'Inactivo',
-  BLOQUEADO = 'Bloqueado',
-  EXPIRADO = 'Expirado'
-}
-
-export interface TarjetaCombustible {
+export interface Tarjeta {
   uuid: string;
   numero: string;
   pin: string;
-  estado: "Active" | "Inactive" | "Blocked" | "Expired";
+  estado: string;
   fecha_vencimiento: string;
 }
 
-export interface TarjetaCombustibleFront {
+export interface TarjetaFront {
   id: string;
   numero: string;
   pin: string;
-  estado: State;
+  estado: string;
   fecha_vencimiento: string;
 }
 
-export type TarjetaCombustiblePost = {
+export interface TarjetaPost {
   numero: string;
   pin: string;
-  estado: State;
-  fecha_vencimiento: string;
-};
-
-export interface TarjetaCombustibleExcel {
-  numero: string;
-  pin: string;
-  estado: State;
+  estado: string;
   fecha_vencimiento: string;
 }
+
+export type TarjetaUpdate = Partial<Omit<TarjetaPost, 'pin'>> & { pin?: number };

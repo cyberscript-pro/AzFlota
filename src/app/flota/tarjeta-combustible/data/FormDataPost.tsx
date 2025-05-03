@@ -1,38 +1,39 @@
+import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useApiPost from "../../../hooks/useApiPost";
+import { Tarjeta, TarjetaPost } from "../utils/types";
 import { tarjetaSchemaPost } from "@/app/validations/frontend/tarjeta-post.schema";
-import { TarjetaCombustibleMapper } from "../mappers/tarjeta-combustible.mapper";
 
-type TarjetaCombustibleProps = {
+type ChoferProps = {
   onClose: () => void;
 };
 
 export type Inputs = {
   numero: string;
   pin: string;
-  estado?: "Activo" | "Inactivo" | "Bloqueado" | "Expirado";
+  estado: string;
   fecha_vencimiento: string;
 };
 
-function FormDataPost({ onClose }: TarjetaCombustibleProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<Inputs>({
+export function useFormDataPost({ onClose }: ChoferProps) {
+  const form = useForm<Inputs>({
     resolver: zodResolver(tarjetaSchemaPost),
+    defaultValues: {
+      numero: "",
+      pin: "",
+      estado: "",
+      fecha_vencimiento: "",
+    },
   });
 
-  const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost({
+  const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<TarjetaPost>({
     url: "http://localhost:3000/api/tarjetas-combustible/",
-    onClose: onClose,
-    reset: reset,
+    onClose,
+    reset: form.reset,
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    //TarjetaCombustibleMapper.fromFrontToApi(data)
     onSubmitData({
       numero: data.numero,
       pin: data.pin,
@@ -42,13 +43,9 @@ function FormDataPost({ onClose }: TarjetaCombustibleProps) {
   };
 
   return {
-    register,
-    handleSubmit,
-    errors,
+    form,
     submitSuccess,
     onSubmit,
     setSubmitSuccess,
   };
 }
-
-export default FormDataPost;

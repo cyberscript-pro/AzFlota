@@ -304,8 +304,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -745,10 +745,6 @@ export namespace Prisma {
             args: Prisma.UserCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
-          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -764,10 +760,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.UserUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           upsert: {
             args: Prisma.UserUpsertArgs<ExtArgs>
@@ -819,10 +811,6 @@ export namespace Prisma {
             args: Prisma.ChoferCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.ChoferCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ChoferPayload>[]
-          }
           delete: {
             args: Prisma.ChoferDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$ChoferPayload>
@@ -838,10 +826,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.ChoferUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.ChoferUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$ChoferPayload>[]
           }
           upsert: {
             args: Prisma.ChoferUpsertArgs<ExtArgs>
@@ -893,10 +877,6 @@ export namespace Prisma {
             args: Prisma.AreaTrabajoCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.AreaTrabajoCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AreaTrabajoPayload>[]
-          }
           delete: {
             args: Prisma.AreaTrabajoDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$AreaTrabajoPayload>
@@ -912,10 +892,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.AreaTrabajoUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.AreaTrabajoUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$AreaTrabajoPayload>[]
           }
           upsert: {
             args: Prisma.AreaTrabajoUpsertArgs<ExtArgs>
@@ -967,10 +943,6 @@ export namespace Prisma {
             args: Prisma.TarjetaCombustibleCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.TarjetaCombustibleCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TarjetaCombustiblePayload>[]
-          }
           delete: {
             args: Prisma.TarjetaCombustibleDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TarjetaCombustiblePayload>
@@ -986,10 +958,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.TarjetaCombustibleUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.TarjetaCombustibleUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TarjetaCombustiblePayload>[]
           }
           upsert: {
             args: Prisma.TarjetaCombustibleUpsertArgs<ExtArgs>
@@ -1041,10 +1009,6 @@ export namespace Prisma {
             args: Prisma.VehiculoCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
-          createManyAndReturn: {
-            args: Prisma.VehiculoCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VehiculoPayload>[]
-          }
           delete: {
             args: Prisma.VehiculoDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$VehiculoPayload>
@@ -1060,10 +1024,6 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.VehiculoUpdateManyArgs<ExtArgs>
             result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.VehiculoUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$VehiculoPayload>[]
           }
           upsert: {
             args: Prisma.VehiculoUpsertArgs<ExtArgs>
@@ -1333,22 +1293,11 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
 
-  export type UserAvgAggregateOutputType = {
-    id: number | null
-  }
-
-  export type UserSumAggregateOutputType = {
-    id: number | null
-  }
-
   export type UserMinAggregateOutputType = {
-    id: number | null
     nickname: string | null
     nombre: string | null
     ci: string | null
@@ -1360,7 +1309,6 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateOutputType = {
-    id: number | null
     nickname: string | null
     nombre: string | null
     ci: string | null
@@ -1372,7 +1320,6 @@ export namespace Prisma {
   }
 
   export type UserCountAggregateOutputType = {
-    id: number
     nickname: number
     nombre: number
     ci: number
@@ -1385,16 +1332,7 @@ export namespace Prisma {
   }
 
 
-  export type UserAvgAggregateInputType = {
-    id?: true
-  }
-
-  export type UserSumAggregateInputType = {
-    id?: true
-  }
-
   export type UserMinAggregateInputType = {
-    id?: true
     nickname?: true
     nombre?: true
     ci?: true
@@ -1406,7 +1344,6 @@ export namespace Prisma {
   }
 
   export type UserMaxAggregateInputType = {
-    id?: true
     nickname?: true
     nombre?: true
     ci?: true
@@ -1418,7 +1355,6 @@ export namespace Prisma {
   }
 
   export type UserCountAggregateInputType = {
-    id?: true
     nickname?: true
     nombre?: true
     ci?: true
@@ -1468,18 +1404,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -1510,25 +1434,20 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
-    _avg?: UserAvgAggregateInputType
-    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
 
   export type UserGroupByOutputType = {
-    id: number
-    nickname: string | null
+    nickname: string
     nombre: string
-    ci: string | null
+    ci: string
     password: string
     role: $Enums.Role
     isAvailable: boolean
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
-    _avg: UserAvgAggregateOutputType | null
-    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -1548,7 +1467,6 @@ export namespace Prisma {
 
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
     nickname?: boolean
     nombre?: boolean
     ci?: boolean
@@ -1559,32 +1477,9 @@ export namespace Prisma {
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
 
-  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nickname?: boolean
-    nombre?: boolean
-    ci?: boolean
-    password?: boolean
-    role?: boolean
-    isAvailable?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["user"]>
 
-  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    nickname?: boolean
-    nombre?: boolean
-    ci?: boolean
-    password?: boolean
-    role?: boolean
-    isAvailable?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
-  }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
-    id?: boolean
     nickname?: boolean
     nombre?: boolean
     ci?: boolean
@@ -1595,16 +1490,15 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "nombre" | "ci" | "password" | "role" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nickname" | "nombre" | "ci" | "password" | "role" | "isAvailable" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: number
-      nickname: string | null
+      nickname: string
       nombre: string
-      ci: string | null
+      ci: string
       password: string
       role: $Enums.Role
       isAvailable: boolean
@@ -1693,8 +1587,8 @@ export namespace Prisma {
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     * // Only select the `nickname`
+     * const userWithNicknameOnly = await prisma.user.findMany({ select: { nickname: true } })
      * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1726,30 +1620,6 @@ export namespace Prisma {
      *     
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Users and returns the data saved in the database.
-     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
-     * @example
-     * // Create many Users
-     * const user = await prisma.user.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.createManyAndReturn({
-     *   select: { id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a User.
@@ -1814,36 +1684,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Users and returns the data updated in the database.
-     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
-     * @example
-     * // Update many Users
-     * const user = await prisma.user.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Users and only return the `id`
-     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
-     *   select: { id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one User.
@@ -2033,7 +1873,6 @@ export namespace Prisma {
    * Fields of the User model
    */
   interface UserFieldRefs {
-    readonly id: FieldRef<"User", 'Int'>
     readonly nickname: FieldRef<"User", 'String'>
     readonly nombre: FieldRef<"User", 'String'>
     readonly ci: FieldRef<"User", 'String'>
@@ -2251,25 +2090,6 @@ export namespace Prisma {
   }
 
   /**
-   * User createManyAndReturn
-   */
-  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * The data used to create many Users.
-     */
-    data: UserCreateManyInput | UserCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
    * User update
    */
   export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2295,32 +2115,6 @@ export namespace Prisma {
    * User updateMany
    */
   export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Users.
-     */
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
-    /**
-     * Filter which Users to update
-     */
-    where?: UserWhereInput
-    /**
-     * Limit how many Users to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * User updateManyAndReturn
-   */
-  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
     /**
      * The data used to update Users.
      */
@@ -2414,57 +2208,87 @@ export namespace Prisma {
 
   export type AggregateChofer = {
     _count: ChoferCountAggregateOutputType | null
+    _avg: ChoferAvgAggregateOutputType | null
+    _sum: ChoferSumAggregateOutputType | null
     _min: ChoferMinAggregateOutputType | null
     _max: ChoferMaxAggregateOutputType | null
   }
 
+  export type ChoferAvgAggregateOutputType = {
+    edad: number | null
+  }
+
+  export type ChoferSumAggregateOutputType = {
+    edad: number | null
+  }
+
   export type ChoferMinAggregateOutputType = {
-    uuid: string | null
     nombre: string | null
+    edad: number | null
+    sexo: string | null
     ci: string | null
     licencia: string | null
+    telefono: string | null
     isAvailable: boolean | null
   }
 
   export type ChoferMaxAggregateOutputType = {
-    uuid: string | null
     nombre: string | null
+    edad: number | null
+    sexo: string | null
     ci: string | null
     licencia: string | null
+    telefono: string | null
     isAvailable: boolean | null
   }
 
   export type ChoferCountAggregateOutputType = {
-    uuid: number
     nombre: number
+    edad: number
+    sexo: number
     ci: number
     licencia: number
+    telefono: number
     isAvailable: number
     _all: number
   }
 
 
+  export type ChoferAvgAggregateInputType = {
+    edad?: true
+  }
+
+  export type ChoferSumAggregateInputType = {
+    edad?: true
+  }
+
   export type ChoferMinAggregateInputType = {
-    uuid?: true
     nombre?: true
+    edad?: true
+    sexo?: true
     ci?: true
     licencia?: true
+    telefono?: true
     isAvailable?: true
   }
 
   export type ChoferMaxAggregateInputType = {
-    uuid?: true
     nombre?: true
+    edad?: true
+    sexo?: true
     ci?: true
     licencia?: true
+    telefono?: true
     isAvailable?: true
   }
 
   export type ChoferCountAggregateInputType = {
-    uuid?: true
     nombre?: true
+    edad?: true
+    sexo?: true
     ci?: true
     licencia?: true
+    telefono?: true
     isAvailable?: true
     _all?: true
   }
@@ -2507,6 +2331,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ChoferAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ChoferSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ChoferMinAggregateInputType
@@ -2537,17 +2373,23 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ChoferCountAggregateInputType | true
+    _avg?: ChoferAvgAggregateInputType
+    _sum?: ChoferSumAggregateInputType
     _min?: ChoferMinAggregateInputType
     _max?: ChoferMaxAggregateInputType
   }
 
   export type ChoferGroupByOutputType = {
-    uuid: string
     nombre: string
+    edad: number
+    sexo: string
     ci: string
-    licencia: string | null
+    licencia: string
+    telefono: string
     isAvailable: boolean
     _count: ChoferCountAggregateOutputType | null
+    _avg: ChoferAvgAggregateOutputType | null
+    _sum: ChoferSumAggregateOutputType | null
     _min: ChoferMinAggregateOutputType | null
     _max: ChoferMaxAggregateOutputType | null
   }
@@ -2567,46 +2409,34 @@ export namespace Prisma {
 
 
   export type ChoferSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
     nombre?: boolean
+    edad?: boolean
+    sexo?: boolean
     ci?: boolean
     licencia?: boolean
+    telefono?: boolean
     isAvailable?: boolean
     vehiculos?: boolean | Chofer$vehiculosArgs<ExtArgs>
     _count?: boolean | ChoferCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["chofer"]>
 
-  export type ChoferSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    nombre?: boolean
-    ci?: boolean
-    licencia?: boolean
-    isAvailable?: boolean
-  }, ExtArgs["result"]["chofer"]>
 
-  export type ChoferSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    nombre?: boolean
-    ci?: boolean
-    licencia?: boolean
-    isAvailable?: boolean
-  }, ExtArgs["result"]["chofer"]>
 
   export type ChoferSelectScalar = {
-    uuid?: boolean
     nombre?: boolean
+    edad?: boolean
+    sexo?: boolean
     ci?: boolean
     licencia?: boolean
+    telefono?: boolean
     isAvailable?: boolean
   }
 
-  export type ChoferOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "nombre" | "ci" | "licencia" | "isAvailable", ExtArgs["result"]["chofer"]>
+  export type ChoferOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"nombre" | "edad" | "sexo" | "ci" | "licencia" | "telefono" | "isAvailable", ExtArgs["result"]["chofer"]>
   export type ChoferInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehiculos?: boolean | Chofer$vehiculosArgs<ExtArgs>
     _count?: boolean | ChoferCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type ChoferIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type ChoferIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $ChoferPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Chofer"
@@ -2614,10 +2444,12 @@ export namespace Prisma {
       vehiculos: Prisma.$VehiculoPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
-      uuid: string
       nombre: string
+      edad: number
+      sexo: string
       ci: string
-      licencia: string | null
+      licencia: string
+      telefono: string
       isAvailable: boolean
     }, ExtArgs["result"]["chofer"]>
     composites: {}
@@ -2702,8 +2534,8 @@ export namespace Prisma {
      * // Get first 10 Chofers
      * const chofers = await prisma.chofer.findMany({ take: 10 })
      * 
-     * // Only select the `uuid`
-     * const choferWithUuidOnly = await prisma.chofer.findMany({ select: { uuid: true } })
+     * // Only select the `nombre`
+     * const choferWithNombreOnly = await prisma.chofer.findMany({ select: { nombre: true } })
      * 
      */
     findMany<T extends ChoferFindManyArgs>(args?: SelectSubset<T, ChoferFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChoferPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -2735,30 +2567,6 @@ export namespace Prisma {
      *     
      */
     createMany<T extends ChoferCreateManyArgs>(args?: SelectSubset<T, ChoferCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Chofers and returns the data saved in the database.
-     * @param {ChoferCreateManyAndReturnArgs} args - Arguments to create many Chofers.
-     * @example
-     * // Create many Chofers
-     * const chofer = await prisma.chofer.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Chofers and only return the `uuid`
-     * const choferWithUuidOnly = await prisma.chofer.createManyAndReturn({
-     *   select: { uuid: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends ChoferCreateManyAndReturnArgs>(args?: SelectSubset<T, ChoferCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChoferPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Delete a Chofer.
@@ -2823,36 +2631,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends ChoferUpdateManyArgs>(args: SelectSubset<T, ChoferUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Chofers and returns the data updated in the database.
-     * @param {ChoferUpdateManyAndReturnArgs} args - Arguments to update many Chofers.
-     * @example
-     * // Update many Chofers
-     * const chofer = await prisma.chofer.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Chofers and only return the `uuid`
-     * const choferWithUuidOnly = await prisma.chofer.updateManyAndReturn({
-     *   select: { uuid: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends ChoferUpdateManyAndReturnArgs>(args: SelectSubset<T, ChoferUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChoferPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Chofer.
@@ -3043,10 +2821,12 @@ export namespace Prisma {
    * Fields of the Chofer model
    */
   interface ChoferFieldRefs {
-    readonly uuid: FieldRef<"Chofer", 'String'>
     readonly nombre: FieldRef<"Chofer", 'String'>
+    readonly edad: FieldRef<"Chofer", 'Int'>
+    readonly sexo: FieldRef<"Chofer", 'String'>
     readonly ci: FieldRef<"Chofer", 'String'>
     readonly licencia: FieldRef<"Chofer", 'String'>
+    readonly telefono: FieldRef<"Chofer", 'String'>
     readonly isAvailable: FieldRef<"Chofer", 'Boolean'>
   }
     
@@ -3281,25 +3061,6 @@ export namespace Prisma {
   }
 
   /**
-   * Chofer createManyAndReturn
-   */
-  export type ChoferCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Chofer
-     */
-    select?: ChoferSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Chofer
-     */
-    omit?: ChoferOmit<ExtArgs> | null
-    /**
-     * The data used to create many Chofers.
-     */
-    data: ChoferCreateManyInput | ChoferCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
    * Chofer update
    */
   export type ChoferUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3329,32 +3090,6 @@ export namespace Prisma {
    * Chofer updateMany
    */
   export type ChoferUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update Chofers.
-     */
-    data: XOR<ChoferUpdateManyMutationInput, ChoferUncheckedUpdateManyInput>
-    /**
-     * Filter which Chofers to update
-     */
-    where?: ChoferWhereInput
-    /**
-     * Limit how many Chofers to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * Chofer updateManyAndReturn
-   */
-  export type ChoferUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Chofer
-     */
-    select?: ChoferSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Chofer
-     */
-    omit?: ChoferOmit<ExtArgs> | null
     /**
      * The data used to update Chofers.
      */
@@ -3492,6 +3227,7 @@ export namespace Prisma {
     uuid: string | null
     nombre: string | null
     descripcion: string | null
+    jefe: string | null
     isAvailable: boolean | null
   }
 
@@ -3499,6 +3235,7 @@ export namespace Prisma {
     uuid: string | null
     nombre: string | null
     descripcion: string | null
+    jefe: string | null
     isAvailable: boolean | null
   }
 
@@ -3506,6 +3243,7 @@ export namespace Prisma {
     uuid: number
     nombre: number
     descripcion: number
+    jefe: number
     isAvailable: number
     _all: number
   }
@@ -3515,6 +3253,7 @@ export namespace Prisma {
     uuid?: true
     nombre?: true
     descripcion?: true
+    jefe?: true
     isAvailable?: true
   }
 
@@ -3522,6 +3261,7 @@ export namespace Prisma {
     uuid?: true
     nombre?: true
     descripcion?: true
+    jefe?: true
     isAvailable?: true
   }
 
@@ -3529,6 +3269,7 @@ export namespace Prisma {
     uuid?: true
     nombre?: true
     descripcion?: true
+    jefe?: true
     isAvailable?: true
     _all?: true
   }
@@ -3609,6 +3350,7 @@ export namespace Prisma {
     uuid: string
     nombre: string
     descripcion: string
+    jefe: string
     isAvailable: boolean
     _count: AreaTrabajoCountAggregateOutputType | null
     _min: AreaTrabajoMinAggregateOutputType | null
@@ -3633,39 +3375,27 @@ export namespace Prisma {
     uuid?: boolean
     nombre?: boolean
     descripcion?: boolean
+    jefe?: boolean
     isAvailable?: boolean
     vehiculos?: boolean | AreaTrabajo$vehiculosArgs<ExtArgs>
     _count?: boolean | AreaTrabajoCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["areaTrabajo"]>
 
-  export type AreaTrabajoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    nombre?: boolean
-    descripcion?: boolean
-    isAvailable?: boolean
-  }, ExtArgs["result"]["areaTrabajo"]>
 
-  export type AreaTrabajoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    nombre?: boolean
-    descripcion?: boolean
-    isAvailable?: boolean
-  }, ExtArgs["result"]["areaTrabajo"]>
 
   export type AreaTrabajoSelectScalar = {
     uuid?: boolean
     nombre?: boolean
     descripcion?: boolean
+    jefe?: boolean
     isAvailable?: boolean
   }
 
-  export type AreaTrabajoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "nombre" | "descripcion" | "isAvailable", ExtArgs["result"]["areaTrabajo"]>
+  export type AreaTrabajoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "nombre" | "descripcion" | "jefe" | "isAvailable", ExtArgs["result"]["areaTrabajo"]>
   export type AreaTrabajoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehiculos?: boolean | AreaTrabajo$vehiculosArgs<ExtArgs>
     _count?: boolean | AreaTrabajoCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type AreaTrabajoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type AreaTrabajoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $AreaTrabajoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AreaTrabajo"
@@ -3676,6 +3406,7 @@ export namespace Prisma {
       uuid: string
       nombre: string
       descripcion: string
+      jefe: string
       isAvailable: boolean
     }, ExtArgs["result"]["areaTrabajo"]>
     composites: {}
@@ -3795,30 +3526,6 @@ export namespace Prisma {
     createMany<T extends AreaTrabajoCreateManyArgs>(args?: SelectSubset<T, AreaTrabajoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many AreaTrabajos and returns the data saved in the database.
-     * @param {AreaTrabajoCreateManyAndReturnArgs} args - Arguments to create many AreaTrabajos.
-     * @example
-     * // Create many AreaTrabajos
-     * const areaTrabajo = await prisma.areaTrabajo.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many AreaTrabajos and only return the `uuid`
-     * const areaTrabajoWithUuidOnly = await prisma.areaTrabajo.createManyAndReturn({
-     *   select: { uuid: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends AreaTrabajoCreateManyAndReturnArgs>(args?: SelectSubset<T, AreaTrabajoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AreaTrabajoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a AreaTrabajo.
      * @param {AreaTrabajoDeleteArgs} args - Arguments to delete one AreaTrabajo.
      * @example
@@ -3881,36 +3588,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends AreaTrabajoUpdateManyArgs>(args: SelectSubset<T, AreaTrabajoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AreaTrabajos and returns the data updated in the database.
-     * @param {AreaTrabajoUpdateManyAndReturnArgs} args - Arguments to update many AreaTrabajos.
-     * @example
-     * // Update many AreaTrabajos
-     * const areaTrabajo = await prisma.areaTrabajo.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more AreaTrabajos and only return the `uuid`
-     * const areaTrabajoWithUuidOnly = await prisma.areaTrabajo.updateManyAndReturn({
-     *   select: { uuid: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends AreaTrabajoUpdateManyAndReturnArgs>(args: SelectSubset<T, AreaTrabajoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AreaTrabajoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one AreaTrabajo.
@@ -4104,6 +3781,7 @@ export namespace Prisma {
     readonly uuid: FieldRef<"AreaTrabajo", 'String'>
     readonly nombre: FieldRef<"AreaTrabajo", 'String'>
     readonly descripcion: FieldRef<"AreaTrabajo", 'String'>
+    readonly jefe: FieldRef<"AreaTrabajo", 'String'>
     readonly isAvailable: FieldRef<"AreaTrabajo", 'Boolean'>
   }
     
@@ -4338,25 +4016,6 @@ export namespace Prisma {
   }
 
   /**
-   * AreaTrabajo createManyAndReturn
-   */
-  export type AreaTrabajoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AreaTrabajo
-     */
-    select?: AreaTrabajoSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AreaTrabajo
-     */
-    omit?: AreaTrabajoOmit<ExtArgs> | null
-    /**
-     * The data used to create many AreaTrabajos.
-     */
-    data: AreaTrabajoCreateManyInput | AreaTrabajoCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
    * AreaTrabajo update
    */
   export type AreaTrabajoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4386,32 +4045,6 @@ export namespace Prisma {
    * AreaTrabajo updateMany
    */
   export type AreaTrabajoUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AreaTrabajos.
-     */
-    data: XOR<AreaTrabajoUpdateManyMutationInput, AreaTrabajoUncheckedUpdateManyInput>
-    /**
-     * Filter which AreaTrabajos to update
-     */
-    where?: AreaTrabajoWhereInput
-    /**
-     * Limit how many AreaTrabajos to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * AreaTrabajo updateManyAndReturn
-   */
-  export type AreaTrabajoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AreaTrabajo
-     */
-    select?: AreaTrabajoSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the AreaTrabajo
-     */
-    omit?: AreaTrabajoOmit<ExtArgs> | null
     /**
      * The data used to update AreaTrabajos.
      */
@@ -4752,27 +4385,7 @@ export namespace Prisma {
     vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
   }, ExtArgs["result"]["tarjetaCombustible"]>
 
-  export type TarjetaCombustibleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    numero?: boolean
-    pin?: boolean
-    estado?: boolean
-    fecha_vencimiento?: boolean
-    isAvailable?: boolean
-    vehiculoUuid?: boolean
-    vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
-  }, ExtArgs["result"]["tarjetaCombustible"]>
 
-  export type TarjetaCombustibleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    numero?: boolean
-    pin?: boolean
-    estado?: boolean
-    fecha_vencimiento?: boolean
-    isAvailable?: boolean
-    vehiculoUuid?: boolean
-    vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
-  }, ExtArgs["result"]["tarjetaCombustible"]>
 
   export type TarjetaCombustibleSelectScalar = {
     uuid?: boolean
@@ -4786,12 +4399,6 @@ export namespace Prisma {
 
   export type TarjetaCombustibleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "numero" | "pin" | "estado" | "fecha_vencimiento" | "isAvailable" | "vehiculoUuid", ExtArgs["result"]["tarjetaCombustible"]>
   export type TarjetaCombustibleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
-  }
-  export type TarjetaCombustibleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
-  }
-  export type TarjetaCombustibleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
   }
 
@@ -4926,30 +4533,6 @@ export namespace Prisma {
     createMany<T extends TarjetaCombustibleCreateManyArgs>(args?: SelectSubset<T, TarjetaCombustibleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many TarjetaCombustibles and returns the data saved in the database.
-     * @param {TarjetaCombustibleCreateManyAndReturnArgs} args - Arguments to create many TarjetaCombustibles.
-     * @example
-     * // Create many TarjetaCombustibles
-     * const tarjetaCombustible = await prisma.tarjetaCombustible.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many TarjetaCombustibles and only return the `uuid`
-     * const tarjetaCombustibleWithUuidOnly = await prisma.tarjetaCombustible.createManyAndReturn({
-     *   select: { uuid: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends TarjetaCombustibleCreateManyAndReturnArgs>(args?: SelectSubset<T, TarjetaCombustibleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarjetaCombustiblePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a TarjetaCombustible.
      * @param {TarjetaCombustibleDeleteArgs} args - Arguments to delete one TarjetaCombustible.
      * @example
@@ -5012,36 +4595,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends TarjetaCombustibleUpdateManyArgs>(args: SelectSubset<T, TarjetaCombustibleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more TarjetaCombustibles and returns the data updated in the database.
-     * @param {TarjetaCombustibleUpdateManyAndReturnArgs} args - Arguments to update many TarjetaCombustibles.
-     * @example
-     * // Update many TarjetaCombustibles
-     * const tarjetaCombustible = await prisma.tarjetaCombustible.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more TarjetaCombustibles and only return the `uuid`
-     * const tarjetaCombustibleWithUuidOnly = await prisma.tarjetaCombustible.updateManyAndReturn({
-     *   select: { uuid: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends TarjetaCombustibleUpdateManyAndReturnArgs>(args: SelectSubset<T, TarjetaCombustibleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TarjetaCombustiblePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one TarjetaCombustible.
@@ -5472,29 +5025,6 @@ export namespace Prisma {
   }
 
   /**
-   * TarjetaCombustible createManyAndReturn
-   */
-  export type TarjetaCombustibleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TarjetaCombustible
-     */
-    select?: TarjetaCombustibleSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the TarjetaCombustible
-     */
-    omit?: TarjetaCombustibleOmit<ExtArgs> | null
-    /**
-     * The data used to create many TarjetaCombustibles.
-     */
-    data: TarjetaCombustibleCreateManyInput | TarjetaCombustibleCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TarjetaCombustibleIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
    * TarjetaCombustible update
    */
   export type TarjetaCombustibleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5536,36 +5066,6 @@ export namespace Prisma {
      * Limit how many TarjetaCombustibles to update.
      */
     limit?: number
-  }
-
-  /**
-   * TarjetaCombustible updateManyAndReturn
-   */
-  export type TarjetaCombustibleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the TarjetaCombustible
-     */
-    select?: TarjetaCombustibleSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the TarjetaCombustible
-     */
-    omit?: TarjetaCombustibleOmit<ExtArgs> | null
-    /**
-     * The data used to update TarjetaCombustibles.
-     */
-    data: XOR<TarjetaCombustibleUpdateManyMutationInput, TarjetaCombustibleUncheckedUpdateManyInput>
-    /**
-     * Filter which TarjetaCombustibles to update
-     */
-    where?: TarjetaCombustibleWhereInput
-    /**
-     * Limit how many TarjetaCombustibles to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TarjetaCombustibleIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5690,7 +5190,7 @@ export namespace Prisma {
     jefe: string | null
     isAvailable: boolean | null
     areaTrabajoUuid: string | null
-    choferUuid: string | null
+    choferCI: string | null
   }
 
   export type VehiculoMaxAggregateOutputType = {
@@ -5701,7 +5201,7 @@ export namespace Prisma {
     jefe: string | null
     isAvailable: boolean | null
     areaTrabajoUuid: string | null
-    choferUuid: string | null
+    choferCI: string | null
   }
 
   export type VehiculoCountAggregateOutputType = {
@@ -5712,7 +5212,7 @@ export namespace Prisma {
     jefe: number
     isAvailable: number
     areaTrabajoUuid: number
-    choferUuid: number
+    choferCI: number
     _all: number
   }
 
@@ -5725,7 +5225,7 @@ export namespace Prisma {
     jefe?: true
     isAvailable?: true
     areaTrabajoUuid?: true
-    choferUuid?: true
+    choferCI?: true
   }
 
   export type VehiculoMaxAggregateInputType = {
@@ -5736,7 +5236,7 @@ export namespace Prisma {
     jefe?: true
     isAvailable?: true
     areaTrabajoUuid?: true
-    choferUuid?: true
+    choferCI?: true
   }
 
   export type VehiculoCountAggregateInputType = {
@@ -5747,7 +5247,7 @@ export namespace Prisma {
     jefe?: true
     isAvailable?: true
     areaTrabajoUuid?: true
-    choferUuid?: true
+    choferCI?: true
     _all?: true
   }
 
@@ -5831,7 +5331,7 @@ export namespace Prisma {
     jefe: string
     isAvailable: boolean
     areaTrabajoUuid: string
-    choferUuid: string | null
+    choferCI: string | null
     _count: VehiculoCountAggregateOutputType | null
     _min: VehiculoMinAggregateOutputType | null
     _max: VehiculoMaxAggregateOutputType | null
@@ -5859,37 +5359,13 @@ export namespace Prisma {
     jefe?: boolean
     isAvailable?: boolean
     areaTrabajoUuid?: boolean
-    choferUuid?: boolean
+    choferCI?: boolean
     areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
     chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
     tarjeta?: boolean | Vehiculo$tarjetaArgs<ExtArgs>
   }, ExtArgs["result"]["vehiculo"]>
 
-  export type VehiculoSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    chapa?: boolean
-    marca?: boolean
-    tipo?: boolean
-    jefe?: boolean
-    isAvailable?: boolean
-    areaTrabajoUuid?: boolean
-    choferUuid?: boolean
-    areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
-    chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
-  }, ExtArgs["result"]["vehiculo"]>
 
-  export type VehiculoSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    uuid?: boolean
-    chapa?: boolean
-    marca?: boolean
-    tipo?: boolean
-    jefe?: boolean
-    isAvailable?: boolean
-    areaTrabajoUuid?: boolean
-    choferUuid?: boolean
-    areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
-    chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
-  }, ExtArgs["result"]["vehiculo"]>
 
   export type VehiculoSelectScalar = {
     uuid?: boolean
@@ -5899,22 +5375,14 @@ export namespace Prisma {
     jefe?: boolean
     isAvailable?: boolean
     areaTrabajoUuid?: boolean
-    choferUuid?: boolean
+    choferCI?: boolean
   }
 
-  export type VehiculoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "chapa" | "marca" | "tipo" | "jefe" | "isAvailable" | "areaTrabajoUuid" | "choferUuid", ExtArgs["result"]["vehiculo"]>
+  export type VehiculoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "chapa" | "marca" | "tipo" | "jefe" | "isAvailable" | "areaTrabajoUuid" | "choferCI", ExtArgs["result"]["vehiculo"]>
   export type VehiculoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
     chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
     tarjeta?: boolean | Vehiculo$tarjetaArgs<ExtArgs>
-  }
-  export type VehiculoIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
-    chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
-  }
-  export type VehiculoIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
-    chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
   }
 
   export type $VehiculoPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5932,7 +5400,7 @@ export namespace Prisma {
       jefe: string
       isAvailable: boolean
       areaTrabajoUuid: string
-      choferUuid: string | null
+      choferCI: string | null
     }, ExtArgs["result"]["vehiculo"]>
     composites: {}
   }
@@ -6051,30 +5519,6 @@ export namespace Prisma {
     createMany<T extends VehiculoCreateManyArgs>(args?: SelectSubset<T, VehiculoCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many Vehiculos and returns the data saved in the database.
-     * @param {VehiculoCreateManyAndReturnArgs} args - Arguments to create many Vehiculos.
-     * @example
-     * // Create many Vehiculos
-     * const vehiculo = await prisma.vehiculo.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Vehiculos and only return the `uuid`
-     * const vehiculoWithUuidOnly = await prisma.vehiculo.createManyAndReturn({
-     *   select: { uuid: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends VehiculoCreateManyAndReturnArgs>(args?: SelectSubset<T, VehiculoCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiculoPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
      * Delete a Vehiculo.
      * @param {VehiculoDeleteArgs} args - Arguments to delete one Vehiculo.
      * @example
@@ -6137,36 +5581,6 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends VehiculoUpdateManyArgs>(args: SelectSubset<T, VehiculoUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Vehiculos and returns the data updated in the database.
-     * @param {VehiculoUpdateManyAndReturnArgs} args - Arguments to update many Vehiculos.
-     * @example
-     * // Update many Vehiculos
-     * const vehiculo = await prisma.vehiculo.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Vehiculos and only return the `uuid`
-     * const vehiculoWithUuidOnly = await prisma.vehiculo.updateManyAndReturn({
-     *   select: { uuid: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends VehiculoUpdateManyAndReturnArgs>(args: SelectSubset<T, VehiculoUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$VehiculoPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Vehiculo.
@@ -6366,7 +5780,7 @@ export namespace Prisma {
     readonly jefe: FieldRef<"Vehiculo", 'String'>
     readonly isAvailable: FieldRef<"Vehiculo", 'Boolean'>
     readonly areaTrabajoUuid: FieldRef<"Vehiculo", 'String'>
-    readonly choferUuid: FieldRef<"Vehiculo", 'String'>
+    readonly choferCI: FieldRef<"Vehiculo", 'String'>
   }
     
 
@@ -6600,29 +6014,6 @@ export namespace Prisma {
   }
 
   /**
-   * Vehiculo createManyAndReturn
-   */
-  export type VehiculoCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehiculo
-     */
-    select?: VehiculoSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Vehiculo
-     */
-    omit?: VehiculoOmit<ExtArgs> | null
-    /**
-     * The data used to create many Vehiculos.
-     */
-    data: VehiculoCreateManyInput | VehiculoCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VehiculoIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
    * Vehiculo update
    */
   export type VehiculoUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6664,36 +6055,6 @@ export namespace Prisma {
      * Limit how many Vehiculos to update.
      */
     limit?: number
-  }
-
-  /**
-   * Vehiculo updateManyAndReturn
-   */
-  export type VehiculoUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Vehiculo
-     */
-    select?: VehiculoSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the Vehiculo
-     */
-    omit?: VehiculoOmit<ExtArgs> | null
-    /**
-     * The data used to update Vehiculos.
-     */
-    data: XOR<VehiculoUpdateManyMutationInput, VehiculoUncheckedUpdateManyInput>
-    /**
-     * Filter which Vehiculos to update
-     */
-    where?: VehiculoWhereInput
-    /**
-     * Limit how many Vehiculos to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: VehiculoIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6834,7 +6195,6 @@ export namespace Prisma {
 
 
   export const UserScalarFieldEnum: {
-    id: 'id',
     nickname: 'nickname',
     nombre: 'nombre',
     ci: 'ci',
@@ -6849,10 +6209,12 @@ export namespace Prisma {
 
 
   export const ChoferScalarFieldEnum: {
-    uuid: 'uuid',
     nombre: 'nombre',
+    edad: 'edad',
+    sexo: 'sexo',
     ci: 'ci',
     licencia: 'licencia',
+    telefono: 'telefono',
     isAvailable: 'isAvailable'
   };
 
@@ -6863,6 +6225,7 @@ export namespace Prisma {
     uuid: 'uuid',
     nombre: 'nombre',
     descripcion: 'descripcion',
+    jefe: 'jefe',
     isAvailable: 'isAvailable'
   };
 
@@ -6890,7 +6253,7 @@ export namespace Prisma {
     jefe: 'jefe',
     isAvailable: 'isAvailable',
     areaTrabajoUuid: 'areaTrabajoUuid',
-    choferUuid: 'choferUuid'
+    choferCI: 'choferCI'
   };
 
   export type VehiculoScalarFieldEnum = (typeof VehiculoScalarFieldEnum)[keyof typeof VehiculoScalarFieldEnum]
@@ -6904,12 +6267,35 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const QueryMode: {
-    default: 'default',
-    insensitive: 'insensitive'
+  export const UserOrderByRelevanceFieldEnum: {
+    nickname: 'nickname',
+    nombre: 'nombre',
+    ci: 'ci',
+    password: 'password'
   };
 
-  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+  export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+  export const ChoferOrderByRelevanceFieldEnum: {
+    nombre: 'nombre',
+    sexo: 'sexo',
+    ci: 'ci',
+    licencia: 'licencia',
+    telefono: 'telefono'
+  };
+
+  export type ChoferOrderByRelevanceFieldEnum = (typeof ChoferOrderByRelevanceFieldEnum)[keyof typeof ChoferOrderByRelevanceFieldEnum]
+
+
+  export const AreaTrabajoOrderByRelevanceFieldEnum: {
+    uuid: 'uuid',
+    nombre: 'nombre',
+    descripcion: 'descripcion',
+    jefe: 'jefe'
+  };
+
+  export type AreaTrabajoOrderByRelevanceFieldEnum = (typeof AreaTrabajoOrderByRelevanceFieldEnum)[keyof typeof AreaTrabajoOrderByRelevanceFieldEnum]
 
 
   export const NullsOrder: {
@@ -6920,23 +6306,31 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+  export const TarjetaCombustibleOrderByRelevanceFieldEnum: {
+    uuid: 'uuid',
+    numero: 'numero',
+    vehiculoUuid: 'vehiculoUuid'
+  };
+
+  export type TarjetaCombustibleOrderByRelevanceFieldEnum = (typeof TarjetaCombustibleOrderByRelevanceFieldEnum)[keyof typeof TarjetaCombustibleOrderByRelevanceFieldEnum]
+
+
+  export const VehiculoOrderByRelevanceFieldEnum: {
+    uuid: 'uuid',
+    chapa: 'chapa',
+    marca: 'marca',
+    tipo: 'tipo',
+    jefe: 'jefe',
+    areaTrabajoUuid: 'areaTrabajoUuid',
+    choferCI: 'choferCI'
+  };
+
+  export type VehiculoOrderByRelevanceFieldEnum = (typeof VehiculoOrderByRelevanceFieldEnum)[keyof typeof VehiculoOrderByRelevanceFieldEnum]
+
+
   /**
    * Field references
    */
-
-
-  /**
-   * Reference to a field of type 'Int'
-   */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-  /**
-   * Reference to a field of type 'Int[]'
-   */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
 
 
   /**
@@ -6947,23 +6341,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'String[]'
-   */
-  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-  /**
-   * Reference to a field of type 'Role[]'
-   */
-  export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
@@ -6982,9 +6362,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime[]'
+   * Reference to a field of type 'Int'
    */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
@@ -6996,23 +6376,9 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'State[]'
-   */
-  export type ListEnumStateFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'State[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-    
-
-
-  /**
-   * Reference to a field of type 'Float[]'
-   */
-  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -7023,10 +6389,9 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    id?: IntFilter<"User"> | number
-    nickname?: StringNullableFilter<"User"> | string | null
+    nickname?: StringFilter<"User"> | string
     nombre?: StringFilter<"User"> | string
-    ci?: StringNullableFilter<"User"> | string | null
+    ci?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     isAvailable?: BoolFilter<"User"> | boolean
@@ -7035,19 +6400,18 @@ export namespace Prisma {
   }
 
   export type UserOrderByWithRelationInput = {
-    id?: SortOrder
-    nickname?: SortOrderInput | SortOrder
+    nickname?: SortOrder
     nombre?: SortOrder
-    ci?: SortOrderInput | SortOrder
+    ci?: SortOrder
     password?: SortOrder
     role?: SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    _relevance?: UserOrderByRelevanceInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
     nickname?: string
     ci?: string
     AND?: UserWhereInput | UserWhereInput[]
@@ -7059,33 +6423,29 @@ export namespace Prisma {
     isAvailable?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-  }, "id" | "nickname" | "ci">
+  }, "nickname" | "ci">
 
   export type UserOrderByWithAggregationInput = {
-    id?: SortOrder
-    nickname?: SortOrderInput | SortOrder
+    nickname?: SortOrder
     nombre?: SortOrder
-    ci?: SortOrderInput | SortOrder
+    ci?: SortOrder
     password?: SortOrder
     role?: SortOrder
     isAvailable?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
-    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
-    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
     AND?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"User"> | number
-    nickname?: StringNullableWithAggregatesFilter<"User"> | string | null
+    nickname?: StringWithAggregatesFilter<"User"> | string
     nombre?: StringWithAggregatesFilter<"User"> | string
-    ci?: StringNullableWithAggregatesFilter<"User"> | string | null
+    ci?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     isAvailable?: BoolWithAggregatesFilter<"User"> | boolean
@@ -7097,54 +6457,67 @@ export namespace Prisma {
     AND?: ChoferWhereInput | ChoferWhereInput[]
     OR?: ChoferWhereInput[]
     NOT?: ChoferWhereInput | ChoferWhereInput[]
-    uuid?: StringFilter<"Chofer"> | string
     nombre?: StringFilter<"Chofer"> | string
+    edad?: IntFilter<"Chofer"> | number
+    sexo?: StringFilter<"Chofer"> | string
     ci?: StringFilter<"Chofer"> | string
-    licencia?: StringNullableFilter<"Chofer"> | string | null
+    licencia?: StringFilter<"Chofer"> | string
+    telefono?: StringFilter<"Chofer"> | string
     isAvailable?: BoolFilter<"Chofer"> | boolean
     vehiculos?: VehiculoListRelationFilter
   }
 
   export type ChoferOrderByWithRelationInput = {
-    uuid?: SortOrder
     nombre?: SortOrder
+    edad?: SortOrder
+    sexo?: SortOrder
     ci?: SortOrder
-    licencia?: SortOrderInput | SortOrder
+    licencia?: SortOrder
+    telefono?: SortOrder
     isAvailable?: SortOrder
     vehiculos?: VehiculoOrderByRelationAggregateInput
+    _relevance?: ChoferOrderByRelevanceInput
   }
 
   export type ChoferWhereUniqueInput = Prisma.AtLeast<{
-    uuid?: string
+    ci?: string
     AND?: ChoferWhereInput | ChoferWhereInput[]
     OR?: ChoferWhereInput[]
     NOT?: ChoferWhereInput | ChoferWhereInput[]
     nombre?: StringFilter<"Chofer"> | string
-    ci?: StringFilter<"Chofer"> | string
-    licencia?: StringNullableFilter<"Chofer"> | string | null
+    edad?: IntFilter<"Chofer"> | number
+    sexo?: StringFilter<"Chofer"> | string
+    licencia?: StringFilter<"Chofer"> | string
+    telefono?: StringFilter<"Chofer"> | string
     isAvailable?: BoolFilter<"Chofer"> | boolean
     vehiculos?: VehiculoListRelationFilter
-  }, "uuid">
+  }, "ci">
 
   export type ChoferOrderByWithAggregationInput = {
-    uuid?: SortOrder
     nombre?: SortOrder
+    edad?: SortOrder
+    sexo?: SortOrder
     ci?: SortOrder
-    licencia?: SortOrderInput | SortOrder
+    licencia?: SortOrder
+    telefono?: SortOrder
     isAvailable?: SortOrder
     _count?: ChoferCountOrderByAggregateInput
+    _avg?: ChoferAvgOrderByAggregateInput
     _max?: ChoferMaxOrderByAggregateInput
     _min?: ChoferMinOrderByAggregateInput
+    _sum?: ChoferSumOrderByAggregateInput
   }
 
   export type ChoferScalarWhereWithAggregatesInput = {
     AND?: ChoferScalarWhereWithAggregatesInput | ChoferScalarWhereWithAggregatesInput[]
     OR?: ChoferScalarWhereWithAggregatesInput[]
     NOT?: ChoferScalarWhereWithAggregatesInput | ChoferScalarWhereWithAggregatesInput[]
-    uuid?: StringWithAggregatesFilter<"Chofer"> | string
     nombre?: StringWithAggregatesFilter<"Chofer"> | string
+    edad?: IntWithAggregatesFilter<"Chofer"> | number
+    sexo?: StringWithAggregatesFilter<"Chofer"> | string
     ci?: StringWithAggregatesFilter<"Chofer"> | string
-    licencia?: StringNullableWithAggregatesFilter<"Chofer"> | string | null
+    licencia?: StringWithAggregatesFilter<"Chofer"> | string
+    telefono?: StringWithAggregatesFilter<"Chofer"> | string
     isAvailable?: BoolWithAggregatesFilter<"Chofer"> | boolean
   }
 
@@ -7155,6 +6528,7 @@ export namespace Prisma {
     uuid?: StringFilter<"AreaTrabajo"> | string
     nombre?: StringFilter<"AreaTrabajo"> | string
     descripcion?: StringFilter<"AreaTrabajo"> | string
+    jefe?: StringFilter<"AreaTrabajo"> | string
     isAvailable?: BoolFilter<"AreaTrabajo"> | boolean
     vehiculos?: VehiculoListRelationFilter
   }
@@ -7163,8 +6537,10 @@ export namespace Prisma {
     uuid?: SortOrder
     nombre?: SortOrder
     descripcion?: SortOrder
+    jefe?: SortOrder
     isAvailable?: SortOrder
     vehiculos?: VehiculoOrderByRelationAggregateInput
+    _relevance?: AreaTrabajoOrderByRelevanceInput
   }
 
   export type AreaTrabajoWhereUniqueInput = Prisma.AtLeast<{
@@ -7174,6 +6550,7 @@ export namespace Prisma {
     NOT?: AreaTrabajoWhereInput | AreaTrabajoWhereInput[]
     nombre?: StringFilter<"AreaTrabajo"> | string
     descripcion?: StringFilter<"AreaTrabajo"> | string
+    jefe?: StringFilter<"AreaTrabajo"> | string
     isAvailable?: BoolFilter<"AreaTrabajo"> | boolean
     vehiculos?: VehiculoListRelationFilter
   }, "uuid">
@@ -7182,6 +6559,7 @@ export namespace Prisma {
     uuid?: SortOrder
     nombre?: SortOrder
     descripcion?: SortOrder
+    jefe?: SortOrder
     isAvailable?: SortOrder
     _count?: AreaTrabajoCountOrderByAggregateInput
     _max?: AreaTrabajoMaxOrderByAggregateInput
@@ -7195,6 +6573,7 @@ export namespace Prisma {
     uuid?: StringWithAggregatesFilter<"AreaTrabajo"> | string
     nombre?: StringWithAggregatesFilter<"AreaTrabajo"> | string
     descripcion?: StringWithAggregatesFilter<"AreaTrabajo"> | string
+    jefe?: StringWithAggregatesFilter<"AreaTrabajo"> | string
     isAvailable?: BoolWithAggregatesFilter<"AreaTrabajo"> | boolean
   }
 
@@ -7221,6 +6600,7 @@ export namespace Prisma {
     isAvailable?: SortOrder
     vehiculoUuid?: SortOrderInput | SortOrder
     vehiculo?: VehiculoOrderByWithRelationInput
+    _relevance?: TarjetaCombustibleOrderByRelevanceInput
   }
 
   export type TarjetaCombustibleWhereUniqueInput = Prisma.AtLeast<{
@@ -7276,7 +6656,7 @@ export namespace Prisma {
     jefe?: StringFilter<"Vehiculo"> | string
     isAvailable?: BoolFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringFilter<"Vehiculo"> | string
-    choferUuid?: StringNullableFilter<"Vehiculo"> | string | null
+    choferCI?: StringNullableFilter<"Vehiculo"> | string | null
     areaTrabajo?: XOR<AreaTrabajoScalarRelationFilter, AreaTrabajoWhereInput>
     chofer?: XOR<ChoferNullableScalarRelationFilter, ChoferWhereInput> | null
     tarjeta?: XOR<TarjetaCombustibleNullableScalarRelationFilter, TarjetaCombustibleWhereInput> | null
@@ -7290,10 +6670,11 @@ export namespace Prisma {
     jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
-    choferUuid?: SortOrderInput | SortOrder
+    choferCI?: SortOrderInput | SortOrder
     areaTrabajo?: AreaTrabajoOrderByWithRelationInput
     chofer?: ChoferOrderByWithRelationInput
     tarjeta?: TarjetaCombustibleOrderByWithRelationInput
+    _relevance?: VehiculoOrderByRelevanceInput
   }
 
   export type VehiculoWhereUniqueInput = Prisma.AtLeast<{
@@ -7307,7 +6688,7 @@ export namespace Prisma {
     jefe?: StringFilter<"Vehiculo"> | string
     isAvailable?: BoolFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringFilter<"Vehiculo"> | string
-    choferUuid?: StringNullableFilter<"Vehiculo"> | string | null
+    choferCI?: StringNullableFilter<"Vehiculo"> | string | null
     areaTrabajo?: XOR<AreaTrabajoScalarRelationFilter, AreaTrabajoWhereInput>
     chofer?: XOR<ChoferNullableScalarRelationFilter, ChoferWhereInput> | null
     tarjeta?: XOR<TarjetaCombustibleNullableScalarRelationFilter, TarjetaCombustibleWhereInput> | null
@@ -7321,7 +6702,7 @@ export namespace Prisma {
     jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
-    choferUuid?: SortOrderInput | SortOrder
+    choferCI?: SortOrderInput | SortOrder
     _count?: VehiculoCountOrderByAggregateInput
     _max?: VehiculoMaxOrderByAggregateInput
     _min?: VehiculoMinOrderByAggregateInput
@@ -7338,13 +6719,13 @@ export namespace Prisma {
     jefe?: StringWithAggregatesFilter<"Vehiculo"> | string
     isAvailable?: BoolWithAggregatesFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringWithAggregatesFilter<"Vehiculo"> | string
-    choferUuid?: StringNullableWithAggregatesFilter<"Vehiculo"> | string | null
+    choferCI?: StringNullableWithAggregatesFilter<"Vehiculo"> | string | null
   }
 
   export type UserCreateInput = {
-    nickname?: string | null
+    nickname: string
     nombre: string
-    ci?: string | null
+    ci: string
     password: string
     role?: $Enums.Role
     isAvailable?: boolean
@@ -7353,10 +6734,9 @@ export namespace Prisma {
   }
 
   export type UserUncheckedCreateInput = {
-    id?: number
-    nickname?: string | null
+    nickname: string
     nombre: string
-    ci?: string | null
+    ci: string
     password: string
     role?: $Enums.Role
     isAvailable?: boolean
@@ -7365,9 +6745,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
-    ci?: NullableStringFieldUpdateOperationsInput | string | null
+    ci?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -7376,10 +6756,9 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
-    ci?: NullableStringFieldUpdateOperationsInput | string | null
+    ci?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -7388,10 +6767,9 @@ export namespace Prisma {
   }
 
   export type UserCreateManyInput = {
-    id?: number
-    nickname?: string | null
+    nickname: string
     nombre: string
-    ci?: string | null
+    ci: string
     password: string
     role?: $Enums.Role
     isAvailable?: boolean
@@ -7400,9 +6778,9 @@ export namespace Prisma {
   }
 
   export type UserUpdateManyMutationInput = {
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
-    ci?: NullableStringFieldUpdateOperationsInput | string | null
+    ci?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -7411,10 +6789,9 @@ export namespace Prisma {
   }
 
   export type UserUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    nickname?: NullableStringFieldUpdateOperationsInput | string | null
+    nickname?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
-    ci?: NullableStringFieldUpdateOperationsInput | string | null
+    ci?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -7423,62 +6800,76 @@ export namespace Prisma {
   }
 
   export type ChoferCreateInput = {
-    uuid?: string
     nombre: string
+    edad: number
+    sexo: string
     ci: string
-    licencia?: string | null
+    licencia: string
+    telefono: string
     isAvailable?: boolean
     vehiculos?: VehiculoCreateNestedManyWithoutChoferInput
   }
 
   export type ChoferUncheckedCreateInput = {
-    uuid?: string
     nombre: string
+    edad: number
+    sexo: string
     ci: string
-    licencia?: string | null
+    licencia: string
+    telefono: string
     isAvailable?: boolean
     vehiculos?: VehiculoUncheckedCreateNestedManyWithoutChoferInput
   }
 
   export type ChoferUpdateInput = {
-    uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
+    edad?: IntFieldUpdateOperationsInput | number
+    sexo?: StringFieldUpdateOperationsInput | string
     ci?: StringFieldUpdateOperationsInput | string
-    licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    licencia?: StringFieldUpdateOperationsInput | string
+    telefono?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     vehiculos?: VehiculoUpdateManyWithoutChoferNestedInput
   }
 
   export type ChoferUncheckedUpdateInput = {
-    uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
+    edad?: IntFieldUpdateOperationsInput | number
+    sexo?: StringFieldUpdateOperationsInput | string
     ci?: StringFieldUpdateOperationsInput | string
-    licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    licencia?: StringFieldUpdateOperationsInput | string
+    telefono?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     vehiculos?: VehiculoUncheckedUpdateManyWithoutChoferNestedInput
   }
 
   export type ChoferCreateManyInput = {
-    uuid?: string
     nombre: string
+    edad: number
+    sexo: string
     ci: string
-    licencia?: string | null
+    licencia: string
+    telefono: string
     isAvailable?: boolean
   }
 
   export type ChoferUpdateManyMutationInput = {
-    uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
+    edad?: IntFieldUpdateOperationsInput | number
+    sexo?: StringFieldUpdateOperationsInput | string
     ci?: StringFieldUpdateOperationsInput | string
-    licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    licencia?: StringFieldUpdateOperationsInput | string
+    telefono?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ChoferUncheckedUpdateManyInput = {
-    uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
+    edad?: IntFieldUpdateOperationsInput | number
+    sexo?: StringFieldUpdateOperationsInput | string
     ci?: StringFieldUpdateOperationsInput | string
-    licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    licencia?: StringFieldUpdateOperationsInput | string
+    telefono?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7486,6 +6877,7 @@ export namespace Prisma {
     uuid?: string
     nombre: string
     descripcion: string
+    jefe: string
     isAvailable?: boolean
     vehiculos?: VehiculoCreateNestedManyWithoutAreaTrabajoInput
   }
@@ -7494,6 +6886,7 @@ export namespace Prisma {
     uuid?: string
     nombre: string
     descripcion: string
+    jefe: string
     isAvailable?: boolean
     vehiculos?: VehiculoUncheckedCreateNestedManyWithoutAreaTrabajoInput
   }
@@ -7502,6 +6895,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
+    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     vehiculos?: VehiculoUpdateManyWithoutAreaTrabajoNestedInput
   }
@@ -7510,6 +6904,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
+    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     vehiculos?: VehiculoUncheckedUpdateManyWithoutAreaTrabajoNestedInput
   }
@@ -7518,6 +6913,7 @@ export namespace Prisma {
     uuid?: string
     nombre: string
     descripcion: string
+    jefe: string
     isAvailable?: boolean
   }
 
@@ -7525,6 +6921,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
+    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7532,6 +6929,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
+    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7624,7 +7022,7 @@ export namespace Prisma {
     jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
-    choferUuid?: string | null
+    choferCI?: string | null
     tarjeta?: TarjetaCombustibleUncheckedCreateNestedOneWithoutVehiculoInput
   }
 
@@ -7648,7 +7046,7 @@ export namespace Prisma {
     jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
-    choferUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    choferCI?: NullableStringFieldUpdateOperationsInput | string | null
     tarjeta?: TarjetaCombustibleUncheckedUpdateOneWithoutVehiculoNestedInput
   }
 
@@ -7660,7 +7058,7 @@ export namespace Prisma {
     jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
-    choferUuid?: string | null
+    choferCI?: string | null
   }
 
   export type VehiculoUpdateManyMutationInput = {
@@ -7680,39 +7078,13 @@ export namespace Prisma {
     jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
-    choferUuid?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+    choferCI?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -7720,14 +7092,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
+    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
@@ -7738,8 +7110,8 @@ export namespace Prisma {
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -7747,13 +7119,13 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type SortOrderInput = {
+  export type UserOrderByRelevanceInput = {
+    fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
     sort: SortOrder
-    nulls?: NullsOrder
+    search: string
   }
 
   export type UserCountOrderByAggregateInput = {
-    id?: SortOrder
     nickname?: SortOrder
     nombre?: SortOrder
     ci?: SortOrder
@@ -7764,12 +7136,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserAvgOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
   export type UserMaxOrderByAggregateInput = {
-    id?: SortOrder
     nickname?: SortOrder
     nombre?: SortOrder
     ci?: SortOrder
@@ -7781,7 +7148,6 @@ export namespace Prisma {
   }
 
   export type UserMinOrderByAggregateInput = {
-    id?: SortOrder
     nickname?: SortOrder
     nombre?: SortOrder
     ci?: SortOrder
@@ -7792,48 +7158,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserSumOrderByAggregateInput = {
-    id?: SortOrder
-  }
-
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -7841,7 +7169,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
+    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -7850,8 +7178,8 @@ export namespace Prisma {
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
     not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
@@ -7868,8 +7196,8 @@ export namespace Prisma {
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -7878,6 +7206,17 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type VehiculoListRelationFilter = {
@@ -7890,34 +7229,77 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ChoferOrderByRelevanceInput = {
+    fields: ChoferOrderByRelevanceFieldEnum | ChoferOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type ChoferCountOrderByAggregateInput = {
-    uuid?: SortOrder
     nombre?: SortOrder
+    edad?: SortOrder
+    sexo?: SortOrder
     ci?: SortOrder
     licencia?: SortOrder
+    telefono?: SortOrder
     isAvailable?: SortOrder
   }
 
+  export type ChoferAvgOrderByAggregateInput = {
+    edad?: SortOrder
+  }
+
   export type ChoferMaxOrderByAggregateInput = {
-    uuid?: SortOrder
     nombre?: SortOrder
+    edad?: SortOrder
+    sexo?: SortOrder
     ci?: SortOrder
     licencia?: SortOrder
+    telefono?: SortOrder
     isAvailable?: SortOrder
   }
 
   export type ChoferMinOrderByAggregateInput = {
-    uuid?: SortOrder
     nombre?: SortOrder
+    edad?: SortOrder
+    sexo?: SortOrder
     ci?: SortOrder
     licencia?: SortOrder
+    telefono?: SortOrder
     isAvailable?: SortOrder
+  }
+
+  export type ChoferSumOrderByAggregateInput = {
+    edad?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type AreaTrabajoOrderByRelevanceInput = {
+    fields: AreaTrabajoOrderByRelevanceFieldEnum | AreaTrabajoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type AreaTrabajoCountOrderByAggregateInput = {
     uuid?: SortOrder
     nombre?: SortOrder
     descripcion?: SortOrder
+    jefe?: SortOrder
     isAvailable?: SortOrder
   }
 
@@ -7925,6 +7307,7 @@ export namespace Prisma {
     uuid?: SortOrder
     nombre?: SortOrder
     descripcion?: SortOrder
+    jefe?: SortOrder
     isAvailable?: SortOrder
   }
 
@@ -7932,19 +7315,46 @@ export namespace Prisma {
     uuid?: SortOrder
     nombre?: SortOrder
     descripcion?: SortOrder
+    jefe?: SortOrder
     isAvailable?: SortOrder
   }
 
   export type EnumStateFilter<$PrismaModel = never> = {
     equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
-    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
-    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[]
+    notIn?: $Enums.State[]
     not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type VehiculoNullableScalarRelationFilter = {
     is?: VehiculoWhereInput | null
     isNot?: VehiculoWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type TarjetaCombustibleOrderByRelevanceInput = {
+    fields: TarjetaCombustibleOrderByRelevanceFieldEnum | TarjetaCombustibleOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
   }
 
   export type TarjetaCombustibleCountOrderByAggregateInput = {
@@ -7987,12 +7397,30 @@ export namespace Prisma {
 
   export type EnumStateWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
-    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
-    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[]
+    notIn?: $Enums.State[]
     not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStateFilter<$PrismaModel>
     _max?: NestedEnumStateFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type AreaTrabajoScalarRelationFilter = {
@@ -8010,6 +7438,12 @@ export namespace Prisma {
     isNot?: TarjetaCombustibleWhereInput | null
   }
 
+  export type VehiculoOrderByRelevanceInput = {
+    fields: VehiculoOrderByRelevanceFieldEnum | VehiculoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
   export type VehiculoCountOrderByAggregateInput = {
     uuid?: SortOrder
     chapa?: SortOrder
@@ -8018,7 +7452,7 @@ export namespace Prisma {
     jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
-    choferUuid?: SortOrder
+    choferCI?: SortOrder
   }
 
   export type VehiculoMaxOrderByAggregateInput = {
@@ -8029,7 +7463,7 @@ export namespace Prisma {
     jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
-    choferUuid?: SortOrder
+    choferCI?: SortOrder
   }
 
   export type VehiculoMinOrderByAggregateInput = {
@@ -8040,11 +7474,7 @@ export namespace Prisma {
     jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
-    choferUuid?: SortOrder
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+    choferCI?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8063,14 +7493,6 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
-  }
-
   export type VehiculoCreateNestedManyWithoutChoferInput = {
     create?: XOR<VehiculoCreateWithoutChoferInput, VehiculoUncheckedCreateWithoutChoferInput> | VehiculoCreateWithoutChoferInput[] | VehiculoUncheckedCreateWithoutChoferInput[]
     connectOrCreate?: VehiculoCreateOrConnectWithoutChoferInput | VehiculoCreateOrConnectWithoutChoferInput[]
@@ -8083,6 +7505,14 @@ export namespace Prisma {
     connectOrCreate?: VehiculoCreateOrConnectWithoutChoferInput | VehiculoCreateOrConnectWithoutChoferInput[]
     createMany?: VehiculoCreateManyChoferInputEnvelope
     connect?: VehiculoWhereUniqueInput | VehiculoWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type VehiculoUpdateManyWithoutChoferNestedInput = {
@@ -8175,6 +7605,10 @@ export namespace Prisma {
     update?: XOR<XOR<VehiculoUpdateToOneWithWhereWithoutTarjetaInput, VehiculoUpdateWithoutTarjetaInput>, VehiculoUncheckedUpdateWithoutTarjetaInput>
   }
 
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
   export type AreaTrabajoCreateNestedOneWithoutVehiculosInput = {
     create?: XOR<AreaTrabajoCreateWithoutVehiculosInput, AreaTrabajoUncheckedCreateWithoutVehiculosInput>
     connectOrCreate?: AreaTrabajoCreateOrConnectWithoutVehiculosInput
@@ -8237,35 +7671,10 @@ export namespace Prisma {
     update?: XOR<XOR<TarjetaCombustibleUpdateToOneWithWhereWithoutVehiculoInput, TarjetaCombustibleUpdateWithoutVehiculoInput>, TarjetaCombustibleUncheckedUpdateWithoutVehiculoInput>
   }
 
-  export type NestedIntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
-  }
-
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8273,13 +7682,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
@@ -8290,8 +7700,8 @@ export namespace Prisma {
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -8299,65 +7709,10 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[] | ListStringFieldRefInput<$PrismaModel>
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -8365,16 +7720,28 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[]
+    notIn?: $Enums.Role[]
     not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
@@ -8391,8 +7758,8 @@ export namespace Prisma {
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[]
+    notIn?: Date[] | string[]
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -8403,21 +7770,92 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[]
+    notIn?: number[]
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedEnumStateFilter<$PrismaModel = never> = {
     equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
-    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
-    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[]
+    notIn?: $Enums.State[]
     not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedEnumStateWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
-    in?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
-    notIn?: $Enums.State[] | ListEnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[]
+    notIn?: $Enums.State[]
     not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStateFilter<$PrismaModel>
     _max?: NestedEnumStateFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type VehiculoCreateWithoutChoferInput = {
@@ -8479,7 +7917,7 @@ export namespace Prisma {
     jefe?: StringFilter<"Vehiculo"> | string
     isAvailable?: BoolFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringFilter<"Vehiculo"> | string
-    choferUuid?: StringNullableFilter<"Vehiculo"> | string | null
+    choferCI?: StringNullableFilter<"Vehiculo"> | string | null
   }
 
   export type VehiculoCreateWithoutAreaTrabajoInput = {
@@ -8500,7 +7938,7 @@ export namespace Prisma {
     tipo: string
     jefe: string
     isAvailable?: boolean
-    choferUuid?: string | null
+    choferCI?: string | null
     tarjeta?: TarjetaCombustibleUncheckedCreateNestedOneWithoutVehiculoInput
   }
 
@@ -8549,7 +7987,7 @@ export namespace Prisma {
     jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
-    choferUuid?: string | null
+    choferCI?: string | null
   }
 
   export type VehiculoCreateOrConnectWithoutTarjetaInput = {
@@ -8587,13 +8025,14 @@ export namespace Prisma {
     jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
-    choferUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    choferCI?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type AreaTrabajoCreateWithoutVehiculosInput = {
     uuid?: string
     nombre: string
     descripcion: string
+    jefe: string
     isAvailable?: boolean
   }
 
@@ -8601,6 +8040,7 @@ export namespace Prisma {
     uuid?: string
     nombre: string
     descripcion: string
+    jefe: string
     isAvailable?: boolean
   }
 
@@ -8610,18 +8050,22 @@ export namespace Prisma {
   }
 
   export type ChoferCreateWithoutVehiculosInput = {
-    uuid?: string
     nombre: string
+    edad: number
+    sexo: string
     ci: string
-    licencia?: string | null
+    licencia: string
+    telefono: string
     isAvailable?: boolean
   }
 
   export type ChoferUncheckedCreateWithoutVehiculosInput = {
-    uuid?: string
     nombre: string
+    edad: number
+    sexo: string
     ci: string
-    licencia?: string | null
+    licencia: string
+    telefono: string
     isAvailable?: boolean
   }
 
@@ -8668,6 +8112,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
+    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -8675,6 +8120,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
     descripcion?: StringFieldUpdateOperationsInput | string
+    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -8690,18 +8136,22 @@ export namespace Prisma {
   }
 
   export type ChoferUpdateWithoutVehiculosInput = {
-    uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
+    edad?: IntFieldUpdateOperationsInput | number
+    sexo?: StringFieldUpdateOperationsInput | string
     ci?: StringFieldUpdateOperationsInput | string
-    licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    licencia?: StringFieldUpdateOperationsInput | string
+    telefono?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type ChoferUncheckedUpdateWithoutVehiculosInput = {
-    uuid?: StringFieldUpdateOperationsInput | string
     nombre?: StringFieldUpdateOperationsInput | string
+    edad?: IntFieldUpdateOperationsInput | number
+    sexo?: StringFieldUpdateOperationsInput | string
     ci?: StringFieldUpdateOperationsInput | string
-    licencia?: NullableStringFieldUpdateOperationsInput | string | null
+    licencia?: StringFieldUpdateOperationsInput | string
+    telefono?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -8783,7 +8233,7 @@ export namespace Prisma {
     tipo: string
     jefe: string
     isAvailable?: boolean
-    choferUuid?: string | null
+    choferCI?: string | null
   }
 
   export type VehiculoUpdateWithoutAreaTrabajoInput = {
@@ -8804,7 +8254,7 @@ export namespace Prisma {
     tipo?: StringFieldUpdateOperationsInput | string
     jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
-    choferUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    choferCI?: NullableStringFieldUpdateOperationsInput | string | null
     tarjeta?: TarjetaCombustibleUncheckedUpdateOneWithoutVehiculoNestedInput
   }
 
@@ -8815,7 +8265,7 @@ export namespace Prisma {
     tipo?: StringFieldUpdateOperationsInput | string
     jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
-    choferUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    choferCI?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

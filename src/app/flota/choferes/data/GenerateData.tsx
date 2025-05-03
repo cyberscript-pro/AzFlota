@@ -1,25 +1,25 @@
 import useApiGet from "@/app/hooks/useApiGet";
-import { Chofer, ChoferExcel } from "../utils/types";
+import { Chofer } from "../utils/types";
 import { ChoferMapper } from "../mappers/chofer.mapper";
 import GeneratePDF from "../utils/GeneratePDF";
 import { GenerateExcel } from "../utils/GenerateExcel";
 
 function GenerateData() {
-  const { data, loading } = useApiGet<Chofer>({
-    url: `http://localhost:3000/api/choferes`,
+  const { loading, data } = useApiGet<Chofer>({
+    url: "http://localhost:3000/api/choferes?page=1",
   });
 
   const { dataFront } = ChoferMapper.fromApiToFront(data);
 
+  // Instancia las funciones siempre, no condicionalmente
   const { generatePDF } = GeneratePDF({ data: dataFront });
-  
 
-  const generate = (value: string) => {
+  const generate = async(value: string) => {
     if (!loading) {
-      if (value == "pdf") {
+      if (value === "pdf") {
         generatePDF();
-      } else if (value == "excel") {
-        GenerateExcel({ data: dataFront });
+      } else if (value === "excel") {
+        await GenerateExcel({ data: dataFront });
       }
     }
   };
@@ -30,3 +30,4 @@ function GenerateData() {
 }
 
 export default GenerateData;
+
