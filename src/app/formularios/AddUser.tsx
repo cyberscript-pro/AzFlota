@@ -34,21 +34,21 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
     resolver: zodResolver(userSchemaPost),
   });
 
-  const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<Inputs>({
-      url: "/api/users/",
-      onClose: onClose,
-      reset: reset,
+  const { onSubmitData, submitSuccess, setSubmitSuccess, loadingPost } = useApiPost<Inputs>({
+    url: "/api/users/",
+    onClose: onClose,
+    reset: reset,
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    onSubmitData({
+      nickname: data.nickname,
+      nombre: data.nombre,
+      ci: data.ci,
+      password: data.password,
+      role: data.role,
     });
-  
-    const onSubmit: SubmitHandler<Inputs> = (data) => {
-      onSubmitData({
-        nickname: data.nickname,
-        nombre: data.nombre,
-        ci: data.ci,
-        password: data.password,
-        role: data.role,
-      });
-    };
+  };
 
   return (
     <div>
@@ -110,7 +110,7 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
               type="submit"
               className="mt-4 w-full rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
             >
-              Registrar
+              {loadingPost ? "Registrandote..." : "Registrarme"}
             </button>
           </form>
         </ModalBasicStyle>

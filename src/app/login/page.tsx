@@ -19,6 +19,7 @@ export type LoginInputs = {
 export default function Login() {
   const router = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -39,6 +40,8 @@ export default function Login() {
   const [loginError, setLoginError] = useState("");
 
   const onSubmit = async (data: LoginInputs) => {
+    setIsLoading(true);
+
     const res = await signIn("credentials", {
       redirect: false,
       nickname: data.nickname,
@@ -49,6 +52,7 @@ export default function Login() {
       router.push("/dashboard");
     } else {
       setLoginError("Usuario o contraseña incorrectos");
+      setIsLoading(false);
     }
   };
 
@@ -118,7 +122,7 @@ export default function Login() {
                 type="submit"
                 className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
               >
-                Iniciar Sesion
+                {isLoading ? "Iniciando Sesion..." : "Iniciar Sesion"}
               </button>
               <button
                 type="button"
