@@ -17,9 +17,11 @@ type AddChoferProps = {
   errors?: FieldErrors<Inputs>;
   onClose: () => void;
   form: any;
+  loading: boolean;
 };
 
 function AddChofer({
+  loading,
   form,
   onSubmit,
   handleSubmit,
@@ -86,7 +88,7 @@ function AddChofer({
               type="submit"
               className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
             >
-              Registrar
+              {loading ? "Registrando..." : "Registrar"}
             </button>
             <button
               type="button"

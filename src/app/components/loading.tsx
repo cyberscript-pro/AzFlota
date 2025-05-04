@@ -2,8 +2,15 @@ import Image from "next/image";
 
 export default function LoadingSpinner() {
   return (
-    <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
-      </div>
+    <div className="fixed inset-0 z-50 flex justify-center items-center">
+      <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
+      <Image
+        className=""
+        src="/loading.svg"
+        alt="Loading"
+        width={100}
+        height={100}
+      />
+    </div>
   );
 }

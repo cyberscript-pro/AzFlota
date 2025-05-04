@@ -9,10 +9,12 @@ type ApiPost = {
 };
 
 export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
+  const [loadingPost, setLoadingPost] = useState(true);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const onSubmitData = async (data: T) => {
     try {
+      setLoadingPost(true);
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -33,9 +35,13 @@ export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
         err instanceof Error ? err.message : "An unknown error occurred"
       );
     }
+    finally {
+      setLoadingPost(false);
+    }
   };
 
   return {
+    loadingPost,
     onSubmitData,
     submitSuccess,
     setSubmitSuccess,

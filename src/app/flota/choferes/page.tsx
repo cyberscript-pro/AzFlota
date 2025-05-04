@@ -77,7 +77,7 @@ function ChoferesContent() {
     url: apiUrl,
   });
 
-  const { form, onSubmit } = useFormDataPost({
+  const { form, onSubmit, loadingPost } = useFormDataPost({
     onClose: () => {
       setState(prev => ({ ...prev, isCreateChofer: false }));
       toast.success("Chofer creado correctamente");
@@ -139,7 +139,18 @@ function ChoferesContent() {
     setState(prev => ({ ...prev }));
   }, [refetch]);
 
-  if (status === "loading") return <LoadingSpinner />;
+  if (status === "loading") {
+    <div className="fixed inset-0 z-50 flex justify-center items-center">
+      <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
+      <MemoizedImage
+        src="/loading.svg"
+        alt="Loading"
+        width={100}
+        height={100}
+        loading="lazy"
+      />
+    </div>
+  }
   if (error) return <div>Error {error}</div>;
 
   return (
@@ -188,19 +199,6 @@ function ChoferesContent() {
             />
           </main>
 
-          {loading && (
-            <div className="fixed inset-0 z-50 flex justify-center items-center">
-              <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
-              <MemoizedImage
-                src="/loading.svg"
-                alt="Loading"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-            </div>
-          )}
-
           <ModalGenerateReporte
             isOpen={state.isReporte}
             onClose={() => setState(prev => ({ ...prev, isReporte: false }))}
@@ -229,6 +227,7 @@ function ChoferesContent() {
                 form={form}
                 onClose={() => setState(prev => ({ ...prev, isCreateChofer: false }))}
                 onSubmit={onSubmit}
+                loading={loadingPost}
               />
             </ModalBasicStyle>
           </Modal>

@@ -30,7 +30,7 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     },
   });
 
-  const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<Chofer>({
+  const { loadingPost, onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<Chofer>({
     url: "/api/choferes/",
     onClose,
     reset: form.reset,
@@ -52,5 +52,6 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     submitSuccess,
     onSubmit,
     setSubmitSuccess,
+    loadingPost
   };
 }
