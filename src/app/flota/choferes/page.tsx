@@ -140,16 +140,18 @@ function ChoferesContent() {
   }, [refetch]);
 
   if (status === "loading") {
-    <div className="fixed inset-0 z-50 flex justify-center items-center">
-      <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
-      <MemoizedImage
-        src="/loading.svg"
-        alt="Loading"
-        width={100}
-        height={100}
-        loading="lazy"
-      />
-    </div>
+    return (
+      <div className="fixed inset-0 z-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
+        <MemoizedImage
+          src="/loading.svg"
+          alt="Loading"
+          width={100}
+          height={100}
+          loading="lazy"
+        />
+      </div>
+    )
   }
   if (error) return <div>Error {error}</div>;
 

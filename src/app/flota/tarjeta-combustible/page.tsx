@@ -139,7 +139,20 @@ function TarjetasCombustibleContent() {
     setState(prev => ({ ...prev }));
   }, [refetch]);
 
-  if (status === "loading") return <LoadingSpinner />;
+  if (status === "loading") {
+    return (
+      <div className="fixed inset-0 z-50 flex justify-center items-center">
+        <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
+        <MemoizedImage
+          src="/loading.svg"
+          alt="Loading"
+          width={100}
+          height={100}
+          loading="lazy"
+        />
+      </div>
+    )
+  };
   if (error) return <div>Error {error}</div>;
 
   return (
@@ -181,25 +194,12 @@ function TarjetasCombustibleContent() {
           <div className="w-full h-10" />
 
           <main className="mt-2 h-[100vh-40px]">
-            <MemoizedTarjetaCombustibleTable 
+            <MemoizedTarjetaCombustibleTable
               refetch={refetch}
-              data={memoizedDataFront} 
+              data={memoizedDataFront}
               access={state.permisoEscritura}
             />
           </main>
-
-          {loading && (
-            <div className="fixed inset-0 z-50 flex justify-center items-center">
-              <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
-              <MemoizedImage
-                src="/loading.svg"
-                alt="Loading"
-                width={100}
-                height={100}
-                loading="lazy"
-              />
-            </div>
-          )}
 
           <ModalGenerateReporte
             isOpen={state.isReporte}

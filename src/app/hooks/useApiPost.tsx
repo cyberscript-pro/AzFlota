@@ -9,7 +9,7 @@ type ApiPost = {
 };
 
 export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
-  const [loadingPost, setLoadingPost] = useState(true);
+  const [loadingPost, setLoadingPost] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const onSubmitData = async (data: T) => {
