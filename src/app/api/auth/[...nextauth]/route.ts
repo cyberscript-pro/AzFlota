@@ -19,8 +19,9 @@ const authOptions: NextAuthOptions = {
         password: { label: "Contraseña", type: "password" },
       },
       async authorize(credentials): Promise<User | null> {
+        const apiBaseUrl = process.env.APIBASE_URL || 'http://localhost:3000/api';
         const res = await fetch(
-          `/api/users/checking`,
+          `${apiBaseUrl}/users/checking`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -47,7 +48,7 @@ const authOptions: NextAuthOptions = {
         return null;
       },
     }),
-  ], 
+  ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
