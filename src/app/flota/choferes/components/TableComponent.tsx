@@ -71,7 +71,7 @@ export function ChoferTable({ data, access = false, refetch }: ChoferTableProps)
   const { onDelete } = useApiDelete();
 
   const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `http://localhost:3000/api/choferes/${id}` });
+    onDelete({ url: `/api/choferes/${id}` });
   };
 
   return (

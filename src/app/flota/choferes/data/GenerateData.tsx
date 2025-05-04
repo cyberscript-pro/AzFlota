@@ -6,7 +6,7 @@ import { GenerateExcel } from "../utils/GenerateExcel";
 
 function GenerateData() {
   const { loading, data } = useApiGet<Chofer>({
-    url: "http://localhost:3000/api/choferes?page=1",
+    url: "/api/choferes?page=1",
   });
 
   const { dataFront } = ChoferMapper.fromApiToFront(data);

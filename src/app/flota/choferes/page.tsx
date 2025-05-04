@@ -69,7 +69,7 @@ function ChoferesContent() {
 
   // Custom hooks con memoización de la URL
   const apiUrl = useMemo(
-    () => `http://localhost:3000/api/choferes?page=${state.pageActual}&limit=${10}`,
+    () => `/api/choferes?page=${state.pageActual}&limit=${10}`,
     [state.pageActual]
   );
 

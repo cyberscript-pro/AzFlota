@@ -35,7 +35,7 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
   });
 
   const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<Inputs>({
-      url: "http://localhost:3000/api/users/",
+      url: "/api/users/",
       onClose: onClose,
       reset: reset,
     });

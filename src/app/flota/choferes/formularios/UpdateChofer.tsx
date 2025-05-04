@@ -37,7 +37,7 @@ function UpdateChofer({
   onSuccess
 }: UpdateChoferProps) {
   const { loading, error, updateData } = useApiUpdate<Chofer>({
-    url: `http://localhost:3000/api/choferes/${id}`,
+    url: `/api/choferes/${id}`,
     onSuccess: async () => {
       toast.success("Chofer actualizado correctamente");
       if (onSuccess) {
