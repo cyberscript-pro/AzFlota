@@ -14,7 +14,7 @@ export const userSchemaPost = z
         async (nickname) => {
           if (nickname.length > 2) {
             const response = await fetch(
-              `http://localhost:3000/api/users/checking?nickname=${nickname}`
+              `/api/users/checking?nickname=${nickname}`
             );
             const data = await response.json();
             return !data.exists;
@@ -39,7 +39,7 @@ export const userSchemaPost = z
         async (ci) => {
           if (ci.length == 11) {
             const response = await fetch(
-              `http://localhost:3000/api/users/checking?ci=${ci}`
+              `/api/users/checking?ci=${ci}`
             );
             const data = await response.json();
             return !data.exists;
