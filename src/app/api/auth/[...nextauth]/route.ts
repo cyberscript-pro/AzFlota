@@ -20,7 +20,7 @@ const authOptions: NextAuthOptions = {
       },
       async authorize(credentials): Promise<User | null> {
         const res = await fetch(
-          `${process.env.NEXTAUTH_URL}/api/users/checking`,
+          `/api/users/checking`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -47,7 +47,7 @@ const authOptions: NextAuthOptions = {
         return null;
       },
     }),
-  ],
+  ], 
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
