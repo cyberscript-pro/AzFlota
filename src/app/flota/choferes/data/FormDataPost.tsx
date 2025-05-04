@@ -31,7 +31,7 @@ export function useFormDataPost({ onClose }: ChoferProps) {
   });
 
   const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<Chofer>({
-    url: "http://localhost:3000/api/choferes/",
+    url: "/api/choferes/",
     onClose,
     reset: form.reset,
   });

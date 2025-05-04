@@ -74,7 +74,7 @@ export function TarjetaCombustibleTable({ data, access = false, refetch }: Tarje
     <div>
       <div className="p-6 rounded-2xl max-w-fit mx-auto shadow-lg border bg-white overflow-auto">
         <h2 className="mt-2 text-xl font-semibold mb-4 text-gray-800">
-          Lista de Choferes
+          Lista de Tarjetas de Combustible
         </h2>
         <Table className="min-w-[600px]">
           <TableHeader>
