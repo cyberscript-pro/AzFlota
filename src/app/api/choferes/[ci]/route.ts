@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import prisma from '../../../../lib/prisma'
 import { choferSchemaUpdate } from '@/app/validations/backend/chofer-update.schema';
 
-async function findOne(ci:string) {
+async function findOne(ci: string) {
   const chofer = await prisma.chofer.findUnique({
     where: { ci, isAvailable: true },
     include: {
@@ -20,13 +20,16 @@ async function findOne(ci:string) {
   return chofer;
 }
 
-// GET driver by uuid
+type tParams = Promise<{ ci: string }>;
+
 export async function GET(
-  request: Request,
-  { params }: { params: { uuid: string } }
+  request: NextRequest,
+  { params }: { params: tParams }
 ) {
   try {
-    const chofer = await findOne(params.uuid);
+    const { ci } = await params;
+    
+    const chofer = await findOne(ci);
 
     if (!chofer) {
       return NextResponse.json({ error: 'Driver not found' }, { status: 404 })
@@ -34,17 +37,19 @@ export async function GET(
 
     return NextResponse.json(chofer);
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching driver' }, { status: 500 })
+    return NextResponse.json({ error: 'Error fetching driver', message: error }, { status: 500 })
   }
 }
 
 export async function PATCH(
-  request: Request,
-  { params }: { params: { ci: string } }
+  request: NextRequest,
+  { params }: { params: tParams }
 ) {
   try {
 
-    const chofer = await findOne(params.ci);
+    const param = await params;
+
+    const chofer = await findOne(param.ci);
 
     if (!chofer) {
       return NextResponse.json({ error: 'Driver not found' }, { status: 404 })
@@ -54,14 +59,14 @@ export async function PATCH(
 
     const result = choferSchemaUpdate.safeParse(body);
 
-    if(result.error) {
+    if (result.error) {
       return NextResponse.json(result.error, { status: 400 });
     }
 
     const { nombre, edad, sexo, ci, licencia, telefono } = result.data;
-    
+
     const updated = await prisma.chofer.update({
-      where: { ci: params.ci },
+      where: { ci: param.ci },
       data: {
         nombre,
         edad,
@@ -81,33 +86,36 @@ export async function PATCH(
         },
       },
     })
-    
+
     return NextResponse.json(updated);
   } catch (error) {
-    return NextResponse.json({ error: 'Error updating driver' }, { status: 500 })
+    return NextResponse.json({ error: 'Error updating driver', message: error }, { status: 500 })
   }
 }
 
 export async function DELETE(
-  request: Request,
-  { params }: { params: { ci: string } }
+  request: NextRequest,
+  { params }: { params: tParams }
 ) {
   try {
-    const chofer = await findOne(params.ci);
+
+    const { ci } = await params;
+
+    const chofer = await findOne(ci);
 
     if (!chofer) {
       return NextResponse.json({ error: 'Chofer no encontrado' }, { status: 404 })
     }
 
     await prisma.chofer.update({
-      where: { ci: params.ci },
+      where: { ci },
       data: {
         isAvailable: false
       }
     })
-    
+
     return NextResponse.json({ message: 'Driver deleted successfully' })
   } catch (error) {
-    return NextResponse.json({ error: 'Error deleting driver' }, { status: 500 })
+    return NextResponse.json({ error: 'Error deleting driver', message: error }, { status: 500 })
   }
 } 

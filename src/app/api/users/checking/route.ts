@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ exists: user });
     }
   } catch (error) {
-    return NextResponse.json({ error: "Error fetching user" }, { status: 500 });
+    return NextResponse.json({ error: "Error fetching user", message: error }, { status: 500 });
   }
 }
 
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching credentials" },
+      { error: "Error fetching credentials", message: error },
       { status: 500 }
     );
   }

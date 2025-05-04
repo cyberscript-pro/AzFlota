@@ -20,24 +20,17 @@ async function findOne(uuid:string) {
   return tarjeta;
 }
 
+type tParams = Promise<{ uuid: string }>
+
 export async function GET(
   request: Request,
-  { params }: { params: { uuid: string } }
+  { params }: { params: tParams }
 ) {
   try {
-    const tarjeta = await prisma.tarjetaCombustible.findUnique({
-      where: { uuid: params.uuid },
-      include: {
-        vehiculo: {
-          select: {
-            uuid: true,
-            chapa: true,
-            marca: true,
-            tipo: true,
-          },
-        },
-      },
-    })
+
+    const { uuid } = await params;
+
+    const tarjeta = await findOne(uuid);
 
     if (!tarjeta) {
       return NextResponse.json({ error: 'Fuel card not found' }, { status: 404 })
@@ -45,18 +38,20 @@ export async function GET(
 
     return NextResponse.json(tarjeta)
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching fuel card' }, { status: 500 })
+    return NextResponse.json({ error: 'Error fetching fuel card', message: error }, { status: 500 })
   }
 }
 
 // PATCH update fuel card
 export async function PATCH(
   request: Request,
-  { params }: { params: { uuid: string } }
+  { params }: { params: tParams }
 ) {
   try {
 
-    const tarjetaExists = await findOne(params.uuid);
+    const { uuid } = await params;
+
+    const tarjetaExists = await findOne(uuid);
 
     if (!tarjetaExists) {
       return NextResponse.json({ error: 'Fuel card not found' }, { status: 404 })
@@ -75,7 +70,7 @@ export async function PATCH(
     const vencimiento = dateSchema.parse(fecha_vencimiento);
     
     const tarjeta = await prisma.tarjetaCombustible.update({
-      where: { uuid: params.uuid },
+      where: { uuid },
       data: {
         numero,
         pin: pin,
@@ -103,11 +98,20 @@ export async function PATCH(
 // DELETE fuel card
 export async function DELETE(
   request: Request,
-  { params }: { params: { uuid: string } }
+  { params }: { params: tParams }
 ) {
   try {
+
+    const { uuid } = await params;
+
+    const tarjeta = await findOne(uuid);
+
+    if (!tarjeta) {
+      return NextResponse.json({ error: 'Fuel card not found' }, { status: 404 })
+    }
+
     await prisma.tarjetaCombustible.update({
-      where: { uuid: params.uuid },
+      where: { uuid },
       data: {
         isAvailable: false
       }
@@ -115,6 +119,6 @@ export async function DELETE(
     
     return NextResponse.json({ message: 'Fuel card deleted successfully' })
   } catch (error) {
-    return NextResponse.json({ error: 'Error deleting fuel card' }, { status: 500 })
+    return NextResponse.json({ error: 'Error deleting fuel card', message: error }, { status: 500 })
   }
 } 

@@ -2,13 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import prisma from '../../../lib/prisma'
 import { tarjetaSchemaPost, dateSchema } from '@/app/validations/backend/tarjeta-post.schema'
 
-export enum State {
-  ACTIVO = 'Active',
-  INACTIVO = 'Inactive',
-  BLOQUEADO = 'Blocked',
-  VENCIDO = 'Expired'
-}
-
 export async function GET(
   request: NextRequest,
 ) {
@@ -62,7 +55,7 @@ export async function GET(
       },
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching fuel cards'}, { status: 500 })
+    return NextResponse.json({ error: 'Error fetching fuel cards', message: error }, { status: 500 })
   }
 }
 

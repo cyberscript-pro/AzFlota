@@ -8,7 +8,6 @@ export async function GET() {
   try {
     const users = await prisma.user.findMany({
       select: {
-        id: true,
         nickname: true,
         nombre: true,
         ci: true,
@@ -22,7 +21,7 @@ export async function GET() {
     return NextResponse.json(users);
   } catch (error) {
     return NextResponse.json(
-      { error: "Error fetching users" },
+      { error: "Error fetching users", message: error },
       { status: 500 }
     );
   }
@@ -67,7 +66,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json(
       {
-        id: user.id,
         nickname: user.nickname,
         role: user.role,
         isAvailable: user.isAvailable,
@@ -75,6 +73,6 @@ export async function POST(request: Request) {
       { status: 201 }
     );
   } catch (error) {
-    return NextResponse.json({ error: "Error creating user" }, { status: 500 });
+    return NextResponse.json({ error: "Error creating user", message: error }, { status: 500 });
   }
 }

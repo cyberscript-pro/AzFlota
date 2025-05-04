@@ -15,7 +15,6 @@ export async function GET() {
         },
         chofer: {
           select: {
-            uuid: true,
             nombre: true,
             ci: true,
             licencia: true,
@@ -40,7 +39,7 @@ export async function GET() {
 // POST create new vehicle
 export async function POST(request: Request) {
   try {
-    const { chapa, marca, tipo, jefe, isAvailable, areaTrabajoUuid, choferUuid } = await request.json()
+    const { chapa, marca, tipo, jefe, isAvailable, areaTrabajoUuid, choferCI } = await request.json()
     
     const vehiculo = await prisma.vehiculo.create({
       data: {
@@ -50,7 +49,7 @@ export async function POST(request: Request) {
         jefe,
         isAvailable,
         areaTrabajoUuid,
-        choferUuid,
+        choferCI,
       },
       include: {
         areaTrabajo: {
@@ -62,7 +61,6 @@ export async function POST(request: Request) {
         },
         chofer: {
           select: {
-            uuid: true,
             nombre: true,
             ci: true,
             licencia: true,
@@ -81,6 +79,6 @@ export async function POST(request: Request) {
     
     return NextResponse.json(vehiculo, { status: 201 })
   } catch (error) {
-    return NextResponse.json({ error: 'Error creating vehicle' }, { status: 500 })
+    return NextResponse.json({ error: 'Error creating vehicle', message: error }, { status: 500 })
   }
 } 

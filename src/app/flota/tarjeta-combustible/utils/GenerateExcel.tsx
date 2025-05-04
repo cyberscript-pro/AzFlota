@@ -1,17 +1,17 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { ChoferFront } from "./types";
+import { TarjetaFront } from "./types";
 
 interface GenerateExcelProps {
-  data: ChoferFront[];
+  data: TarjetaFront[];
   fileName?: string;
 }
 
 export async function GenerateExcel({ data }: GenerateExcelProps) {
   const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet("Reporte de Choferes");
+  const worksheet = workbook.addWorksheet("Reporte de Tarjetas de Combustible");
 
-  const columns = [
+  /*const columns = [
     { header: "Nombre y Apellidos", key: "nombre", width: 30 },
     { header: "Edad", key: "licencia", width: 20 },
     { header: "Sexo", key: "licencia", width: 20 },
@@ -80,5 +80,5 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
+  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");*/
 }

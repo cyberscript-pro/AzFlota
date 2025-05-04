@@ -86,7 +86,7 @@ export async function POST(request: Request) {
     return NextResponse.json(chofer, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { error: "Error creando chofer" },
+      { error: "Error creando chofer", message: error },
       { status: 500 }
     );
   }

@@ -7,8 +7,7 @@ export type LoginInputs = {
   password: string;
 };
 
-export default async function Home() {
-  const router = useRouter();
+export default function Home() {
 
   const { data: session, status } = useSession();
 
