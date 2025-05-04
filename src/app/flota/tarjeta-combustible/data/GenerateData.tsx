@@ -6,7 +6,7 @@ import { GenerateExcel } from "../utils/GenerateExcel";
 
 function GenerateData() {
   const { loading, data } = useApiGet<Tarjeta>({
-    url: "http://localhost:3000/api/tarjetas-combustible?page=1",
+    url: "/api/tarjetas-combustible?page=1",
   });
 
   const { dataFront } = TarjetaCombustibleMapper.fromApiToFront(data);

@@ -67,7 +67,7 @@ export function TarjetaCombustibleTable({ data, access = false, refetch }: Tarje
   const { onDelete } = useApiDelete();
 
   const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `http://localhost:3000/api/tarjetas-combustible/${id}` });
+    onDelete({ url: `/api/tarjetas-combustible/${id}` });
   };
 
   return (

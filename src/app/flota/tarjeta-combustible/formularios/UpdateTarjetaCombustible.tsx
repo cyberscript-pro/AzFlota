@@ -30,7 +30,7 @@ function UpdateTarjetaCombustible({
   onSuccess
 }: UpdateTarjetaCombustibleProps) {
   const { loading, error, updateData } = useApiUpdate<TarjetaUpdate>({
-    url: `http://localhost:3000/api/tarjetas-combustible/${id}`,
+    url: `/api/tarjetas-combustible/${id}`,
     onSuccess: async () => {
       toast.success("Tarjeta Combustible actualizada correctamente");
       if (onSuccess) {

@@ -69,7 +69,7 @@ function TarjetasCombustibleContent() {
 
   // Custom hooks con memoización de la URL
   const apiUrl = useMemo(
-    () => `http://localhost:3000/api/tarjetas-combustible?page=${state.pageActual}&limit=${10}`,
+    () => `/api/tarjetas-combustible?page=${state.pageActual}&limit=${10}`,
     [state.pageActual]
   );
 

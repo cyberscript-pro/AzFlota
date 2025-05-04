@@ -28,7 +28,7 @@ export function useFormDataPost({ onClose }: ChoferProps) {
   });
 
   const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<TarjetaPost>({
-    url: "http://localhost:3000/api/tarjetas-combustible/",
+    url: "/api/tarjetas-combustible/",
     onClose,
     reset: form.reset,
   });
