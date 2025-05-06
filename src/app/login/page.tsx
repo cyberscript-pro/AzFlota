@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { Toaster, toast } from "sonner";
 import AuthModal from "../components/AuthModal";
 import ModalBasicStyle from "../components/ModalBasicStyle";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,16 +50,22 @@ export default function Login() {
     });
 
     if (res && res.ok) {
+      toast.success("Usted a iniciado sesion correctamente");
       router.push("/dashboard");
+      router.refresh();
     } else {
       setLoginError("Usuario o contraseña incorrectos");
       setIsLoading(false);
     }
   };
 
-  console.log(loginError);
+  if(loginError !== "") {
+    toast.error(loginError);
+  }
+
   return (
     <div>
+      <Toaster richColors />
       <AuthModal isOpen={!isLogin} onClose={() => setIsLogin(false)}>
         <ModalBasicStyle title="Inicio de Sesion">
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -120,7 +127,8 @@ export default function Login() {
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse justify-between sm:px-6">
               <button
                 type="submit"
-                className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
+                className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${isLoading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
               >
                 {isLoading ? "Iniciando Sesion..." : "Iniciar Sesion"}
               </button>

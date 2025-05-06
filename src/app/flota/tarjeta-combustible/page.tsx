@@ -56,7 +56,7 @@ function TarjetasCombustibleContent() {
 
   // State declarations usando un reducer para optimizar el manejo del estado
   const [state, setState] = useState({
-    isCreateChofer: false,
+    isCreateTarjetaCombustible: false,
     isReporte: false,
     selectedValue: "pdf",
     pageActual: 1,
@@ -217,17 +217,17 @@ function TarjetasCombustibleContent() {
           />
 
           <Modal
-            isOpen={state.isCreateChofer}
-            onClose={() => setState(prev => ({ ...prev, isCreateChofer: false }))}
+            isOpen={state.isCreateTarjetaCombustible}
+            onClose={() => setState(prev => ({ ...prev, isCreateTarjetaCombustible: false }))}
           >
             <ModalBasicStyle
-              title="Registro de Choferes"
+              title="Registro de Tarjeta de Combustible"
               classNameTitle="text-gray-900"
               classNameContainer=""
             >
               <AddTarjetaCombustible
                 form={form}
-                onClose={() => setState(prev => ({ ...prev, isCreateChofer: false }))}
+                onClose={() => setState(prev => ({ ...prev, isCreateTarjetaCombustible: false }))}
                 onSubmit={onSubmit}
               />
             </ModalBasicStyle>
@@ -237,7 +237,7 @@ function TarjetasCombustibleContent() {
             <div className="fixed right-0 bottom-0 m-5 z-50">
               <ModalButton
                 className="bg-blue-900 rounded-4xl p-2 hover:bg-blue-700 transition duration-150 ease-in-out"
-                onClick={() => setState(prev => ({ ...prev, isCreateChofer: true }))}
+                onClick={() => setState(prev => ({ ...prev, isCreateTarjetaCombustible: true }))}
               >
                 <MemoizedImage
                   src="/add.svg"

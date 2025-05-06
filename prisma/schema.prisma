@@ -59,7 +59,7 @@ model Chofer {
 model AreaTrabajo {
   uuid         String    @id @default(uuid())
   nombre       String
-  descripcion  String
+  centro_costo String
   jefe         String
   isAvailable  Boolean   @default(true)
   vehiculos    Vehiculo[]

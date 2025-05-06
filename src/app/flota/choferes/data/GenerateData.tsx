@@ -11,7 +11,6 @@ function GenerateData() {
 
   const { dataFront } = ChoferMapper.fromApiToFront(data);
 
-  // Instancia las funciones siempre, no condicionalmente
   const { generatePDF } = GeneratePDF({ data: dataFront });
 
   const generate = async(value: string) => {

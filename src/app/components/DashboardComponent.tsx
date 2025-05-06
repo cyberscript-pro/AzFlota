@@ -25,7 +25,7 @@ type DashboardComponentProps = {
   areas: number;
   tarjetas: number;
   cargas: number;
-  mantenimiento: number
+  mantenimiento: number;
 };
 
 export default function DashboardComponent({
@@ -73,10 +73,12 @@ export default function DashboardComponent({
     <main className="flex-1 p-6 bg-gray-50">
       <header className="mb-6 flex justify-between items-center">
         <div>
-        <h1 className="text-3xl font-semibold text-gray-800">Dashboard</h1>
-        <p className="text-gray-600">lunes, 7 de abril de 2025</p>
+          <h1 className="text-3xl font-semibold text-gray-800">Dashboard</h1>
+          <p className="text-gray-600">lunes, 7 de abril de 2025</p>
         </div>
-        <LogoutButton />
+        <div className="flex justify-center items-center">
+          <LogoutButton />
+        </div>
       </header>
 
       {/* Cards */}
