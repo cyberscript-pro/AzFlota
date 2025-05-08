@@ -1,5 +1,5 @@
 import useApiGet from "@/app/hooks/useApiGet";
-import { Tarjeta } from "../utils/types";
+import { Tarjeta } from "../../../types/tarjeta-types";
 import { TarjetaCombustibleMapper } from "../mappers/tarjeta-combustible.mapper";
 import GeneratePDF from "../utils/GeneratePDF";
 import { GenerateExcel } from "../utils/GenerateExcel";
@@ -13,7 +13,7 @@ function GenerateData() {
 
   const { generatePDF } = GeneratePDF({ data: dataFront });
 
-  const generate = async(value: string) => {
+  const generate = async (value: string) => {
     if (!loading) {
       if (value === "pdf") {
         generatePDF();
@@ -24,9 +24,8 @@ function GenerateData() {
   };
 
   return {
-    generate
-  }
+    generate,
+  };
 }
 
 export default GenerateData;
-

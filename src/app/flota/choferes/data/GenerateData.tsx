@@ -1,5 +1,5 @@
 import useApiGet from "@/app/hooks/useApiGet";
-import { Chofer } from "../utils/types";
+import { Chofer } from "../../../types/choferes-types";
 import { ChoferMapper } from "../mappers/chofer.mapper";
 import GeneratePDF from "../utils/GeneratePDF";
 import { GenerateExcel } from "../utils/GenerateExcel";
@@ -13,7 +13,7 @@ function GenerateData() {
 
   const { generatePDF } = GeneratePDF({ data: dataFront });
 
-  const generate = async(value: string) => {
+  const generate = async (value: string) => {
     if (!loading) {
       if (value === "pdf") {
         generatePDF();
@@ -24,9 +24,8 @@ function GenerateData() {
   };
 
   return {
-    generate
-  }
+    generate,
+  };
 }
 
 export default GenerateData;
-

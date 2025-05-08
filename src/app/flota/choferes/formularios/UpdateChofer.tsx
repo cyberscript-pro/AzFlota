@@ -5,7 +5,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import { Chofer, ChoferFront, ChoferPost } from "../utils/types";
+import { Chofer, ChoferFront, ChoferPost } from "../../../types/choferes-types";
 import useApiUpdate from "../../../hooks/useApiUpdate";
 import InputSelect from "../components/InputSelect";
 import { Form } from "@/components/ui/form";
@@ -34,7 +34,7 @@ function UpdateChofer({
   form,
   data,
   onClose,
-  onSuccess
+  onSuccess,
 }: UpdateChoferProps) {
   const { loading, error, updateData } = useApiUpdate<Chofer>({
     url: `/api/choferes/${id}`,
@@ -44,7 +44,7 @@ function UpdateChofer({
         await onSuccess();
       }
       onClose();
-    }
+    },
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -113,10 +113,10 @@ function UpdateChofer({
               type="submit"
               disabled={loading}
               className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
-                loading ? 'opacity-50 cursor-not-allowed' : ''
+                loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              {loading ? 'Actualizando...' : 'Actualizar'}
+              {loading ? "Actualizando..." : "Actualizar"}
             </button>
             <button
               type="button"

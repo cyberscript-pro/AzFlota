@@ -2,7 +2,7 @@ import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useApiPost from "../../../hooks/useApiPost";
-import { Chofer } from "../utils/types";
+import { Chofer, ChoferPost } from "../../../types/choferes-types";
 
 type ChoferProps = {
   onClose: () => void;
@@ -30,11 +30,12 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     },
   });
 
-  const { loadingPost, onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<Chofer>({
-    url: "/api/choferes/",
-    onClose,
-    reset: form.reset,
-  });
+  const { loadingPost, onSubmitData, submitSuccess, setSubmitSuccess } =
+    useApiPost<ChoferPost>({
+      url: "/api/choferes/",
+      onClose,
+      reset: form.reset,
+    });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     onSubmitData({
@@ -52,6 +53,6 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     submitSuccess,
     onSubmit,
     setSubmitSuccess,
-    loadingPost
+    loadingPost,
   };
 }

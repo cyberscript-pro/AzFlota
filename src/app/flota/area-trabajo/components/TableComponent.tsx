@@ -1,4 +1,3 @@
-// components/UserTable.tsx
 import {
   Table,
   TableBody,
@@ -7,21 +6,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { AreaTrabajoFront } from "../utils/types";
-import ModalButton from "../../components/ModalButton";
+import { AreaTrabajoFront } from "../../../types/area-types";
+import ModalButton from "../../../components/ModalButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
-import Modal from "../../components/modal";
+import Modal from "../../../components/modal";
 import UpdateAreaTrabajo from "../formularios/UpdateAreaTrabajo";
 import { areaSchemaPost } from "@/app/validations/frontend/area-trabajo.schema";
 
 type ChoferTableProps = {
   data: AreaTrabajoFront[];
   access?: boolean;
-  refetch: () => Promise<void>
+  refetch: () => Promise<void>;
 };
 
 type DataDelete = {
@@ -42,7 +40,11 @@ export type Inputs = {
   jefe: string;
 };
 
-export function AreaTrabajoTable({ data, access = false, refetch }: ChoferTableProps) {
+export function AreaTrabajoTable({
+  data,
+  access = false,
+  refetch,
+}: ChoferTableProps) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
@@ -111,7 +113,11 @@ export function AreaTrabajoTable({ data, access = false, refetch }: ChoferTableP
                   {data.jefe}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                  vehiculos
+                  {data.vehiculos
+                    ? data.vehiculos
+                        ?.map((vehiculo) => vehiculo.chapa)
+                        .join(", ")
+                    : "No asignado"}
                 </TableCell>
                 {access && (
                   <TableCell className="py-3 px-4 text-gray-700 w-[100px]">

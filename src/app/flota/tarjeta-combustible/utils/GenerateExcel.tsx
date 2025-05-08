@@ -1,6 +1,6 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { TarjetaFront } from "./types";
+import { TarjetaFront } from "../../../types/tarjeta-types";
 
 interface GenerateExcelProps {
   data: TarjetaFront[];

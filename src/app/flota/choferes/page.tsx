@@ -1,14 +1,21 @@
 "use client";
 
-import React, { Suspense, useEffect, useState, useCallback, memo, useMemo } from "react";
-import dynamic from 'next/dynamic';
+import React, {
+  Suspense,
+  useEffect,
+  useState,
+  useCallback,
+  memo,
+  useMemo,
+} from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 
 import useApiGet from "../../hooks/useApiGet";
-import { Chofer, ChoferFront } from "./utils/types";
+import { Chofer, ChoferFront } from "../../types/choferes-types";
 import LoadingSpinner from "@/app/components/loading";
 import { ChoferMapper } from "./mappers/chofer.mapper";
 import { ChoferTable } from "./components/TableComponent";
@@ -16,26 +23,32 @@ import { useFormDataPost } from "./data/FormDataPost";
 import UpdateChofer from "./formularios/UpdateChofer";
 
 // Importaciones dinámicas para reducir el bundle inicial
-const Modal = dynamic(() => import("@/app/flota/components/modal"), {
+const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
-  ssr: false
+  ssr: false,
 });
 
-const ModalGenerateReporte = dynamic(() => import("./components/ModalGenerateReporte"), {
-  loading: () => <LoadingSpinner />,
-  ssr: false
-});
+const ModalGenerateReporte = dynamic(
+  () => import("./components/ModalGenerateReporte"),
+  {
+    loading: () => <LoadingSpinner />,
+    ssr: false,
+  }
+);
 
-const ModalBasicStyle = dynamic(() => import("../../components/ModalBasicStyle"), {
-  ssr: false
-});
+const ModalBasicStyle = dynamic(
+  () => import("../../components/ModalBasicStyle"),
+  {
+    ssr: false,
+  }
+);
 
 const AddChofer = dynamic(() => import("./formularios/AddChofer"), {
-  ssr: false
+  ssr: false,
 });
 
-const ModalButton = dynamic(() => import("../components/ModalButton"), {
-  ssr: false
+const ModalButton = dynamic(() => import("../../components/ModalButton"), {
+  ssr: false,
 });
 
 // Componentes memorizados
@@ -47,7 +60,7 @@ function Choferes() {
     <Suspense fallback={<LoadingSpinner />}>
       <ChoferesContent />
     </Suspense>
-  )
+  );
 }
 
 function ChoferesContent() {
@@ -64,7 +77,7 @@ function ChoferesContent() {
     permisoEscritura: false,
     permisoTotal: false,
     selectedChofer: null as ChoferFront | null,
-    isEditChofer: false
+    isEditChofer: false,
   });
 
   // Custom hooks con memoización de la URL
@@ -79,7 +92,7 @@ function ChoferesContent() {
 
   const { form, onSubmit, loadingPost } = useFormDataPost({
     onClose: () => {
-      setState(prev => ({ ...prev, isCreateChofer: false }));
+      setState((prev) => ({ ...prev, isCreateChofer: false }));
       toast.success("Chofer creado correctamente");
       refetch();
     },
@@ -98,48 +111,40 @@ function ChoferesContent() {
     }
 
     const role = session.user.role;
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       permisoLectura: true,
       permisoEscritura: ["encargado", "supervisor"].includes(role),
-      permisoTotal: role === "supervisor"
+      permisoTotal: role === "supervisor",
     }));
   }, [session, router]);
 
   // Handlers memorizados
-  const handleNavigate = useCallback((path: string) => {
-    router.push(path);
-  }, [router]);
+  const handleNavigate = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router]
+  );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(prev => ({ ...prev, selectedValue: e.target.value }));
+    setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
 
-  const handlePageChange = useCallback((direction: 'next' | 'prev') => {
-    setState(prev => ({
+  const handlePageChange = useCallback((direction: "next" | "prev") => {
+    setState((prev) => ({
       ...prev,
-      pageActual: direction === 'next' ? prev.pageActual + 1 : prev.pageActual - 1
+      pageActual:
+        direction === "next" ? prev.pageActual + 1 : prev.pageActual - 1,
     }));
   }, []);
 
-  // const handleEdit = useCallback((ci: string) => {
-  //   const chofer = memoizedDataFront.find(c => c.ci === ci);
-  //   if (chofer) {
-  //     setState(prev => ({
-  //       ...prev,
-  //       selectedChofer: chofer,
-  //       isEditChofer: true
-  //     }));
-  //   }
-  // }, [memoizedDataFront]);
-
   const handleUpdateSuccess = useCallback(async () => {
     await refetch();
-    // Forzar una actualización del estado para asegurar que la tabla se refresque
-    setState(prev => ({ ...prev }));
+    setState((prev) => ({ ...prev }));
   }, [refetch]);
 
-  if (status === "loading") {
+  if (status === "loading" || loading) {
     return (
       <div className="fixed inset-0 z-50 flex justify-center items-center">
         <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
@@ -151,7 +156,7 @@ function ChoferesContent() {
           loading="lazy"
         />
       </div>
-    )
+    );
   }
   if (error) return <div>Error {error}</div>;
 
@@ -182,7 +187,9 @@ function ChoferesContent() {
               </h1>
               <div className="flex">
                 <button
-                  onClick={() => setState(prev => ({ ...prev, isReporte: true }))}
+                  onClick={() =>
+                    setState((prev) => ({ ...prev, isReporte: true }))
+                  }
                   className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
                 >
                   Generar Reporte
@@ -203,22 +210,26 @@ function ChoferesContent() {
 
           <ModalGenerateReporte
             isOpen={state.isReporte}
-            onClose={() => setState(prev => ({ ...prev, isReporte: false }))}
+            onClose={() => setState((prev) => ({ ...prev, isReporte: false }))}
             selectedValue={state.selectedValue}
             onChange={handleChange}
             radioButtonProps={[
               { title: "Reporte en PDF", name: "reporte", value: "pdf" },
-              { title: "Reporte en Excel", name: "reporte", value: "excel" }
+              { title: "Reporte en Excel", name: "reporte", value: "excel" },
             ]}
             onClickReporte={() => {
-              setState(prev => ({ ...prev, isReporte: false }));
+              setState((prev) => ({ ...prev, isReporte: false }));
             }}
-            onClickCancelar={() => setState(prev => ({ ...prev, isReporte: false }))}
+            onClickCancelar={() =>
+              setState((prev) => ({ ...prev, isReporte: false }))
+            }
           />
 
           <Modal
             isOpen={state.isCreateChofer}
-            onClose={() => setState(prev => ({ ...prev, isCreateChofer: false }))}
+            onClose={() =>
+              setState((prev) => ({ ...prev, isCreateChofer: false }))
+            }
           >
             <ModalBasicStyle
               title="Registro de Choferes"
@@ -227,7 +238,9 @@ function ChoferesContent() {
             >
               <AddChofer
                 form={form}
-                onClose={() => setState(prev => ({ ...prev, isCreateChofer: false }))}
+                onClose={() =>
+                  setState((prev) => ({ ...prev, isCreateChofer: false }))
+                }
                 onSubmit={onSubmit}
                 loading={loadingPost}
               />
@@ -238,7 +251,9 @@ function ChoferesContent() {
             <div className="fixed right-0 bottom-0 m-5 z-50">
               <ModalButton
                 className="bg-blue-900 rounded-4xl p-2 hover:bg-blue-700 transition duration-150 ease-in-out"
-                onClick={() => setState(prev => ({ ...prev, isCreateChofer: true }))}
+                onClick={() =>
+                  setState((prev) => ({ ...prev, isCreateChofer: true }))
+                }
               >
                 <MemoizedImage
                   src="/add.svg"
@@ -255,7 +270,7 @@ function ChoferesContent() {
             <div className="w-lg mx-auto flex justify-between items-center">
               <ModalButton
                 disabled={!pagination?.hasPrevPage}
-                onClick={() => handlePageChange('prev')}
+                onClick={() => handlePageChange("prev")}
                 className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               >
                 <MemoizedImage
@@ -278,7 +293,7 @@ function ChoferesContent() {
 
               <ModalButton
                 disabled={!pagination?.hasNextPage}
-                onClick={() => handlePageChange('next')}
+                onClick={() => handlePageChange("next")}
                 className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
               >
                 <MemoizedImage
@@ -294,7 +309,9 @@ function ChoferesContent() {
 
           <Modal
             isOpen={state.isEditChofer}
-            onClose={() => setState(prev => ({ ...prev, isEditChofer: false }))}
+            onClose={() =>
+              setState((prev) => ({ ...prev, isEditChofer: false }))
+            }
           >
             <ModalBasicStyle
               title="Editar Chofer"
@@ -306,7 +323,9 @@ function ChoferesContent() {
                   id={state.selectedChofer.ci}
                   form={form}
                   data={state.selectedChofer}
-                  onClose={() => setState(prev => ({ ...prev, isEditChofer: false }))}
+                  onClose={() =>
+                    setState((prev) => ({ ...prev, isEditChofer: false }))
+                  }
                   onSuccess={handleUpdateSuccess}
                 />
               )}

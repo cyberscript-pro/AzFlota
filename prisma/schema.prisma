@@ -74,8 +74,7 @@ model TarjetaCombustible {
   estado            State     @default(Active)
   fecha_vencimiento DateTime @db.Date
   isAvailable       Boolean   @default(true)
-  vehiculo          Vehiculo? @relation(fields: [vehiculoUuid], references: [uuid])
-  vehiculoUuid      String?  @unique
+  vehiculo          Vehiculo?
 
   @@map("tarjetas-combustible")
 }
@@ -85,7 +84,6 @@ model Vehiculo {
   chapa           String
   marca           String
   tipo            String
-  jefe            String
   isAvailable       Boolean           @default(true)
   
   areaTrabajo     AreaTrabajo       @relation(fields: [areaTrabajoUuid], references: [uuid])
@@ -94,7 +92,8 @@ model Vehiculo {
   chofer          Chofer?           @relation(fields: [choferCI], references: [ci])
   choferCI      String?
   
-  tarjeta         TarjetaCombustible?
+  tarjeta          TarjetaCombustible? @relation(fields: [tarjetaUuid], references: [uuid])
+  tarjetaUuid      String?  @unique
 
   @@map("vehiculos")
 }

@@ -2,7 +2,7 @@ import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useApiPost from "../../../hooks/useApiPost";
-import { Tarjeta, TarjetaPost } from "../utils/types";
+import { Tarjeta, TarjetaPost } from "../../../types/tarjeta-types";
 import { tarjetaSchemaPost } from "@/app/validations/frontend/tarjeta-post.schema";
 
 type ChoferProps = {
@@ -27,11 +27,12 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     },
   });
 
-  const { onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<TarjetaPost>({
-    url: "/api/tarjetas-combustible/",
-    onClose,
-    reset: form.reset,
-  });
+  const { onSubmitData, submitSuccess, setSubmitSuccess } =
+    useApiPost<TarjetaPost>({
+      url: "/api/tarjetas-combustible/",
+      onClose,
+      reset: form.reset,
+    });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     onSubmitData({

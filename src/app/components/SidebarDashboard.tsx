@@ -7,6 +7,10 @@ import {
   Calendar,
   Box,
   Settings,
+  Fence, 
+  IdCard, 
+  CreditCard,
+  Grid2x2
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import SidebarButton from "./SidebarButton";
@@ -20,8 +24,8 @@ function SidebarDashboard() {
   }, [router]);
 
   return (
-    <header className="w-80 sidebar h-screen">
-      <aside className="w-80 h-screen p-6 text-white">
+    <header className="w-[350px] sidebar h-screen">
+      <aside className="w-[350px] h-screen p-6 text-white">
         <div className="mb-8 flex items-center space-x-2">
           <Image src={"/logo.svg"} alt="logo" width={40} height={40} />
           <span className="text-2xl font-bold">AzFlota</span>
@@ -29,14 +33,8 @@ function SidebarDashboard() {
         <nav>
           <ul className="space-y-4">
             <SidebarButton
-              onClick={() => handleNavigate("/dashboard")}
-              icon={<Home size={20} />}
-              tooltipText="Dashboard"
-              className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
-            />
-            <SidebarButton
               onClick={() => handleNavigate("/flota/area-trabajo")}
-              icon={<Folder size={20} />}
+              icon={<Grid2x2 size={20} />}
               tooltipText="Areas de Trabajo"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
@@ -54,7 +52,7 @@ function SidebarDashboard() {
             />
             <SidebarButton
               onClick={() => handleNavigate("/flota/tarjeta-combustible")}
-              icon={<Box size={20} />}
+              icon={<IdCard size={20} />}
               tooltipText="Tarjetas de Combustible"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
@@ -72,20 +70,20 @@ function SidebarDashboard() {
             />
             <SidebarButton
               onClick={() => handleNavigate("/users")}
-              icon={<Folder size={20} />}
-              tooltipText="Usuarios"
+              icon={<Users size={20} />}
+              tooltipText="Choferes Despedidos"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
             <SidebarButton
               onClick={() => handleNavigate("")}
-              icon={<Users size={20} />}
-              tooltipText="Clientes"
+              icon={<Fence size={20} />}
+              tooltipText="Vehiculos de Baja"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
             <SidebarButton
               onClick={() => handleNavigate("/users/roles")}
-              icon={<Users size={20} />}
-              tooltipText="Roles"
+              icon={<CreditCard size={20} />}
+              tooltipText="Tarjetas de Combustible de Baja"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
           </ul>

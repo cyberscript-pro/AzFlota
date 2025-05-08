@@ -5,7 +5,12 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import { Tarjeta, TarjetaFront, TarjetaPost, TarjetaUpdate } from "../utils/types";
+import {
+  Tarjeta,
+  TarjetaFront,
+  TarjetaPost,
+  TarjetaUpdate,
+} from "../../../types/tarjeta-types";
 import useApiUpdate from "../../../hooks/useApiUpdate";
 import InputSelect from "../components/InputSelect";
 import { Form } from "@/components/ui/form";
@@ -27,7 +32,7 @@ function UpdateTarjetaCombustible({
   form,
   data,
   onClose,
-  onSuccess
+  onSuccess,
 }: UpdateTarjetaCombustibleProps) {
   const { loading, error, updateData } = useApiUpdate<TarjetaUpdate>({
     url: `/api/tarjetas-combustible/${id}`,
@@ -37,7 +42,7 @@ function UpdateTarjetaCombustible({
         await onSuccess();
       }
       onClose();
-    }
+    },
   });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -47,7 +52,7 @@ function UpdateTarjetaCombustible({
         numero: data.numero,
         pin: parseInt(data.pin),
         estado: data.estado,
-        fecha_vencimiento: data.fecha_vencimiento
+        fecha_vencimiento: data.fecha_vencimiento,
       });
     } catch (error) {
       toast.error("Error al actualizar la tarjeta combustible");
@@ -57,10 +62,7 @@ function UpdateTarjetaCombustible({
   return (
     <div>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 space-y-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
           <InputComponent
             name="numero"
             label="Numero de Tarjeta"

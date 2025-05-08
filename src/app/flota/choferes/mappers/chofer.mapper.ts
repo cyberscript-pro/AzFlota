@@ -1,8 +1,7 @@
 import { DataUpdate } from "../components/TableComponent";
-import { Chofer, ChoferFront } from "../utils/types";
+import { Chofer, ChoferFront } from "../../../types/choferes-types";
 
 export class ChoferMapper {
-
   static fromApiToFront(choferes?: Chofer[]): { dataFront: ChoferFront[] } {
     const dataFront: ChoferFront[] = [];
 
@@ -14,6 +13,7 @@ export class ChoferMapper {
         ci: chofer.ci,
         licencia: chofer.licencia,
         telefono: chofer.telefono,
+        vehiculos: chofer.vehiculos,
       })
     );
 
@@ -21,5 +21,4 @@ export class ChoferMapper {
       dataFront,
     };
   }
-
 }

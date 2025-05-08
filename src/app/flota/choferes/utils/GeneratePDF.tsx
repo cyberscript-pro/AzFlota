@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { Chofer, ChoferFront } from "./types";
+import { Chofer, ChoferFront } from "../../../types/choferes-types";
 
 interface GenerateReporte {
   data: ChoferFront[] | undefined;
@@ -17,9 +17,19 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
     autoTable(doc, {
       startY: 30,
       head: [
-        ["Nombre y Apellidos", "Carnet de Identidad", "Numero de Licencia", "Teléfono"],
+        [
+          "Nombre y Apellidos",
+          "Carnet de Identidad",
+          "Numero de Licencia",
+          "Teléfono",
+        ],
       ],
-      body: data?.map((item) => [item.nombre, item.ci, item.licencia, item.telefono]),
+      body: data?.map((item) => [
+        item.nombre,
+        item.ci,
+        item.licencia,
+        item.telefono,
+      ]),
       styles: {
         fontSize: 10,
         cellPadding: 1.5,

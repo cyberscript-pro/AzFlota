@@ -9,7 +9,8 @@ async function findOne(uuid: string) {
         select: {
           uuid: true,
           nombre: true,
-          descripcion: true,
+          centro_costo: true,
+          jefe: true
         },
       },
       chofer: {
@@ -71,7 +72,7 @@ export async function PATCH(
       return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
     }
 
-    const { chapa, marca, tipo, jefe, isAvailable, areaTrabajoUuid, choferCI } = await request.json()
+    const { chapa, marca, tipo, area, chofer, tarjeta } = await request.json()
     
     const vehiculo = await prisma.vehiculo.update({
       where: { uuid },
@@ -79,17 +80,17 @@ export async function PATCH(
         chapa,
         marca,
         tipo,
-        jefe,
-        isAvailable,
-        areaTrabajoUuid,
-        choferCI,
+        areaTrabajoUuid: area,
+        choferCI: chofer,
+        tarjetaUuid: tarjeta
       },
       include: {
         areaTrabajo: {
           select: {
             uuid: true,
             nombre: true,
-            descripcion: true,
+            centro_costo: true,
+            jefe: true
           },
         },
         chofer: {

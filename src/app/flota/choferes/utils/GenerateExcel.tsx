@@ -1,6 +1,6 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { ChoferFront } from "./types";
+import { ChoferFront } from "../../../types/choferes-types";
 
 interface GenerateExcelProps {
   data: ChoferFront[];

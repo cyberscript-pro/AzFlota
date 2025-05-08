@@ -7,20 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TarjetaFront } from "../utils/types";
-import ModalButton from "../../components/ModalButton";
+import { TarjetaFront } from "../../../types/tarjeta-types";
+import ModalButton from "../../../components/ModalButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
-import Modal from "../../components/modal";
+import Modal from "../../../components/modal";
 import UpdateTarjetaCombustible from "../formularios/UpdateTarjetaCombustible";
 import { tarjetaSchemaPost } from "@/app/validations/frontend/tarjeta-post.schema";
 
 type TarjetaCombustibleTableProps = {
   data: TarjetaFront[];
   access?: boolean;
-  refetch: () => Promise<void>
+  refetch: () => Promise<void>;
 };
 
 type DataDelete = {
@@ -43,7 +43,11 @@ export type Inputs = {
   fecha_vencimiento: string;
 };
 
-export function TarjetaCombustibleTable({ data, access = false, refetch }: TarjetaCombustibleTableProps) {
+export function TarjetaCombustibleTable({
+  data,
+  access = false,
+  refetch,
+}: TarjetaCombustibleTableProps) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
@@ -119,7 +123,7 @@ export function TarjetaCombustibleTable({ data, access = false, refetch }: Tarje
                   {data.fecha_vencimiento}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                  vehiculo
+                  {data.vehiculo ? data.vehiculo.chapa : "No Asignada"}
                 </TableCell>
                 {access && (
                   <TableCell className="py-3 px-4 text-gray-700 w-[100px]">

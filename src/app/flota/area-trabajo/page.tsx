@@ -15,7 +15,7 @@ import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 
 import useApiGet from "../../hooks/useApiGet";
-import { AreaTrabajoBack, AreaTrabajoFront } from "./utils/types";
+import { AreaTrabajoBack, AreaTrabajoFront } from "../../types/area-types";
 import LoadingSpinner from "@/app/components/loading";
 import { AreaTrabajoMapper } from "./mappers/area-trabajo.mapper";
 import { AreaTrabajoTable } from "./components/TableComponent";
@@ -23,7 +23,7 @@ import { useFormDataPost } from "./data/FormDataPost";
 import UpdateChofer from "./formularios/UpdateAreaTrabajo";
 
 // Importaciones dinámicas para reducir el bundle inicial
-const Modal = dynamic(() => import("@/app/flota/components/modal"), {
+const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
   ssr: false,
 });
@@ -47,7 +47,7 @@ const AddAreaTrabajo = dynamic(() => import("./formularios/AddAreaTrabajo"), {
   ssr: false,
 });
 
-const ModalButton = dynamic(() => import("../components/ModalButton"), {
+const ModalButton = dynamic(() => import("../../components/ModalButton"), {
   ssr: false,
 });
 
@@ -142,7 +142,7 @@ function AreaTrabajoContent() {
     setState((prev) => ({ ...prev }));
   }, [refetch]);
 
-  if (status === "loading") {
+  if (status === "loading" || loading) {
     return (
       <div className="fixed inset-0 z-50 flex justify-center items-center">
         <div className="fixed inset-0 bg-opacity-50 transition-opacity" />

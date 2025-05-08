@@ -2,7 +2,7 @@ import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useApiPost from "../../../hooks/useApiPost";
-import { AreaTrabajoPost } from "../utils/types";
+import { AreaTrabajoPost } from "../../../types/area-types";
 import { areaSchemaPost } from "@/app/validations/frontend/area-trabajo.schema";
 
 type ChoferProps = {
@@ -25,17 +25,18 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     },
   });
 
-  const { loadingPost, onSubmitData, submitSuccess, setSubmitSuccess } = useApiPost<AreaTrabajoPost>({
-    url: "/api/areas-trabajo/",
-    onClose,
-    reset: form.reset,
-  });
+  const { loadingPost, onSubmitData, submitSuccess, setSubmitSuccess } =
+    useApiPost<AreaTrabajoPost>({
+      url: "/api/areas-trabajo/",
+      onClose,
+      reset: form.reset,
+    });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     onSubmitData({
       nombre: data.nombre,
       centro_costo: data.centro_costo,
-      jefe: data.jefe
+      jefe: data.jefe,
     });
   };
 
@@ -44,6 +45,6 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     submitSuccess,
     onSubmit,
     setSubmitSuccess,
-    loadingPost
+    loadingPost,
   };
 }

@@ -11,10 +11,7 @@ export async function GET(request: NextRequest) {
       include: {
         vehiculos: {
           select: {
-            uuid: true,
             chapa: true,
-            marca: true,
-            tipo: true,
           },
         },
       },

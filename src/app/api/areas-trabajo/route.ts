@@ -6,9 +6,19 @@ export async function GET(
   request: NextRequest,
 ) {
   try {
+    const areas = await prisma.areaTrabajo.findMany({
+      include: {
+        vehiculos: {
+          select: {
+            chapa: true,
+          },
+        },
+      },
+    });
+
     const searchParams = request.nextUrl.searchParams;
     const page = Number(searchParams.get("page")) || 1;
-    const limit = Number(searchParams.get("limit")) || 10;
+    const limit = Number(searchParams.get("limit")) || areas.length;
 
     if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
       return NextResponse.json(
@@ -16,19 +26,6 @@ export async function GET(
         { status: 400 }
       );
     }
-
-    const areas = await prisma.areaTrabajo.findMany({
-      include: {
-        vehiculos: {
-          select: {
-            uuid: true,
-            chapa: true,
-            marca: true,
-            tipo: true,
-          },
-        },
-      },
-    });
 
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;

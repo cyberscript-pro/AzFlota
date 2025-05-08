@@ -1,14 +1,21 @@
 "use client";
 
-import React, { Suspense, useEffect, useState, useCallback, memo, useMemo } from "react";
-import dynamic from 'next/dynamic';
+import React, {
+  Suspense,
+  useEffect,
+  useState,
+  useCallback,
+  memo,
+  useMemo,
+} from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 
 import useApiGet from "../../hooks/useApiGet";
-import { Tarjeta, TarjetaFront } from "./utils/types";
+import { Tarjeta, TarjetaFront } from "../../types/tarjeta-types";
 import LoadingSpinner from "@/app/components/loading";
 import { TarjetaCombustibleMapper } from "./mappers/tarjeta-combustible.mapper";
 import { TarjetaCombustibleTable } from "./components/TableComponent";
@@ -16,26 +23,35 @@ import { useFormDataPost } from "./data/FormDataPost";
 import UpdateTarjetaCombustible from "./formularios/UpdateTarjetaCombustible";
 
 // Importaciones dinámicas para reducir el bundle inicial
-const Modal = dynamic(() => import("@/app/flota/components/modal"), {
+const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
-  ssr: false
+  ssr: false,
 });
 
-const ModalGenerateReporte = dynamic(() => import("./components/ModalGenerateReporte"), {
-  loading: () => <LoadingSpinner />,
-  ssr: false
-});
+const ModalGenerateReporte = dynamic(
+  () => import("./components/ModalGenerateReporte"),
+  {
+    loading: () => <LoadingSpinner />,
+    ssr: false,
+  }
+);
 
-const ModalBasicStyle = dynamic(() => import("../../components/ModalBasicStyle"), {
-  ssr: false
-});
+const ModalBasicStyle = dynamic(
+  () => import("../../components/ModalBasicStyle"),
+  {
+    ssr: false,
+  }
+);
 
-const AddTarjetaCombustible = dynamic(() => import("./formularios/AddTarjetaCombustible"), {
-  ssr: false
-});
+const AddTarjetaCombustible = dynamic(
+  () => import("./formularios/AddTarjetaCombustible"),
+  {
+    ssr: false,
+  }
+);
 
-const ModalButton = dynamic(() => import("../components/ModalButton"), {
-  ssr: false
+const ModalButton = dynamic(() => import("../../components/ModalButton"), {
+  ssr: false,
 });
 
 // Componentes memorizados
@@ -47,7 +63,7 @@ function TarjetasCombustible() {
     <Suspense fallback={<LoadingSpinner />}>
       <TarjetasCombustibleContent />
     </Suspense>
-  )
+  );
 }
 
 function TarjetasCombustibleContent() {
@@ -64,7 +80,7 @@ function TarjetasCombustibleContent() {
     permisoEscritura: false,
     permisoTotal: false,
     selectedTarjetaCombustible: null as TarjetaFront | null,
-    isEditTarjetaCombustible: false
+    isEditTarjetaCombustible: false,
   });
 
   // Custom hooks con memoización de la URL
@@ -79,7 +95,7 @@ function TarjetasCombustibleContent() {
 
   const { form, onSubmit } = useFormDataPost({
     onClose: () => {
-      setState(prev => ({ ...prev, isCreateChofer: false }));
+      setState((prev) => ({ ...prev, isCreateChofer: false }));
       toast.success("Tarjeta Combustible creada correctamente");
       refetch();
     },
@@ -98,27 +114,31 @@ function TarjetasCombustibleContent() {
     }
 
     const role = session.user.role;
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       permisoLectura: true,
       permisoEscritura: ["encargado", "supervisor"].includes(role),
-      permisoTotal: role === "supervisor"
+      permisoTotal: role === "supervisor",
     }));
   }, [session, router]);
 
   // Handlers memorizados
-  const handleNavigate = useCallback((path: string) => {
-    router.push(path);
-  }, [router]);
+  const handleNavigate = useCallback(
+    (path: string) => {
+      router.push(path);
+    },
+    [router]
+  );
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setState(prev => ({ ...prev, selectedValue: e.target.value }));
+    setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
 
-  const handlePageChange = useCallback((direction: 'next' | 'prev') => {
-    setState(prev => ({
+  const handlePageChange = useCallback((direction: "next" | "prev") => {
+    setState((prev) => ({
       ...prev,
-      pageActual: direction === 'next' ? prev.pageActual + 1 : prev.pageActual - 1
+      pageActual:
+        direction === "next" ? prev.pageActual + 1 : prev.pageActual - 1,
     }));
   }, []);
 
@@ -136,10 +156,10 @@ function TarjetasCombustibleContent() {
   const handleUpdateSuccess = useCallback(async () => {
     await refetch();
     // Forzar una actualización del estado para asegurar que la tabla se refresque
-    setState(prev => ({ ...prev }));
+    setState((prev) => ({ ...prev }));
   }, [refetch]);
 
-  if (status === "loading") {
+  if (status === "loading" || loading) {
     return (
       <div className="fixed inset-0 z-50 flex justify-center items-center">
         <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
@@ -151,8 +171,8 @@ function TarjetasCombustibleContent() {
           loading="lazy"
         />
       </div>
-    )
-  };
+    );
+  }
   if (error) return <div>Error {error}</div>;
 
   return (
@@ -182,7 +202,9 @@ function TarjetasCombustibleContent() {
               </h1>
               <div className="flex">
                 <button
-                  onClick={() => setState(prev => ({ ...prev, isReporte: true }))}
+                  onClick={() =>
+                    setState((prev) => ({ ...prev, isReporte: true }))
+                  }
                   className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
                 >
                   Generar Reporte
@@ -203,22 +225,29 @@ function TarjetasCombustibleContent() {
 
           <ModalGenerateReporte
             isOpen={state.isReporte}
-            onClose={() => setState(prev => ({ ...prev, isReporte: false }))}
+            onClose={() => setState((prev) => ({ ...prev, isReporte: false }))}
             selectedValue={state.selectedValue}
             onChange={handleChange}
             radioButtonProps={[
               { title: "Reporte en PDF", name: "reporte", value: "pdf" },
-              { title: "Reporte en Excel", name: "reporte", value: "excel" }
+              { title: "Reporte en Excel", name: "reporte", value: "excel" },
             ]}
             onClickReporte={() => {
-              setState(prev => ({ ...prev, isReporte: false }));
+              setState((prev) => ({ ...prev, isReporte: false }));
             }}
-            onClickCancelar={() => setState(prev => ({ ...prev, isReporte: false }))}
+            onClickCancelar={() =>
+              setState((prev) => ({ ...prev, isReporte: false }))
+            }
           />
 
           <Modal
             isOpen={state.isCreateTarjetaCombustible}
-            onClose={() => setState(prev => ({ ...prev, isCreateTarjetaCombustible: false }))}
+            onClose={() =>
+              setState((prev) => ({
+                ...prev,
+                isCreateTarjetaCombustible: false,
+              }))
+            }
           >
             <ModalBasicStyle
               title="Registro de Tarjeta de Combustible"
@@ -227,7 +256,12 @@ function TarjetasCombustibleContent() {
             >
               <AddTarjetaCombustible
                 form={form}
-                onClose={() => setState(prev => ({ ...prev, isCreateTarjetaCombustible: false }))}
+                onClose={() =>
+                  setState((prev) => ({
+                    ...prev,
+                    isCreateTarjetaCombustible: false,
+                  }))
+                }
                 onSubmit={onSubmit}
               />
             </ModalBasicStyle>
@@ -237,7 +271,12 @@ function TarjetasCombustibleContent() {
             <div className="fixed right-0 bottom-0 m-5 z-50">
               <ModalButton
                 className="bg-blue-900 rounded-4xl p-2 hover:bg-blue-700 transition duration-150 ease-in-out"
-                onClick={() => setState(prev => ({ ...prev, isCreateTarjetaCombustible: true }))}
+                onClick={() =>
+                  setState((prev) => ({
+                    ...prev,
+                    isCreateTarjetaCombustible: true,
+                  }))
+                }
               >
                 <MemoizedImage
                   src="/add.svg"
@@ -254,7 +293,7 @@ function TarjetasCombustibleContent() {
             <div className="w-lg mx-auto flex justify-between items-center">
               <ModalButton
                 disabled={!pagination?.hasPrevPage}
-                onClick={() => handlePageChange('prev')}
+                onClick={() => handlePageChange("prev")}
                 className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
               >
                 <MemoizedImage
@@ -277,7 +316,7 @@ function TarjetasCombustibleContent() {
 
               <ModalButton
                 disabled={!pagination?.hasNextPage}
-                onClick={() => handlePageChange('next')}
+                onClick={() => handlePageChange("next")}
                 className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
               >
                 <MemoizedImage
@@ -293,7 +332,9 @@ function TarjetasCombustibleContent() {
 
           <Modal
             isOpen={state.isEditTarjetaCombustible}
-            onClose={() => setState(prev => ({ ...prev, isEditTarjetaCombustible: false }))}
+            onClose={() =>
+              setState((prev) => ({ ...prev, isEditTarjetaCombustible: false }))
+            }
           >
             <ModalBasicStyle
               title="Editar Chofer"
@@ -305,7 +346,12 @@ function TarjetasCombustibleContent() {
                   id={state.selectedTarjetaCombustible.id}
                   form={form}
                   data={state.selectedTarjetaCombustible}
-                  onClose={() => setState(prev => ({ ...prev, isEditTarjetaCombustible: false }))}
+                  onClose={() =>
+                    setState((prev) => ({
+                      ...prev,
+                      isEditTarjetaCombustible: false,
+                    }))
+                  }
                   onSuccess={handleUpdateSuccess}
                 />
               )}

@@ -1,5 +1,5 @@
 import useApiGet from "@/app/hooks/useApiGet";
-import { AreaTrabajoBack } from "../utils/types";
+import { AreaTrabajoBack } from "../../../types/area-types";
 import { AreaTrabajoMapper } from "../mappers/area-trabajo.mapper";
 import GeneratePDF from "../utils/GeneratePDF";
 import { GenerateExcel } from "../utils/GenerateExcel";
@@ -24,9 +24,8 @@ function GenerateData() {
   };
 
   return {
-    generate
-  }
+    generate,
+  };
 }
 
 export default GenerateData;
-

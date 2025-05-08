@@ -1,9 +1,10 @@
 import { DataUpdate } from "../components/TableComponent";
-import { AreaTrabajoBack, AreaTrabajoFront } from "../utils/types";
+import { AreaTrabajoBack, AreaTrabajoFront } from "../../../types/area-types";
 
 export class AreaTrabajoMapper {
-
-  static fromApiToFront(areas?: AreaTrabajoBack[]): { dataFront: AreaTrabajoFront[] } {
+  static fromApiToFront(areas?: AreaTrabajoBack[]): {
+    dataFront: AreaTrabajoFront[];
+  } {
     const dataFront: AreaTrabajoFront[] = [];
 
     areas?.map((area) =>
@@ -11,7 +12,8 @@ export class AreaTrabajoMapper {
         id: area.uuid,
         nombre: area.nombre,
         centro_costo: area.centro_costo,
-        jefe: area.jefe
+        jefe: area.jefe,
+        vehiculos: area.vehiculos,
       })
     );
 
@@ -19,5 +21,4 @@ export class AreaTrabajoMapper {
       dataFront,
     };
   }
-
 }

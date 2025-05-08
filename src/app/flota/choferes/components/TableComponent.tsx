@@ -7,20 +7,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ChoferFront } from "../utils/types";
-import ModalButton from "../../components/ModalButton";
+import { ChoferFront } from "../../../types/choferes-types";
+import ModalButton from "../../../components/ModalButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
-import Modal from "../../components/modal";
+import Modal from "../../../components/modal";
 import UpdateChofer from "../formularios/UpdateChofer";
 
 type ChoferTableProps = {
   data: ChoferFront[];
   access?: boolean;
-  refetch: () => Promise<void>
+  refetch: () => Promise<void>;
 };
 
 type DataDelete = {
@@ -46,7 +46,11 @@ export type Inputs = {
   telefono: string;
 };
 
-export function ChoferTable({ data, access = false, refetch }: ChoferTableProps) {
+export function ChoferTable({
+  data,
+  access = false,
+  refetch,
+}: ChoferTableProps) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
@@ -135,7 +139,7 @@ export function ChoferTable({ data, access = false, refetch }: ChoferTableProps)
                   {data.telefono}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                  vehiculos
+                  {data.vehiculos?.map((vehiculo) => vehiculo.chapa).join(", ")}
                 </TableCell>
                 {access && (
                   <TableCell className="py-3 px-4 text-gray-700 w-[100px]">

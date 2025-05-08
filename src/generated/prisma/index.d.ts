@@ -304,8 +304,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.7.0
-   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
+   * Prisma Client JS version: 6.6.0
+   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
    */
   export type PrismaVersion = {
     client: string
@@ -4195,7 +4195,6 @@ export namespace Prisma {
     estado: $Enums.State | null
     fecha_vencimiento: Date | null
     isAvailable: boolean | null
-    vehiculoUuid: string | null
   }
 
   export type TarjetaCombustibleMaxAggregateOutputType = {
@@ -4205,7 +4204,6 @@ export namespace Prisma {
     estado: $Enums.State | null
     fecha_vencimiento: Date | null
     isAvailable: boolean | null
-    vehiculoUuid: string | null
   }
 
   export type TarjetaCombustibleCountAggregateOutputType = {
@@ -4215,7 +4213,6 @@ export namespace Prisma {
     estado: number
     fecha_vencimiento: number
     isAvailable: number
-    vehiculoUuid: number
     _all: number
   }
 
@@ -4235,7 +4232,6 @@ export namespace Prisma {
     estado?: true
     fecha_vencimiento?: true
     isAvailable?: true
-    vehiculoUuid?: true
   }
 
   export type TarjetaCombustibleMaxAggregateInputType = {
@@ -4245,7 +4241,6 @@ export namespace Prisma {
     estado?: true
     fecha_vencimiento?: true
     isAvailable?: true
-    vehiculoUuid?: true
   }
 
   export type TarjetaCombustibleCountAggregateInputType = {
@@ -4255,7 +4250,6 @@ export namespace Prisma {
     estado?: true
     fecha_vencimiento?: true
     isAvailable?: true
-    vehiculoUuid?: true
     _all?: true
   }
 
@@ -4352,7 +4346,6 @@ export namespace Prisma {
     estado: $Enums.State
     fecha_vencimiento: Date
     isAvailable: boolean
-    vehiculoUuid: string | null
     _count: TarjetaCombustibleCountAggregateOutputType | null
     _avg: TarjetaCombustibleAvgAggregateOutputType | null
     _sum: TarjetaCombustibleSumAggregateOutputType | null
@@ -4381,7 +4374,6 @@ export namespace Prisma {
     estado?: boolean
     fecha_vencimiento?: boolean
     isAvailable?: boolean
-    vehiculoUuid?: boolean
     vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
   }, ExtArgs["result"]["tarjetaCombustible"]>
 
@@ -4394,10 +4386,9 @@ export namespace Prisma {
     estado?: boolean
     fecha_vencimiento?: boolean
     isAvailable?: boolean
-    vehiculoUuid?: boolean
   }
 
-  export type TarjetaCombustibleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "numero" | "pin" | "estado" | "fecha_vencimiento" | "isAvailable" | "vehiculoUuid", ExtArgs["result"]["tarjetaCombustible"]>
+  export type TarjetaCombustibleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "numero" | "pin" | "estado" | "fecha_vencimiento" | "isAvailable", ExtArgs["result"]["tarjetaCombustible"]>
   export type TarjetaCombustibleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehiculo?: boolean | TarjetaCombustible$vehiculoArgs<ExtArgs>
   }
@@ -4414,7 +4405,6 @@ export namespace Prisma {
       estado: $Enums.State
       fecha_vencimiento: Date
       isAvailable: boolean
-      vehiculoUuid: string | null
     }, ExtArgs["result"]["tarjetaCombustible"]>
     composites: {}
   }
@@ -4791,7 +4781,6 @@ export namespace Prisma {
     readonly estado: FieldRef<"TarjetaCombustible", 'State'>
     readonly fecha_vencimiento: FieldRef<"TarjetaCombustible", 'DateTime'>
     readonly isAvailable: FieldRef<"TarjetaCombustible", 'Boolean'>
-    readonly vehiculoUuid: FieldRef<"TarjetaCombustible", 'String'>
   }
     
 
@@ -5187,10 +5176,10 @@ export namespace Prisma {
     chapa: string | null
     marca: string | null
     tipo: string | null
-    jefe: string | null
     isAvailable: boolean | null
     areaTrabajoUuid: string | null
     choferCI: string | null
+    tarjetaUuid: string | null
   }
 
   export type VehiculoMaxAggregateOutputType = {
@@ -5198,10 +5187,10 @@ export namespace Prisma {
     chapa: string | null
     marca: string | null
     tipo: string | null
-    jefe: string | null
     isAvailable: boolean | null
     areaTrabajoUuid: string | null
     choferCI: string | null
+    tarjetaUuid: string | null
   }
 
   export type VehiculoCountAggregateOutputType = {
@@ -5209,10 +5198,10 @@ export namespace Prisma {
     chapa: number
     marca: number
     tipo: number
-    jefe: number
     isAvailable: number
     areaTrabajoUuid: number
     choferCI: number
+    tarjetaUuid: number
     _all: number
   }
 
@@ -5222,10 +5211,10 @@ export namespace Prisma {
     chapa?: true
     marca?: true
     tipo?: true
-    jefe?: true
     isAvailable?: true
     areaTrabajoUuid?: true
     choferCI?: true
+    tarjetaUuid?: true
   }
 
   export type VehiculoMaxAggregateInputType = {
@@ -5233,10 +5222,10 @@ export namespace Prisma {
     chapa?: true
     marca?: true
     tipo?: true
-    jefe?: true
     isAvailable?: true
     areaTrabajoUuid?: true
     choferCI?: true
+    tarjetaUuid?: true
   }
 
   export type VehiculoCountAggregateInputType = {
@@ -5244,10 +5233,10 @@ export namespace Prisma {
     chapa?: true
     marca?: true
     tipo?: true
-    jefe?: true
     isAvailable?: true
     areaTrabajoUuid?: true
     choferCI?: true
+    tarjetaUuid?: true
     _all?: true
   }
 
@@ -5328,10 +5317,10 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable: boolean
     areaTrabajoUuid: string
     choferCI: string | null
+    tarjetaUuid: string | null
     _count: VehiculoCountAggregateOutputType | null
     _min: VehiculoMinAggregateOutputType | null
     _max: VehiculoMaxAggregateOutputType | null
@@ -5356,10 +5345,10 @@ export namespace Prisma {
     chapa?: boolean
     marca?: boolean
     tipo?: boolean
-    jefe?: boolean
     isAvailable?: boolean
     areaTrabajoUuid?: boolean
     choferCI?: boolean
+    tarjetaUuid?: boolean
     areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
     chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
     tarjeta?: boolean | Vehiculo$tarjetaArgs<ExtArgs>
@@ -5372,13 +5361,13 @@ export namespace Prisma {
     chapa?: boolean
     marca?: boolean
     tipo?: boolean
-    jefe?: boolean
     isAvailable?: boolean
     areaTrabajoUuid?: boolean
     choferCI?: boolean
+    tarjetaUuid?: boolean
   }
 
-  export type VehiculoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "chapa" | "marca" | "tipo" | "jefe" | "isAvailable" | "areaTrabajoUuid" | "choferCI", ExtArgs["result"]["vehiculo"]>
+  export type VehiculoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "chapa" | "marca" | "tipo" | "isAvailable" | "areaTrabajoUuid" | "choferCI" | "tarjetaUuid", ExtArgs["result"]["vehiculo"]>
   export type VehiculoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     areaTrabajo?: boolean | AreaTrabajoDefaultArgs<ExtArgs>
     chofer?: boolean | Vehiculo$choferArgs<ExtArgs>
@@ -5397,10 +5386,10 @@ export namespace Prisma {
       chapa: string
       marca: string
       tipo: string
-      jefe: string
       isAvailable: boolean
       areaTrabajoUuid: string
       choferCI: string | null
+      tarjetaUuid: string | null
     }, ExtArgs["result"]["vehiculo"]>
     composites: {}
   }
@@ -5777,10 +5766,10 @@ export namespace Prisma {
     readonly chapa: FieldRef<"Vehiculo", 'String'>
     readonly marca: FieldRef<"Vehiculo", 'String'>
     readonly tipo: FieldRef<"Vehiculo", 'String'>
-    readonly jefe: FieldRef<"Vehiculo", 'String'>
     readonly isAvailable: FieldRef<"Vehiculo", 'Boolean'>
     readonly areaTrabajoUuid: FieldRef<"Vehiculo", 'String'>
     readonly choferCI: FieldRef<"Vehiculo", 'String'>
+    readonly tarjetaUuid: FieldRef<"Vehiculo", 'String'>
   }
     
 
@@ -6238,8 +6227,7 @@ export namespace Prisma {
     pin: 'pin',
     estado: 'estado',
     fecha_vencimiento: 'fecha_vencimiento',
-    isAvailable: 'isAvailable',
-    vehiculoUuid: 'vehiculoUuid'
+    isAvailable: 'isAvailable'
   };
 
   export type TarjetaCombustibleScalarFieldEnum = (typeof TarjetaCombustibleScalarFieldEnum)[keyof typeof TarjetaCombustibleScalarFieldEnum]
@@ -6250,10 +6238,10 @@ export namespace Prisma {
     chapa: 'chapa',
     marca: 'marca',
     tipo: 'tipo',
-    jefe: 'jefe',
     isAvailable: 'isAvailable',
     areaTrabajoUuid: 'areaTrabajoUuid',
-    choferCI: 'choferCI'
+    choferCI: 'choferCI',
+    tarjetaUuid: 'tarjetaUuid'
   };
 
   export type VehiculoScalarFieldEnum = (typeof VehiculoScalarFieldEnum)[keyof typeof VehiculoScalarFieldEnum]
@@ -6298,6 +6286,14 @@ export namespace Prisma {
   export type AreaTrabajoOrderByRelevanceFieldEnum = (typeof AreaTrabajoOrderByRelevanceFieldEnum)[keyof typeof AreaTrabajoOrderByRelevanceFieldEnum]
 
 
+  export const TarjetaCombustibleOrderByRelevanceFieldEnum: {
+    uuid: 'uuid',
+    numero: 'numero'
+  };
+
+  export type TarjetaCombustibleOrderByRelevanceFieldEnum = (typeof TarjetaCombustibleOrderByRelevanceFieldEnum)[keyof typeof TarjetaCombustibleOrderByRelevanceFieldEnum]
+
+
   export const NullsOrder: {
     first: 'first',
     last: 'last'
@@ -6306,23 +6302,14 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
-  export const TarjetaCombustibleOrderByRelevanceFieldEnum: {
-    uuid: 'uuid',
-    numero: 'numero',
-    vehiculoUuid: 'vehiculoUuid'
-  };
-
-  export type TarjetaCombustibleOrderByRelevanceFieldEnum = (typeof TarjetaCombustibleOrderByRelevanceFieldEnum)[keyof typeof TarjetaCombustibleOrderByRelevanceFieldEnum]
-
-
   export const VehiculoOrderByRelevanceFieldEnum: {
     uuid: 'uuid',
     chapa: 'chapa',
     marca: 'marca',
     tipo: 'tipo',
-    jefe: 'jefe',
     areaTrabajoUuid: 'areaTrabajoUuid',
-    choferCI: 'choferCI'
+    choferCI: 'choferCI',
+    tarjetaUuid: 'tarjetaUuid'
   };
 
   export type VehiculoOrderByRelevanceFieldEnum = (typeof VehiculoOrderByRelevanceFieldEnum)[keyof typeof VehiculoOrderByRelevanceFieldEnum]
@@ -6587,7 +6574,6 @@ export namespace Prisma {
     estado?: EnumStateFilter<"TarjetaCombustible"> | $Enums.State
     fecha_vencimiento?: DateTimeFilter<"TarjetaCombustible"> | Date | string
     isAvailable?: BoolFilter<"TarjetaCombustible"> | boolean
-    vehiculoUuid?: StringNullableFilter<"TarjetaCombustible"> | string | null
     vehiculo?: XOR<VehiculoNullableScalarRelationFilter, VehiculoWhereInput> | null
   }
 
@@ -6598,14 +6584,12 @@ export namespace Prisma {
     estado?: SortOrder
     fecha_vencimiento?: SortOrder
     isAvailable?: SortOrder
-    vehiculoUuid?: SortOrderInput | SortOrder
     vehiculo?: VehiculoOrderByWithRelationInput
     _relevance?: TarjetaCombustibleOrderByRelevanceInput
   }
 
   export type TarjetaCombustibleWhereUniqueInput = Prisma.AtLeast<{
     uuid?: string
-    vehiculoUuid?: string
     AND?: TarjetaCombustibleWhereInput | TarjetaCombustibleWhereInput[]
     OR?: TarjetaCombustibleWhereInput[]
     NOT?: TarjetaCombustibleWhereInput | TarjetaCombustibleWhereInput[]
@@ -6615,7 +6599,7 @@ export namespace Prisma {
     fecha_vencimiento?: DateTimeFilter<"TarjetaCombustible"> | Date | string
     isAvailable?: BoolFilter<"TarjetaCombustible"> | boolean
     vehiculo?: XOR<VehiculoNullableScalarRelationFilter, VehiculoWhereInput> | null
-  }, "uuid" | "vehiculoUuid">
+  }, "uuid">
 
   export type TarjetaCombustibleOrderByWithAggregationInput = {
     uuid?: SortOrder
@@ -6624,7 +6608,6 @@ export namespace Prisma {
     estado?: SortOrder
     fecha_vencimiento?: SortOrder
     isAvailable?: SortOrder
-    vehiculoUuid?: SortOrderInput | SortOrder
     _count?: TarjetaCombustibleCountOrderByAggregateInput
     _avg?: TarjetaCombustibleAvgOrderByAggregateInput
     _max?: TarjetaCombustibleMaxOrderByAggregateInput
@@ -6642,7 +6625,6 @@ export namespace Prisma {
     estado?: EnumStateWithAggregatesFilter<"TarjetaCombustible"> | $Enums.State
     fecha_vencimiento?: DateTimeWithAggregatesFilter<"TarjetaCombustible"> | Date | string
     isAvailable?: BoolWithAggregatesFilter<"TarjetaCombustible"> | boolean
-    vehiculoUuid?: StringNullableWithAggregatesFilter<"TarjetaCombustible"> | string | null
   }
 
   export type VehiculoWhereInput = {
@@ -6653,10 +6635,10 @@ export namespace Prisma {
     chapa?: StringFilter<"Vehiculo"> | string
     marca?: StringFilter<"Vehiculo"> | string
     tipo?: StringFilter<"Vehiculo"> | string
-    jefe?: StringFilter<"Vehiculo"> | string
     isAvailable?: BoolFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringFilter<"Vehiculo"> | string
     choferCI?: StringNullableFilter<"Vehiculo"> | string | null
+    tarjetaUuid?: StringNullableFilter<"Vehiculo"> | string | null
     areaTrabajo?: XOR<AreaTrabajoScalarRelationFilter, AreaTrabajoWhereInput>
     chofer?: XOR<ChoferNullableScalarRelationFilter, ChoferWhereInput> | null
     tarjeta?: XOR<TarjetaCombustibleNullableScalarRelationFilter, TarjetaCombustibleWhereInput> | null
@@ -6667,10 +6649,10 @@ export namespace Prisma {
     chapa?: SortOrder
     marca?: SortOrder
     tipo?: SortOrder
-    jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
     choferCI?: SortOrderInput | SortOrder
+    tarjetaUuid?: SortOrderInput | SortOrder
     areaTrabajo?: AreaTrabajoOrderByWithRelationInput
     chofer?: ChoferOrderByWithRelationInput
     tarjeta?: TarjetaCombustibleOrderByWithRelationInput
@@ -6679,30 +6661,30 @@ export namespace Prisma {
 
   export type VehiculoWhereUniqueInput = Prisma.AtLeast<{
     uuid?: string
+    tarjetaUuid?: string
     AND?: VehiculoWhereInput | VehiculoWhereInput[]
     OR?: VehiculoWhereInput[]
     NOT?: VehiculoWhereInput | VehiculoWhereInput[]
     chapa?: StringFilter<"Vehiculo"> | string
     marca?: StringFilter<"Vehiculo"> | string
     tipo?: StringFilter<"Vehiculo"> | string
-    jefe?: StringFilter<"Vehiculo"> | string
     isAvailable?: BoolFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringFilter<"Vehiculo"> | string
     choferCI?: StringNullableFilter<"Vehiculo"> | string | null
     areaTrabajo?: XOR<AreaTrabajoScalarRelationFilter, AreaTrabajoWhereInput>
     chofer?: XOR<ChoferNullableScalarRelationFilter, ChoferWhereInput> | null
     tarjeta?: XOR<TarjetaCombustibleNullableScalarRelationFilter, TarjetaCombustibleWhereInput> | null
-  }, "uuid">
+  }, "uuid" | "tarjetaUuid">
 
   export type VehiculoOrderByWithAggregationInput = {
     uuid?: SortOrder
     chapa?: SortOrder
     marca?: SortOrder
     tipo?: SortOrder
-    jefe?: SortOrder
     isAvailable?: SortOrder
     areaTrabajoUuid?: SortOrder
     choferCI?: SortOrderInput | SortOrder
+    tarjetaUuid?: SortOrderInput | SortOrder
     _count?: VehiculoCountOrderByAggregateInput
     _max?: VehiculoMaxOrderByAggregateInput
     _min?: VehiculoMinOrderByAggregateInput
@@ -6716,10 +6698,10 @@ export namespace Prisma {
     chapa?: StringWithAggregatesFilter<"Vehiculo"> | string
     marca?: StringWithAggregatesFilter<"Vehiculo"> | string
     tipo?: StringWithAggregatesFilter<"Vehiculo"> | string
-    jefe?: StringWithAggregatesFilter<"Vehiculo"> | string
     isAvailable?: BoolWithAggregatesFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringWithAggregatesFilter<"Vehiculo"> | string
     choferCI?: StringNullableWithAggregatesFilter<"Vehiculo"> | string | null
+    tarjetaUuid?: StringNullableWithAggregatesFilter<"Vehiculo"> | string | null
   }
 
   export type UserCreateInput = {
@@ -6950,7 +6932,7 @@ export namespace Prisma {
     estado?: $Enums.State
     fecha_vencimiento: Date | string
     isAvailable?: boolean
-    vehiculoUuid?: string | null
+    vehiculo?: VehiculoUncheckedCreateNestedOneWithoutTarjetaInput
   }
 
   export type TarjetaCombustibleUpdateInput = {
@@ -6970,7 +6952,7 @@ export namespace Prisma {
     estado?: EnumStateFieldUpdateOperationsInput | $Enums.State
     fecha_vencimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
-    vehiculoUuid?: NullableStringFieldUpdateOperationsInput | string | null
+    vehiculo?: VehiculoUncheckedUpdateOneWithoutTarjetaNestedInput
   }
 
   export type TarjetaCombustibleCreateManyInput = {
@@ -6980,7 +6962,6 @@ export namespace Prisma {
     estado?: $Enums.State
     fecha_vencimiento: Date | string
     isAvailable?: boolean
-    vehiculoUuid?: string | null
   }
 
   export type TarjetaCombustibleUpdateManyMutationInput = {
@@ -6999,7 +6980,6 @@ export namespace Prisma {
     estado?: EnumStateFieldUpdateOperationsInput | $Enums.State
     fecha_vencimiento?: DateTimeFieldUpdateOperationsInput | Date | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
-    vehiculoUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VehiculoCreateInput = {
@@ -7007,7 +6987,6 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajo: AreaTrabajoCreateNestedOneWithoutVehiculosInput
     chofer?: ChoferCreateNestedOneWithoutVehiculosInput
@@ -7019,11 +6998,10 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
     choferCI?: string | null
-    tarjeta?: TarjetaCombustibleUncheckedCreateNestedOneWithoutVehiculoInput
+    tarjetaUuid?: string | null
   }
 
   export type VehiculoUpdateInput = {
@@ -7031,7 +7009,6 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajo?: AreaTrabajoUpdateOneRequiredWithoutVehiculosNestedInput
     chofer?: ChoferUpdateOneWithoutVehiculosNestedInput
@@ -7043,11 +7020,10 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
     choferCI?: NullableStringFieldUpdateOperationsInput | string | null
-    tarjeta?: TarjetaCombustibleUncheckedUpdateOneWithoutVehiculoNestedInput
+    tarjetaUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VehiculoCreateManyInput = {
@@ -7055,10 +7031,10 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
     choferCI?: string | null
+    tarjetaUuid?: string | null
   }
 
   export type VehiculoUpdateManyMutationInput = {
@@ -7066,7 +7042,6 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
   }
 
@@ -7075,10 +7050,10 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
     choferCI?: NullableStringFieldUpdateOperationsInput | string | null
+    tarjetaUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -7326,29 +7301,9 @@ export namespace Prisma {
     not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
   export type VehiculoNullableScalarRelationFilter = {
     is?: VehiculoWhereInput | null
     isNot?: VehiculoWhereInput | null
-  }
-
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
   }
 
   export type TarjetaCombustibleOrderByRelevanceInput = {
@@ -7364,7 +7319,6 @@ export namespace Prisma {
     estado?: SortOrder
     fecha_vencimiento?: SortOrder
     isAvailable?: SortOrder
-    vehiculoUuid?: SortOrder
   }
 
   export type TarjetaCombustibleAvgOrderByAggregateInput = {
@@ -7378,7 +7332,6 @@ export namespace Prisma {
     estado?: SortOrder
     fecha_vencimiento?: SortOrder
     isAvailable?: SortOrder
-    vehiculoUuid?: SortOrder
   }
 
   export type TarjetaCombustibleMinOrderByAggregateInput = {
@@ -7388,7 +7341,6 @@ export namespace Prisma {
     estado?: SortOrder
     fecha_vencimiento?: SortOrder
     isAvailable?: SortOrder
-    vehiculoUuid?: SortOrder
   }
 
   export type TarjetaCombustibleSumOrderByAggregateInput = {
@@ -7403,6 +7355,80 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumStateFilter<$PrismaModel>
     _max?: NestedEnumStateFilter<$PrismaModel>
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | null
+    notIn?: string[] | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    search?: string
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type AreaTrabajoScalarRelationFilter = {
+    is?: AreaTrabajoWhereInput
+    isNot?: AreaTrabajoWhereInput
+  }
+
+  export type ChoferNullableScalarRelationFilter = {
+    is?: ChoferWhereInput | null
+    isNot?: ChoferWhereInput | null
+  }
+
+  export type TarjetaCombustibleNullableScalarRelationFilter = {
+    is?: TarjetaCombustibleWhereInput | null
+    isNot?: TarjetaCombustibleWhereInput | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type VehiculoOrderByRelevanceInput = {
+    fields: VehiculoOrderByRelevanceFieldEnum | VehiculoOrderByRelevanceFieldEnum[]
+    sort: SortOrder
+    search: string
+  }
+
+  export type VehiculoCountOrderByAggregateInput = {
+    uuid?: SortOrder
+    chapa?: SortOrder
+    marca?: SortOrder
+    tipo?: SortOrder
+    isAvailable?: SortOrder
+    areaTrabajoUuid?: SortOrder
+    choferCI?: SortOrder
+    tarjetaUuid?: SortOrder
+  }
+
+  export type VehiculoMaxOrderByAggregateInput = {
+    uuid?: SortOrder
+    chapa?: SortOrder
+    marca?: SortOrder
+    tipo?: SortOrder
+    isAvailable?: SortOrder
+    areaTrabajoUuid?: SortOrder
+    choferCI?: SortOrder
+    tarjetaUuid?: SortOrder
+  }
+
+  export type VehiculoMinOrderByAggregateInput = {
+    uuid?: SortOrder
+    chapa?: SortOrder
+    marca?: SortOrder
+    tipo?: SortOrder
+    isAvailable?: SortOrder
+    areaTrabajoUuid?: SortOrder
+    choferCI?: SortOrder
+    tarjetaUuid?: SortOrder
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7421,60 +7447,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type AreaTrabajoScalarRelationFilter = {
-    is?: AreaTrabajoWhereInput
-    isNot?: AreaTrabajoWhereInput
-  }
-
-  export type ChoferNullableScalarRelationFilter = {
-    is?: ChoferWhereInput | null
-    isNot?: ChoferWhereInput | null
-  }
-
-  export type TarjetaCombustibleNullableScalarRelationFilter = {
-    is?: TarjetaCombustibleWhereInput | null
-    isNot?: TarjetaCombustibleWhereInput | null
-  }
-
-  export type VehiculoOrderByRelevanceInput = {
-    fields: VehiculoOrderByRelevanceFieldEnum | VehiculoOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
-  }
-
-  export type VehiculoCountOrderByAggregateInput = {
-    uuid?: SortOrder
-    chapa?: SortOrder
-    marca?: SortOrder
-    tipo?: SortOrder
-    jefe?: SortOrder
-    isAvailable?: SortOrder
-    areaTrabajoUuid?: SortOrder
-    choferCI?: SortOrder
-  }
-
-  export type VehiculoMaxOrderByAggregateInput = {
-    uuid?: SortOrder
-    chapa?: SortOrder
-    marca?: SortOrder
-    tipo?: SortOrder
-    jefe?: SortOrder
-    isAvailable?: SortOrder
-    areaTrabajoUuid?: SortOrder
-    choferCI?: SortOrder
-  }
-
-  export type VehiculoMinOrderByAggregateInput = {
-    uuid?: SortOrder
-    chapa?: SortOrder
-    marca?: SortOrder
-    tipo?: SortOrder
-    jefe?: SortOrder
-    isAvailable?: SortOrder
-    areaTrabajoUuid?: SortOrder
-    choferCI?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -7591,6 +7563,12 @@ export namespace Prisma {
     connect?: VehiculoWhereUniqueInput
   }
 
+  export type VehiculoUncheckedCreateNestedOneWithoutTarjetaInput = {
+    create?: XOR<VehiculoCreateWithoutTarjetaInput, VehiculoUncheckedCreateWithoutTarjetaInput>
+    connectOrCreate?: VehiculoCreateOrConnectWithoutTarjetaInput
+    connect?: VehiculoWhereUniqueInput
+  }
+
   export type EnumStateFieldUpdateOperationsInput = {
     set?: $Enums.State
   }
@@ -7605,8 +7583,14 @@ export namespace Prisma {
     update?: XOR<XOR<VehiculoUpdateToOneWithWhereWithoutTarjetaInput, VehiculoUpdateWithoutTarjetaInput>, VehiculoUncheckedUpdateWithoutTarjetaInput>
   }
 
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
+  export type VehiculoUncheckedUpdateOneWithoutTarjetaNestedInput = {
+    create?: XOR<VehiculoCreateWithoutTarjetaInput, VehiculoUncheckedCreateWithoutTarjetaInput>
+    connectOrCreate?: VehiculoCreateOrConnectWithoutTarjetaInput
+    upsert?: VehiculoUpsertWithoutTarjetaInput
+    disconnect?: VehiculoWhereInput | boolean
+    delete?: VehiculoWhereInput | boolean
+    connect?: VehiculoWhereUniqueInput
+    update?: XOR<XOR<VehiculoUpdateToOneWithWhereWithoutTarjetaInput, VehiculoUpdateWithoutTarjetaInput>, VehiculoUncheckedUpdateWithoutTarjetaInput>
   }
 
   export type AreaTrabajoCreateNestedOneWithoutVehiculosInput = {
@@ -7622,12 +7606,6 @@ export namespace Prisma {
   }
 
   export type TarjetaCombustibleCreateNestedOneWithoutVehiculoInput = {
-    create?: XOR<TarjetaCombustibleCreateWithoutVehiculoInput, TarjetaCombustibleUncheckedCreateWithoutVehiculoInput>
-    connectOrCreate?: TarjetaCombustibleCreateOrConnectWithoutVehiculoInput
-    connect?: TarjetaCombustibleWhereUniqueInput
-  }
-
-  export type TarjetaCombustibleUncheckedCreateNestedOneWithoutVehiculoInput = {
     create?: XOR<TarjetaCombustibleCreateWithoutVehiculoInput, TarjetaCombustibleUncheckedCreateWithoutVehiculoInput>
     connectOrCreate?: TarjetaCombustibleCreateOrConnectWithoutVehiculoInput
     connect?: TarjetaCombustibleWhereUniqueInput
@@ -7661,14 +7639,8 @@ export namespace Prisma {
     update?: XOR<XOR<TarjetaCombustibleUpdateToOneWithWhereWithoutVehiculoInput, TarjetaCombustibleUpdateWithoutVehiculoInput>, TarjetaCombustibleUncheckedUpdateWithoutVehiculoInput>
   }
 
-  export type TarjetaCombustibleUncheckedUpdateOneWithoutVehiculoNestedInput = {
-    create?: XOR<TarjetaCombustibleCreateWithoutVehiculoInput, TarjetaCombustibleUncheckedCreateWithoutVehiculoInput>
-    connectOrCreate?: TarjetaCombustibleCreateOrConnectWithoutVehiculoInput
-    upsert?: TarjetaCombustibleUpsertWithoutVehiculoInput
-    disconnect?: TarjetaCombustibleWhereInput | boolean
-    delete?: TarjetaCombustibleWhereInput | boolean
-    connect?: TarjetaCombustibleWhereUniqueInput
-    update?: XOR<XOR<TarjetaCombustibleUpdateToOneWithWhereWithoutVehiculoInput, TarjetaCombustibleUpdateWithoutVehiculoInput>, TarjetaCombustibleUncheckedUpdateWithoutVehiculoInput>
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -7804,6 +7776,16 @@ export namespace Prisma {
     not?: NestedEnumStateFilter<$PrismaModel> | $Enums.State
   }
 
+  export type NestedEnumStateWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
+    in?: $Enums.State[]
+    notIn?: $Enums.State[]
+    not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumStateFilter<$PrismaModel>
+    _max?: NestedEnumStateFilter<$PrismaModel>
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | null
@@ -7817,16 +7799,6 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedEnumStateWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.State | EnumStateFieldRefInput<$PrismaModel>
-    in?: $Enums.State[]
-    notIn?: $Enums.State[]
-    not?: NestedEnumStateWithAggregatesFilter<$PrismaModel> | $Enums.State
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumStateFilter<$PrismaModel>
-    _max?: NestedEnumStateFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -7863,7 +7835,6 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajo: AreaTrabajoCreateNestedOneWithoutVehiculosInput
     tarjeta?: TarjetaCombustibleCreateNestedOneWithoutVehiculoInput
@@ -7874,10 +7845,9 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
-    tarjeta?: TarjetaCombustibleUncheckedCreateNestedOneWithoutVehiculoInput
+    tarjetaUuid?: string | null
   }
 
   export type VehiculoCreateOrConnectWithoutChoferInput = {
@@ -7914,10 +7884,10 @@ export namespace Prisma {
     chapa?: StringFilter<"Vehiculo"> | string
     marca?: StringFilter<"Vehiculo"> | string
     tipo?: StringFilter<"Vehiculo"> | string
-    jefe?: StringFilter<"Vehiculo"> | string
     isAvailable?: BoolFilter<"Vehiculo"> | boolean
     areaTrabajoUuid?: StringFilter<"Vehiculo"> | string
     choferCI?: StringNullableFilter<"Vehiculo"> | string | null
+    tarjetaUuid?: StringNullableFilter<"Vehiculo"> | string | null
   }
 
   export type VehiculoCreateWithoutAreaTrabajoInput = {
@@ -7925,7 +7895,6 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     chofer?: ChoferCreateNestedOneWithoutVehiculosInput
     tarjeta?: TarjetaCombustibleCreateNestedOneWithoutVehiculoInput
@@ -7936,10 +7905,9 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     choferCI?: string | null
-    tarjeta?: TarjetaCombustibleUncheckedCreateNestedOneWithoutVehiculoInput
+    tarjetaUuid?: string | null
   }
 
   export type VehiculoCreateOrConnectWithoutAreaTrabajoInput = {
@@ -7973,7 +7941,6 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajo: AreaTrabajoCreateNestedOneWithoutVehiculosInput
     chofer?: ChoferCreateNestedOneWithoutVehiculosInput
@@ -7984,7 +7951,6 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
     choferCI?: string | null
@@ -8011,7 +7977,6 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajo?: AreaTrabajoUpdateOneRequiredWithoutVehiculosNestedInput
     chofer?: ChoferUpdateOneWithoutVehiculosNestedInput
@@ -8022,7 +7987,6 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
     choferCI?: NullableStringFieldUpdateOperationsInput | string | null
@@ -8189,9 +8153,9 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     areaTrabajoUuid: string
+    tarjetaUuid?: string | null
   }
 
   export type VehiculoUpdateWithoutChoferInput = {
@@ -8199,7 +8163,6 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajo?: AreaTrabajoUpdateOneRequiredWithoutVehiculosNestedInput
     tarjeta?: TarjetaCombustibleUpdateOneWithoutVehiculoNestedInput
@@ -8210,10 +8173,9 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
-    tarjeta?: TarjetaCombustibleUncheckedUpdateOneWithoutVehiculoNestedInput
+    tarjetaUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VehiculoUncheckedUpdateManyWithoutChoferInput = {
@@ -8221,9 +8183,9 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     areaTrabajoUuid?: StringFieldUpdateOperationsInput | string
+    tarjetaUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VehiculoCreateManyAreaTrabajoInput = {
@@ -8231,9 +8193,9 @@ export namespace Prisma {
     chapa: string
     marca: string
     tipo: string
-    jefe: string
     isAvailable?: boolean
     choferCI?: string | null
+    tarjetaUuid?: string | null
   }
 
   export type VehiculoUpdateWithoutAreaTrabajoInput = {
@@ -8241,7 +8203,6 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     chofer?: ChoferUpdateOneWithoutVehiculosNestedInput
     tarjeta?: TarjetaCombustibleUpdateOneWithoutVehiculoNestedInput
@@ -8252,10 +8213,9 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     choferCI?: NullableStringFieldUpdateOperationsInput | string | null
-    tarjeta?: TarjetaCombustibleUncheckedUpdateOneWithoutVehiculoNestedInput
+    tarjetaUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type VehiculoUncheckedUpdateManyWithoutAreaTrabajoInput = {
@@ -8263,9 +8223,9 @@ export namespace Prisma {
     chapa?: StringFieldUpdateOperationsInput | string
     marca?: StringFieldUpdateOperationsInput | string
     tipo?: StringFieldUpdateOperationsInput | string
-    jefe?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     choferCI?: NullableStringFieldUpdateOperationsInput | string | null
+    tarjetaUuid?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

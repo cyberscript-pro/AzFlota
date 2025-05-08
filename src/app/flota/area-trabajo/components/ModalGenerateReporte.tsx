@@ -1,7 +1,7 @@
-import Modal from "@/app/flota/components/modal";
+import Modal from "@/app/components/modal";
 import ModalBasicStyle from "../../../components/ModalBasicStyle";
-import InputRadioButton from "../../components/InputRadioButton";
-import ModalButton from "../../components/ModalButton";
+import InputRadioButton from "../../../components/InputRadioButton";
+import ModalButton from "../../../components/ModalButton";
 
 type RadioButtonProps = {
   title: string;

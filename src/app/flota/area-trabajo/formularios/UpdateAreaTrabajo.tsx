@@ -1,17 +1,7 @@
 import React from "react";
-import {
-  FieldErrors,
-  SubmitHandler,
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form";
-import {
-  AreaTrabajoBack,
-  AreaTrabajoFront,
-  AreaTrabajoPost,
-} from "../utils/types";
+import { SubmitHandler } from "react-hook-form";
+import { AreaTrabajoFront, AreaTrabajoPost } from "../../../types/area-types";
 import useApiUpdate from "../../../hooks/useApiUpdate";
-import InputSelect from "../components/InputSelect";
 import { Form } from "@/components/ui/form";
 import InputComponent from "@/app/components/InputComponent";
 import { toast } from "sonner";

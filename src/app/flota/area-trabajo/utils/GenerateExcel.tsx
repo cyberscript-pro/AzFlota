@@ -1,9 +1,9 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
-import { ChoferFront } from "./types";
+import { AreaTrabajoFront } from "../../../types/area-types";
 
 interface GenerateExcelProps {
-  data: ChoferFront[];
+  data: AreaTrabajoFront[];
   fileName?: string;
 }
 
@@ -51,7 +51,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
     worksheet.getColumn(7).width = 30;
   });
 
-  data.forEach((item) => {
+  /*data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
     dataRow.getCell(2).value = item.nombre;
     dataRow.getCell(3).value = item.ci;
@@ -75,7 +75,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         },
       };
     });
-  });
+  });*/
 
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
