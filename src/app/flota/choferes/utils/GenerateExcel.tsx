@@ -13,8 +13,8 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
 
   const columns = [
     { header: "Nombre y Apellidos", key: "nombre", width: 30 },
-    { header: "Edad", key: "licencia", width: 20 },
-    { header: "Sexo", key: "licencia", width: 20 },
+    { header: "Edad", key: "edad", width: 20 },
+    { header: "Sexo", key: "sexo", width: 20 },
     { header: "Carnet de Identidad", key: "carnet", width: 20 },
     { header: "Número de la Licencia", key: "licencia", width: 20 },
     { header: "Teléfono", key: "telefono", width: 20 },
@@ -54,8 +54,8 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
     dataRow.getCell(2).value = item.nombre;
-    dataRow.getCell(3).value = item.ci;
-    dataRow.getCell(4).value = item.ci;
+    dataRow.getCell(3).value = item.edad;
+    dataRow.getCell(4).value = item.sexo;
     dataRow.getCell(5).value = item.ci;
     dataRow.getCell(6).value = item.licencia;
     dataRow.getCell(7).value = item.telefono;

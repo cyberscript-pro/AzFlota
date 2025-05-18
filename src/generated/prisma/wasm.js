@@ -147,23 +147,64 @@ exports.Prisma.AreaTrabajoScalarFieldEnum = {
 };
 
 exports.Prisma.TarjetaCombustibleScalarFieldEnum = {
-  uuid: 'uuid',
   numero: 'numero',
   pin: 'pin',
   estado: 'estado',
   fecha_vencimiento: 'fecha_vencimiento',
+  tipo: 'tipo',
+  saldo: 'saldo',
   isAvailable: 'isAvailable'
 };
 
 exports.Prisma.VehiculoScalarFieldEnum = {
-  uuid: 'uuid',
   chapa: 'chapa',
   marca: 'marca',
   tipo: 'tipo',
   isAvailable: 'isAvailable',
+  consumo_km: 'consumo_km',
   areaTrabajoUuid: 'areaTrabajoUuid',
   choferCI: 'choferCI',
-  tarjetaUuid: 'tarjetaUuid'
+  tarjetaNumero: 'tarjetaNumero'
+};
+
+exports.Prisma.ControlCargasScalarFieldEnum = {
+  uuid: 'uuid',
+  folio: 'folio',
+  comprobante: 'comprobante',
+  fecha: 'fecha',
+  existencia: 'existencia',
+  importe: 'importe',
+  consumo_dinero: 'consumo_dinero',
+  vehiculoChapa: 'vehiculoChapa'
+};
+
+exports.Prisma.TarjetaCombustibleBajaScalarFieldEnum = {
+  tarjetaNumero: 'tarjetaNumero'
+};
+
+exports.Prisma.ChoferesDespedidosScalarFieldEnum = {
+  choferCI: 'choferCI'
+};
+
+exports.Prisma.VehiculosMantenimientoScalarFieldEnum = {
+  uuid: 'uuid',
+  descripcion: 'descripcion',
+  inicio: 'inicio',
+  fin: 'fin',
+  vehiculoChapa: 'vehiculoChapa'
+};
+
+exports.Prisma.VehiculosBajaScalarFieldEnum = {
+  vehiculoChapa: 'vehiculoChapa'
+};
+
+exports.Prisma.ViajesVehiculosScalarFieldEnum = {
+  uuid: 'uuid',
+  fechaSalida: 'fechaSalida',
+  fechaLlegada: 'fechaLlegada',
+  lugarDestino: 'lugarDestino',
+  combustibleConsumido: 'combustibleConsumido',
+  vehiculoChapa: 'vehiculoChapa'
 };
 
 exports.Prisma.SortOrder = {
@@ -194,8 +235,8 @@ exports.Prisma.AreaTrabajoOrderByRelevanceFieldEnum = {
 };
 
 exports.Prisma.TarjetaCombustibleOrderByRelevanceFieldEnum = {
-  uuid: 'uuid',
-  numero: 'numero'
+  numero: 'numero',
+  pin: 'pin'
 };
 
 exports.Prisma.NullsOrder = {
@@ -204,13 +245,43 @@ exports.Prisma.NullsOrder = {
 };
 
 exports.Prisma.VehiculoOrderByRelevanceFieldEnum = {
-  uuid: 'uuid',
   chapa: 'chapa',
   marca: 'marca',
   tipo: 'tipo',
   areaTrabajoUuid: 'areaTrabajoUuid',
   choferCI: 'choferCI',
-  tarjetaUuid: 'tarjetaUuid'
+  tarjetaNumero: 'tarjetaNumero'
+};
+
+exports.Prisma.ControlCargasOrderByRelevanceFieldEnum = {
+  uuid: 'uuid',
+  folio: 'folio',
+  comprobante: 'comprobante',
+  vehiculoChapa: 'vehiculoChapa'
+};
+
+exports.Prisma.TarjetaCombustibleBajaOrderByRelevanceFieldEnum = {
+  tarjetaNumero: 'tarjetaNumero'
+};
+
+exports.Prisma.ChoferesDespedidosOrderByRelevanceFieldEnum = {
+  choferCI: 'choferCI'
+};
+
+exports.Prisma.VehiculosMantenimientoOrderByRelevanceFieldEnum = {
+  uuid: 'uuid',
+  descripcion: 'descripcion',
+  vehiculoChapa: 'vehiculoChapa'
+};
+
+exports.Prisma.VehiculosBajaOrderByRelevanceFieldEnum = {
+  vehiculoChapa: 'vehiculoChapa'
+};
+
+exports.Prisma.ViajesVehiculosOrderByRelevanceFieldEnum = {
+  uuid: 'uuid',
+  lugarDestino: 'lugarDestino',
+  vehiculoChapa: 'vehiculoChapa'
 };
 exports.Role = exports.$Enums.Role = {
   DIRECTOR: 'DIRECTOR',
@@ -226,12 +297,25 @@ exports.State = exports.$Enums.State = {
   Expired: 'Expired'
 };
 
+exports.TipoCombustible = exports.$Enums.TipoCombustible = {
+  Diesel: 'Diesel',
+  Especial: 'Especial',
+  B91: 'B91',
+  B83: 'B83'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Chofer: 'Chofer',
   AreaTrabajo: 'AreaTrabajo',
   TarjetaCombustible: 'TarjetaCombustible',
-  Vehiculo: 'Vehiculo'
+  Vehiculo: 'Vehiculo',
+  ControlCargas: 'ControlCargas',
+  TarjetaCombustibleBaja: 'TarjetaCombustibleBaja',
+  ChoferesDespedidos: 'ChoferesDespedidos',
+  VehiculosMantenimiento: 'VehiculosMantenimiento',
+  VehiculosBaja: 'VehiculosBaja',
+  ViajesVehiculos: 'ViajesVehiculos'
 };
 
 /**

@@ -21,6 +21,8 @@ import { TarjetaCombustibleMapper } from "./mappers/tarjeta-combustible.mapper";
 import { TarjetaCombustibleTable } from "./components/TableComponent";
 import { useFormDataPost } from "./data/FormDataPost";
 import UpdateTarjetaCombustible from "./formularios/UpdateTarjetaCombustible";
+import SidebarDashboard from "@/app/components/SidebarDashboard";
+import GenerateData from "./data/GenerateData";
 
 // Importaciones dinámicas para reducir el bundle inicial
 const Modal = dynamic(() => import("@/app/components/modal"), {
@@ -93,20 +95,20 @@ function TarjetasCombustibleContent() {
     url: apiUrl,
   });
 
-  const { form, onSubmit } = useFormDataPost({
+  const { form, onSubmit, loadingPost } = useFormDataPost({
     onClose: () => {
-      setState((prev) => ({ ...prev, isCreateChofer: false }));
+      setState((prev) => ({ ...prev, isCreateTarjetaCombustible: false }));
       toast.success("Tarjeta Combustible creada correctamente");
       refetch();
     },
   });
 
-  // Memoización de datos transformados
+  const { generate } = GenerateData();
+
   const memoizedDataFront = React.useMemo(() => {
     return TarjetaCombustibleMapper.fromApiToFront(data).dataFront;
   }, [data]);
 
-  // Effects optimizados
   useEffect(() => {
     if (!session) {
       router.push("/login");
@@ -122,14 +124,6 @@ function TarjetasCombustibleContent() {
     }));
   }, [session, router]);
 
-  // Handlers memorizados
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
-
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
@@ -142,87 +136,87 @@ function TarjetasCombustibleContent() {
     }));
   }, []);
 
-  // const handleEdit = useCallback((ci: string) => {
-  //   const chofer = memoizedDataFront.find(c => c.ci === ci);
-  //   if (chofer) {
-  //     setState(prev => ({
-  //       ...prev,
-  //       selectedChofer: chofer,
-  //       isEditChofer: true
-  //     }));
-  //   }
-  // }, [memoizedDataFront]);
-
-  const handleUpdateSuccess = useCallback(async () => {
-    await refetch();
-    // Forzar una actualización del estado para asegurar que la tabla se refresque
-    setState((prev) => ({ ...prev }));
-  }, [refetch]);
-
-  if (status === "loading" || loading) {
-    return (
-      <div className="fixed inset-0 z-50 flex justify-center items-center">
-        <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
-        <MemoizedImage
-          src="/loading.svg"
-          alt="Loading"
-          width={100}
-          height={100}
-          loading="lazy"
-        />
-      </div>
-    );
-  }
   if (error) return <div>Error {error}</div>;
 
   return (
     <div>
       <Toaster richColors />
       {state.permisoLectura && (
-        <div className="w-full min-h-screen z-0">
-          <div className="fixed top-0 left-0 m-1 z-50">
-            <ModalButton
-              className="rounded-4xl p-2"
-              onClick={() => handleNavigate("/dashboard")}
-            >
-              <MemoizedImage
-                src="/back-page.svg"
-                alt="Back Page"
-                width={50}
-                height={50}
-                loading="lazy"
-              />
-            </ModalButton>
-          </div>
+        <div className="flex w-full min-h-screen z-0">
+          <SidebarDashboard />
 
-          <header className="fixed w-full bg-white shadow">
-            <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-gray-900">
-                Gestión de Tarjetas de Combustible
-              </h1>
-              <div className="flex">
-                <button
-                  onClick={() =>
-                    setState((prev) => ({ ...prev, isReporte: true }))
-                  }
-                  className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
-                >
-                  Generar Reporte
-                </button>
+          <div className="flex-1 flex flex-col">
+            <header className="sticky top-0 w-full bg-white shadow">
+              <div className="w-full mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Gestión de Tarjetas de Combustible
+                </h1>
+                <div className="flex">
+                  <button
+                    onClick={() =>
+                      setState((prev) => ({ ...prev, isReporte: true }))
+                    }
+                    className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
+                  >
+                    Generar Reporte
+                  </button>
+                </div>
               </div>
-            </div>
-          </header>
+            </header>
 
-          <div className="w-full h-10" />
+            <div className="w-full h-2" />
 
-          <main className="mt-2 h-[100vh-40px]">
-            <MemoizedTarjetaCombustibleTable
-              refetch={refetch}
-              data={memoizedDataFront}
-              access={state.permisoEscritura}
-            />
-          </main>
+            {status === "loading" || (loading && <LoadingSpinner />)}
 
+            <main className="mt-2 h-[100vh-40px]">
+              <MemoizedTarjetaCombustibleTable
+                refetch={refetch}
+                data={memoizedDataFront}
+                access={state.permisoEscritura}
+              />
+            </main>
+
+            <footer className="w-full my-5 flex justify-center items-center">
+              <div className="w-lg mx-auto fixed bottom-5 flex justify-between items-center">
+                <ModalButton
+                  disabled={!pagination?.hasPrevPage}
+                  onClick={() => handlePageChange("prev")}
+                  className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  <MemoizedImage
+                    src="/back.svg"
+                    alt="Back"
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                  />
+                </ModalButton>
+
+                <div className="flex mx-2">
+                  <h4 className="mr-6">
+                    Página Actual: {pagination?.currentPage}
+                  </h4>
+                  <h4 className="ml-6">
+                    Última Página: {pagination?.totalPages}
+                  </h4>
+                </div>
+
+                <ModalButton
+                  disabled={!pagination?.hasNextPage}
+                  onClick={() => handlePageChange("next")}
+                  className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  <MemoizedImage
+                    src="/next.svg"
+                    alt="Next"
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                  />
+                </ModalButton>
+              </div>
+            </footer>
+          </div>
           <ModalGenerateReporte
             isOpen={state.isReporte}
             onClose={() => setState((prev) => ({ ...prev, isReporte: false }))}
@@ -234,6 +228,7 @@ function TarjetasCombustibleContent() {
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))
@@ -263,6 +258,7 @@ function TarjetasCombustibleContent() {
                   }))
                 }
                 onSubmit={onSubmit}
+                loadingAdd={loadingPost}
               />
             </ModalBasicStyle>
           </Modal>
@@ -288,75 +284,6 @@ function TarjetasCombustibleContent() {
               </ModalButton>
             </div>
           )}
-
-          <footer className="w-full fixed bottom-0 my-5">
-            <div className="w-lg mx-auto flex justify-between items-center">
-              <ModalButton
-                disabled={!pagination?.hasPrevPage}
-                onClick={() => handlePageChange("prev")}
-                className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-              >
-                <MemoizedImage
-                  src="/back.svg"
-                  alt="Back"
-                  width={50}
-                  height={50}
-                  loading="lazy"
-                />
-              </ModalButton>
-
-              <div className="flex">
-                <h4 className="mr-6">
-                  Página Actual: {pagination?.currentPage}
-                </h4>
-                <h4 className="ml-6">
-                  Última Página: {pagination?.totalPages}
-                </h4>
-              </div>
-
-              <ModalButton
-                disabled={!pagination?.hasNextPage}
-                onClick={() => handlePageChange("next")}
-                className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
-              >
-                <MemoizedImage
-                  src="/next.svg"
-                  alt="Next"
-                  width={50}
-                  height={50}
-                  loading="lazy"
-                />
-              </ModalButton>
-            </div>
-          </footer>
-
-          <Modal
-            isOpen={state.isEditTarjetaCombustible}
-            onClose={() =>
-              setState((prev) => ({ ...prev, isEditTarjetaCombustible: false }))
-            }
-          >
-            <ModalBasicStyle
-              title="Editar Chofer"
-              classNameTitle="text-gray-900"
-              classNameContainer=""
-            >
-              {state.selectedTarjetaCombustible && (
-                <UpdateTarjetaCombustible
-                  id={state.selectedTarjetaCombustible.id}
-                  form={form}
-                  data={state.selectedTarjetaCombustible}
-                  onClose={() =>
-                    setState((prev) => ({
-                      ...prev,
-                      isEditTarjetaCombustible: false,
-                    }))
-                  }
-                  onSuccess={handleUpdateSuccess}
-                />
-              )}
-            </ModalBasicStyle>
-          </Modal>
         </div>
       )}
     </div>

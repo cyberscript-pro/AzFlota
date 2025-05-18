@@ -38,9 +38,7 @@ export const userSchemaPost = z
       .refine(
         async (ci) => {
           if (ci.length == 11) {
-            const response = await fetch(
-              `/api/users/checking?ci=${ci}`
-            );
+            const response = await fetch(`/api/users/checking?ci=${ci}`);
             const data = await response.json();
             return !data.exists;
           }
@@ -57,6 +55,10 @@ export const userSchemaPost = z
       }),
     }),
 
+    clave: z.string().refine((value) => /^\d{4}$/.test(value), {
+      message: "La clave debe contener exactamente 4 dígitos numéricos",
+    }),
+
     password: z
       .string()
       .min(8, { message: "La contraseña debe tener como minimo 8 caracteres" })
@@ -66,6 +68,34 @@ export const userSchemaPost = z
 
     confirmPassword: z.string().optional(),
   })
+  .refine(
+    (data) => data.role === "ECONOMICO" ? data.clave === "1234" : true,
+    {
+      message: "La clave de acceso es incorrecta",
+      path: ["clave"],
+    }
+  )
+  .refine(
+    (data) => data.role === "DIRECTOR" ? data.clave === "5678" : true,
+    {
+      message: "La clave de acceso es incorrecta",
+      path: ["clave"],
+    }
+  )
+  .refine(
+    (data) => data.role === "ENCARGADO" ? data.clave === "5679" : true,
+    {
+      message: "La clave de acceso es incorrecta",
+      path: ["clave"],
+    }
+  )
+  .refine(
+    (data) => data.role === "SUPERVISOR" ? data.clave === "4579" : true,
+    {
+      message: "La clave de acceso es incorrecta",
+      path: ["clave"],
+    }
+  )
   .refine((data) => data.password === data.confirmPassword, {
     message: "Las contraseñas no coinciden",
     path: ["confirmPassword"],

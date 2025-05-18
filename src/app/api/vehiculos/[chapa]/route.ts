@@ -1,18 +1,10 @@
-import { NextResponse } from 'next/server'
+import {NextResponse} from 'next/server'
 import prisma from '../../../../lib/prisma'
 
-async function findOne(uuid: string) {
-  const vehiculo = await prisma.vehiculo.findUnique({
-    where: { uuid },
+async function findOne(chapa: string) {
+  return prisma.vehiculo.findUnique({
+    where: {chapa},
     include: {
-      areaTrabajo: {
-        select: {
-          uuid: true,
-          nombre: true,
-          centro_costo: true,
-          jefe: true
-        },
-      },
       chofer: {
         select: {
           nombre: true,
@@ -22,30 +14,27 @@ async function findOne(uuid: string) {
       },
       tarjeta: {
         select: {
-          uuid: true,
           numero: true,
           estado: true,
           fecha_vencimiento: true,
+          saldo: true,
         },
       },
     },
-  })
-
-  return vehiculo;
+  });
 }
 
-type tParams = Promise<{ uuid: string }>;
+type tParams = Promise<{ chapa: string }>;
 
-// GET vehicle by uuid
 export async function GET(
   request: Request,
   { params }: { params: tParams }
 ) {
   try {
 
-    const { uuid } = await params;
+    const { chapa } = await params;
 
-    const vehiculo = await findOne(uuid); 
+    const vehiculo = await findOne(chapa); 
 
     if (!vehiculo) {
       return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
@@ -64,25 +53,26 @@ export async function PATCH(
 ) {
   try {
 
-    const { uuid } = await params;
+    const param = await params;
 
-    const vehiculoExists = await findOne(uuid); 
+    const vehiculoExists = await findOne(param.chapa); 
 
     if (!vehiculoExists) {
       return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
     }
 
-    const { chapa, marca, tipo, area, chofer, tarjeta } = await request.json()
+    const { chapa, marca, tipo, consumo_km, area, chofer, tarjeta } = await request.json()
     
     const vehiculo = await prisma.vehiculo.update({
-      where: { uuid },
+      where: { chapa: param.chapa },
       data: {
         chapa,
         marca,
         tipo,
+        consumo_km: parseInt(consumo_km),
         areaTrabajoUuid: area,
         choferCI: chofer,
-        tarjetaUuid: tarjeta
+        tarjetaNumero: tarjeta
       },
       include: {
         areaTrabajo: {
@@ -102,7 +92,6 @@ export async function PATCH(
         },
         tarjeta: {
           select: {
-            uuid: true,
             numero: true,
             estado: true,
             fecha_vencimiento: true,
@@ -124,16 +113,16 @@ export async function DELETE(
 ) {
   try {
 
-    const { uuid } = await params;
+    const { chapa } = await params;
 
-    const vehiculo = await findOne(uuid); 
+    const vehiculo = await findOne(chapa); 
 
     if (!vehiculo) {
       return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
     }
 
     await prisma.vehiculo.delete({
-      where: { uuid },
+      where: { chapa },
     })
     
     return NextResponse.json({ message: 'Vehicle deleted successfully' })

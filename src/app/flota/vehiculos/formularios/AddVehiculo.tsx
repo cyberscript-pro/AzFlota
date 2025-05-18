@@ -5,7 +5,6 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import { Inputs } from "../data/FormDataPost";
 import InputSelect, { SelectOption } from "../components/InputSelect";
 import { Form } from "@/components/ui/form";
 import InputComponent from "@/app/components/InputComponent";
@@ -13,6 +12,7 @@ import { Chofer } from "../../../types/choferes-types";
 import useApiGet from "@/app/hooks/useApiGet";
 import { Tarjeta } from "../../../types/tarjeta-types";
 import { AreaTrabajoBack } from "../../../types/area-types";
+import { Inputs } from "@/app/types/vehiculo-types";
 
 type AddAreaTrabajoProps = {
   onSubmit: SubmitHandler<Inputs>;
@@ -33,8 +33,6 @@ function AddVehiculo({
   errors,
   onClose,
 }: AddAreaTrabajoProps) {
-  const [placeholder, setPlaceholder] = useState<boolean>(true);
-
   const { data } = useApiGet<Chofer>({
     url: "/api/choferes?page=1",
   });
@@ -53,7 +51,7 @@ function AddVehiculo({
     tarjetaData?.map((data) => {
       if (!data.vehiculo) {
         selectOptions.push({
-          value: data.uuid,
+          value: data.numero,
           label: `${data.numero}`,
         });
       }
@@ -65,7 +63,10 @@ function AddVehiculo({
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-4 space-y-4 min-w-[450px]"
+        >
           <InputComponent
             name="chapa"
             label="Chapa del Vehiculo"
@@ -84,6 +85,13 @@ function AddVehiculo({
             name="tipo"
             label="Tipo de Vehiculo"
             placeholder="Ingresa el tipo de vehiculo"
+            control={form.control}
+          />
+
+          <InputComponent
+            name="consumo_km"
+            label="Consumo Litros/Km"
+            placeholder="Ingresa el consumo de combustible en litros por Km"
             control={form.control}
           />
 
@@ -131,7 +139,9 @@ function AddVehiculo({
           <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
               type="submit"
-              className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
+              className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
+                loadingAdd ? "opacity-50 cursor-not-allowed" : ""
+              }`}
             >
               {loadingAdd ? "Registrando..." : "Registrar"}
             </button>

@@ -1,28 +1,27 @@
-'use client'
-import Image from "next/image"
-import { signOut } from 'next-auth/react'
-import { LogOut } from 'lucide-react'
+"use client";
+import Image from "next/image";
+import { signOut } from "next-auth/react";
+import { LogOut } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { toast, Toaster } from "sonner"
+} from "@/components/ui/tooltip";
+import { toast, Toaster } from "sonner";
 
 export default function LogoutButton() {
   return (
-    <div>
+    <div className="flex justify-end items-center">
       <Toaster richColors />
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
             <button
               onClick={() => {
-                signOut({ callbackUrl: '/login' });
+                signOut({ callbackUrl: "/login" });
                 toast.success("Usted a cerrado sesion correctamente");
-              }
-              }
+              }}
               className="p-2 rounded hover:bg-red-100 dark:hover:bg-red-900 transition-colors"
               aria-label="Cerrar sesión"
             >
@@ -35,5 +34,5 @@ export default function LogoutButton() {
         </Tooltip>
       </TooltipProvider>
     </div>
-  )
+  );
 }

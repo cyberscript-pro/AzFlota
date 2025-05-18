@@ -27,7 +27,7 @@ export default function useApiGet<T>({ url }: { url: string }): UseApiGetResult<
       setError(null);
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`error: ${response.json()} - status ${response.status}`);
       }
       const result = await response.json();
       setData(result.data);

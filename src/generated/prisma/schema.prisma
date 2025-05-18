@@ -22,6 +22,13 @@ enum State {
   Expired
 }
 
+enum TipoCombustible {
+  Diesel
+  Especial
+  B91
+  B83
+}
+
 enum Role {
   DIRECTOR //solo lectura
   SUPERVISOR //lectura y escritura, sistema de trazas
@@ -46,11 +53,12 @@ model Chofer {
   nombre      String
   edad        Int
   sexo        String
-  ci          String     @unique
+  ci          String              @unique
   licencia    String
   telefono    String
   vehiculos   Vehiculo[]
-  isAvailable Boolean    @default(true)
+  despido     ChoferesDespedidos?
+  isAvailable Boolean             @default(true)
 
   @@map("choferes")
 }
@@ -67,23 +75,29 @@ model AreaTrabajo {
 }
 
 model TarjetaCombustible {
-  uuid              String    @id @default(uuid())
-  numero            String
-  pin               Int
-  estado            State     @default(Active)
-  fecha_vencimiento DateTime  @db.Date
-  isAvailable       Boolean   @default(true)
+  numero            String                  @unique
+  pin               String
+  estado            State                   @default(Active)
+  fecha_vencimiento DateTime                @db.Date
+  tipo              TipoCombustible
+  saldo             Int                     @default(0)
+  isAvailable       Boolean                 @default(true)
+  baja              TarjetaCombustibleBaja?
   vehiculo          Vehiculo?
 
   @@map("tarjetas-combustible")
 }
 
 model Vehiculo {
-  uuid        String  @id @default(uuid())
-  chapa       String
-  marca       String
-  tipo        String
-  isAvailable Boolean @default(true)
+  chapa          String                   @unique
+  marca          String
+  tipo           String
+  isAvailable    Boolean                  @default(true)
+  cargas         ControlCargas[]
+  viajes         ViajesVehiculos[]
+  mantenimientos VehiculosMantenimiento[]
+  baja           VehiculosBaja?
+  consumo_km     Int
 
   areaTrabajo     AreaTrabajo @relation(fields: [areaTrabajoUuid], references: [uuid])
   areaTrabajoUuid String
@@ -91,8 +105,68 @@ model Vehiculo {
   chofer   Chofer? @relation(fields: [choferCI], references: [ci])
   choferCI String?
 
-  tarjeta     TarjetaCombustible? @relation(fields: [tarjetaUuid], references: [uuid])
-  tarjetaUuid String?             @unique
+  tarjeta       TarjetaCombustible? @relation(fields: [tarjetaNumero], references: [numero])
+  tarjetaNumero String?             @unique
 
   @@map("vehiculos")
+}
+
+model ControlCargas {
+  uuid           String   @id @default(uuid())
+  folio          String
+  comprobante    String
+  fecha          DateTime @db.Date
+  existencia     Int
+  importe        Int
+  consumo_dinero Int
+  vehiculo       Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa  String
+
+  @@map("control-cargas")
+}
+
+model TarjetaCombustibleBaja {
+  tarjeta       TarjetaCombustible @relation(fields: [tarjetaNumero], references: [numero])
+  tarjetaNumero String             @unique
+
+  @@map("tarjetas-combustible-baja")
+}
+
+model ChoferesDespedidos {
+  chofer   Chofer @relation(fields: [choferCI], references: [ci])
+  choferCI String @unique
+
+  @@map("choferes-despedidos")
+}
+
+model VehiculosMantenimiento {
+  uuid        String    @id @default(uuid())
+  descripcion String
+  inicio      DateTime  @db.Date
+  fin         DateTime? @db.Date
+
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa String
+
+  @@map("vehiculos-mantenimiento")
+}
+
+model VehiculosBaja {
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa String   @unique
+
+  @@map("vehiculos-baja")
+}
+
+model ViajesVehiculos {
+  uuid                 String   @id @default(uuid())
+  fechaSalida          DateTime @db.Date
+  fechaLlegada         DateTime @db.Date
+  lugarDestino         String
+  combustibleConsumido Int
+
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa String
+
+  @@map("viajes-vehiculos")
 }

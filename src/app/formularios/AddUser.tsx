@@ -7,9 +7,18 @@ import { userSchemaPost } from "../validations/frontend/user-post.schema";
 import ModalBasicStyle from "../components/ModalBasicStyle";
 import InputSelect from "../components/InputSelect";
 import useApiPost from "../hooks/useApiPost";
-import { on } from "events";
 
 export type Inputs = {
+  nickname: string;
+  nombre: string;
+  ci: string;
+  role: "ECONOMICO" | "DIRECTOR" | "ENCARGADO" | "SUPERVISOR";
+  clave: string;
+  password: string;
+  confirmPassword?: string;
+};
+
+export type InputsPost = {
   nickname: string;
   nombre: string;
   ci: string;
@@ -21,10 +30,9 @@ export type Inputs = {
 type AddUserProps = {
   onClose: () => void;
   isOpen: boolean;
-}
+};
 
 export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
-
   const {
     register,
     handleSubmit,
@@ -34,11 +42,12 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
     resolver: zodResolver(userSchemaPost),
   });
 
-  const { onSubmitData, submitSuccess, setSubmitSuccess, loadingPost } = useApiPost<Inputs>({
-    url: "/api/users/",
-    onClose: onClose,
-    reset: reset,
-  });
+  const { onSubmitData, submitSuccess, setSubmitSuccess, loadingPost } =
+    useApiPost<InputsPost>({
+      url: "/api/users/",
+      onClose: onClose,
+      reset: reset,
+    });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     onSubmitData({
@@ -90,6 +99,14 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
               register={register}
               errors={errors}
               required
+            />
+
+            <InputModal
+              name="clave"
+              title="Clave de Acceso"
+              type="text"
+              register={register}
+              errors={errors.clave?.message}
             />
 
             <InputModal

@@ -1,9 +1,9 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
-import { VehiculoFront } from "../../../types/vehiculo-types";
+import { VehiculoMantenimientoFront } from "@/app/types/mantenimiento-types";
 
 interface GenerateReporte {
-  data: VehiculoFront[] | undefined;
+  data: VehiculoMantenimientoFront[] | undefined;
 }
 
 const GeneratePDF = ({ data }: GenerateReporte) => {
@@ -16,15 +16,8 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
 
     autoTable(doc, {
       startY: 30,
-      head: [
-        [
-          "Nombre y Apellidos",
-          "Carnet de Identidad",
-          "Numero de Licencia",
-          "Teléfono",
-        ],
-      ],
-      //body: data?.map((item) => [item.nombre, item.ci, item.licencia, item.telefono]),
+      head: [["Area de Trabajo", "Centro de Costo", "Jefe"]],
+      //body: data?.map((item) => [item.nombre, item.centro_costo, item.jefe]),
       styles: {
         fontSize: 10,
         cellPadding: 1.5,

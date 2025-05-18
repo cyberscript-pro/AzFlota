@@ -15,6 +15,7 @@ export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
   const onSubmitData = async (data: T) => {
     try {
       setLoadingPost(true);
+      console.log(data);
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -34,8 +35,7 @@ export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
       throw new Error(
         err instanceof Error ? err.message : "An unknown error occurred"
       );
-    }
-    finally {
+    } finally {
       setLoadingPost(false);
     }
   };

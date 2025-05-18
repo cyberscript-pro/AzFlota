@@ -1,7 +1,6 @@
 import useApiGet from "@/app/hooks/useApiGet";
 import { VehiculoBack } from "../../../types/vehiculo-types";
-import { AreaTrabajoMapper } from "../mappers/vehiculos.mapper";
-import GeneratePDF from "../utils/GeneratePDF";
+import { VehiculoMapper } from "../mappers/vehiculos.mapper";
 import { GenerateExcel } from "../utils/GenerateExcel";
 
 function GenerateData() {
@@ -9,15 +8,12 @@ function GenerateData() {
     url: "/api/vehiculos?page=1",
   });
 
-  const { dataFront } = AreaTrabajoMapper.fromApiToFront(data);
+  const { dataFront } = VehiculoMapper.fromApiToFront(data);
 
-  const { generatePDF } = GeneratePDF({ data: dataFront });
 
   const generate = async (value: string) => {
     if (!loading) {
-      if (value === "pdf") {
-        generatePDF();
-      } else if (value === "excel") {
+      if (value === "excel") {
         await GenerateExcel({ data: dataFront });
       }
     }

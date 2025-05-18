@@ -27,12 +27,12 @@ type UpdateChoferProps = {
 function UpdateChofer({
   id,
   form,
-  data,
+  data: dataVehiculo,
   onClose,
   onSuccess,
 }: UpdateChoferProps) {
   const { loading, error, updateData } = useApiUpdate<VehiculoPost>({
-    url: `/api/areas-trabajo/${id}`,
+    url: `/api/vehiculos/${id}`,
     onSuccess: async () => {
       toast.success("Vehiculo actualizado correctamente");
       if (onSuccess) {
@@ -58,9 +58,9 @@ function UpdateChofer({
     const selectOptions: SelectOption[] = [];
 
     tarjetaData?.map((data) => {
-      if (!data.vehiculo) {
+      if (!data.vehiculo || data.vehiculo.chapa === dataVehiculo.chapa) {
         selectOptions.push({
-          value: data.uuid,
+          value: data.numero,
           label: `${data.numero}`,
         });
       }
@@ -75,6 +75,7 @@ function UpdateChofer({
         chapa: data.chapa,
         marca: data.marca,
         tipo: data.tipo,
+        consumo_km: data.consumo_km,
         chofer: data.chofer,
         tarjeta: data.tarjeta,
         area: data.area,
@@ -106,6 +107,13 @@ function UpdateChofer({
             name="tipo"
             label="Tipo de Vehiculo"
             placeholder="Ingresa el tipo de vehiculo"
+            control={form.control}
+          />
+
+          <InputComponent
+            name="consumo_km"
+            label="Consumo Litros/Km"
+            placeholder="Ingresa el consumo de combustible en litros por Km"
             control={form.control}
           />
 

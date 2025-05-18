@@ -1,22 +1,23 @@
-import { NextRequest, NextResponse } from 'next/server'
-import prisma from '../../../lib/prisma'
-import { tarjetaSchemaPost, dateSchema } from '@/app/validations/backend/tarjeta-post.schema'
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "../../../lib/prisma";
+import {
+  tarjetaSchemaPost,
+  dateSchema,
+} from "@/app/validations/backend/tarjeta-post.schema";
 
-export async function GET(
-  request: NextRequest,
-) {
+export async function GET(request: NextRequest) {
   try {
     const tarjetas = await prisma.tarjetaCombustible.findMany({
       where: {
-        isAvailable: true
+        isAvailable: true,
       },
       orderBy: {
-        numero: 'desc'
+        numero: "desc",
       },
       include: {
         vehiculo: {
           select: {
-            chapa: true
+            chapa: true,
           },
         },
       },
@@ -26,7 +27,7 @@ export async function GET(
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || tarjetas.length;
 
-    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 0) {
       return NextResponse.json(
         { error: "Parámetros page y limit deben ser números positivos" },
         { status: 400 }
@@ -52,36 +53,43 @@ export async function GET(
       },
     });
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching fuel cards', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching fuel cards", message: error },
+      { status: 500 }
+    );
   }
 }
 
 export async function POST(request: Request) {
   try {
-
     const body = await request.json();
 
     const result = tarjetaSchemaPost.safeParse(body);
 
-    if(result.error) {
+    if (result.error) {
       return NextResponse.json(result.error, { status: 400 });
     }
 
-    const { numero, pin, estado, fecha_vencimiento } = result.data;
-    
+    const { numero, pin, estado, fecha_vencimiento, saldo, tipo } = result.data;
+
     const vencimiento = dateSchema.parse(fecha_vencimiento);
 
     const tarjeta = await prisma.tarjetaCombustible.create({
       data: {
         numero,
-        pin: parseInt(pin),
+        pin: pin,
         estado,
-        fecha_vencimiento: vencimiento
-      }
-    })
-    
-    return NextResponse.json(tarjeta, { status: 201 })
+        fecha_vencimiento: vencimiento,
+        saldo,
+        tipo
+      },
+    });
+
+    return NextResponse.json(tarjeta, { status: 201 });
   } catch (error) {
-    return NextResponse.json({ error: 'Error al crear tarjeta de combustible', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error al crear tarjeta de combustible", message: error },
+      { status: 500 }
+    );
   }
-} 
+}

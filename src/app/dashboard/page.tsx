@@ -28,6 +28,8 @@ export default function Dashboard() {
       <div className="flex">
         <SidebarDashboard />
         <DashboardComponent
+          role={session?.user.role}
+          name={session?.user.name}
           choferes={4}
           vehiculos={3}
           areas={2}

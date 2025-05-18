@@ -80,11 +80,11 @@ export function ChoferTable({
 
   return (
     <div>
-      <div className="p-6 rounded-2xl max-w-fit mx-auto shadow-lg border bg-white overflow-auto">
+      <div className="p-6 rounded-2xl min-w-full mx-auto shadow-lg border bg-white overflow-auto">
         <h2 className="mt-2 text-xl font-semibold mb-4 text-gray-800">
           Lista de Choferes
         </h2>
-        <Table className="min-w-[600px]">
+        <Table className="min-w-full">
           <TableHeader>
             <TableRow className="bg-gray-100">
               <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[300px]">

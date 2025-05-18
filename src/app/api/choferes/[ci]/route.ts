@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from 'next/server'
-import prisma from '../../../../lib/prisma'
-import { choferSchemaUpdate } from '@/app/validations/backend/chofer-update.schema';
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "../../../../lib/prisma";
+import { choferSchemaUpdate } from "@/app/validations/backend/chofer-update.schema";
 
 async function findOne(ci: string) {
   const chofer = await prisma.chofer.findUnique({
@@ -8,14 +8,13 @@ async function findOne(ci: string) {
     include: {
       vehiculos: {
         select: {
-          uuid: true,
           chapa: true,
           marca: true,
           tipo: true,
         },
       },
     },
-  })
+  });
 
   return chofer;
 }
@@ -28,16 +27,19 @@ export async function GET(
 ) {
   try {
     const { ci } = await params;
-    
+
     const chofer = await findOne(ci);
 
     if (!chofer) {
-      return NextResponse.json({ error: 'Driver not found' }, { status: 404 })
+      return NextResponse.json({ error: "Driver not found" }, { status: 404 });
     }
 
     return NextResponse.json(chofer);
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching driver', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching driver", message: error },
+      { status: 500 }
+    );
   }
 }
 
@@ -46,13 +48,12 @@ export async function PATCH(
   { params }: { params: tParams }
 ) {
   try {
-
     const param = await params;
 
     const chofer = await findOne(param.ci);
 
     if (!chofer) {
-      return NextResponse.json({ error: 'Driver not found' }, { status: 404 })
+      return NextResponse.json({ error: "Driver not found" }, { status: 404 });
     }
 
     const body = await request.json();
@@ -78,18 +79,20 @@ export async function PATCH(
       include: {
         vehiculos: {
           select: {
-            uuid: true,
             chapa: true,
             marca: true,
             tipo: true,
           },
         },
       },
-    })
+    });
 
     return NextResponse.json(updated);
   } catch (error) {
-    return NextResponse.json({ error: 'Error updating driver', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error updating driver", message: error },
+      { status: 500 }
+    );
   }
 }
 
@@ -98,24 +101,29 @@ export async function DELETE(
   { params }: { params: tParams }
 ) {
   try {
-
     const { ci } = await params;
 
     const chofer = await findOne(ci);
 
     if (!chofer) {
-      return NextResponse.json({ error: 'Chofer no encontrado' }, { status: 404 })
+      return NextResponse.json(
+        { error: "Chofer no encontrado" },
+        { status: 404 }
+      );
     }
 
     await prisma.chofer.update({
       where: { ci },
       data: {
-        isAvailable: false
-      }
-    })
+        isAvailable: false,
+      },
+    });
 
-    return NextResponse.json({ message: 'Driver deleted successfully' })
+    return NextResponse.json({ message: "Driver deleted successfully" });
   } catch (error) {
-    return NextResponse.json({ error: 'Error deleting driver', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error deleting driver", message: error },
+      { status: 500 }
+    );
   }
-} 
+}

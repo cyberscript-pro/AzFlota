@@ -7,7 +7,6 @@ async function findOne(uuid:string) {
     include: {
       vehiculos: {
         select: {
-          uuid: true,
           chapa: true,
           marca: true,
           tipo: true,
@@ -66,7 +65,6 @@ export async function PUT(
       include: {
         vehiculos: {
           select: {
-            uuid: true,
             chapa: true,
             marca: true,
             tipo: true,

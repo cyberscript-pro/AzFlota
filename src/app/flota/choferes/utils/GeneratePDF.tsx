@@ -19,6 +19,8 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
       head: [
         [
           "Nombre y Apellidos",
+          "Edad",
+          "Sexo",
           "Carnet de Identidad",
           "Numero de Licencia",
           "Teléfono",
@@ -26,6 +28,8 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
       ],
       body: data?.map((item) => [
         item.nombre,
+        item.edad,
+        item.sexo,
         item.ci,
         item.licencia,
         item.telefono,

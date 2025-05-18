@@ -2,18 +2,11 @@ import { choferSchema } from "@/app/validations/frontend/chofer.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import useApiPost from "../../../hooks/useApiPost";
-import { Tarjeta, TarjetaPost } from "../../../types/tarjeta-types";
+import { Inputs, TarjetaPost } from "../../../types/tarjeta-types";
 import { tarjetaSchemaPost } from "@/app/validations/frontend/tarjeta-post.schema";
 
 type ChoferProps = {
   onClose: () => void;
-};
-
-export type Inputs = {
-  numero: string;
-  pin: string;
-  estado: string;
-  fecha_vencimiento: string;
 };
 
 export function useFormDataPost({ onClose }: ChoferProps) {
@@ -23,11 +16,13 @@ export function useFormDataPost({ onClose }: ChoferProps) {
       numero: "",
       pin: "",
       estado: "",
+      tipo: "",
       fecha_vencimiento: "",
+      saldo: "0",
     },
   });
 
-  const { onSubmitData, submitSuccess, setSubmitSuccess } =
+  const { onSubmitData, loadingPost, submitSuccess, setSubmitSuccess } =
     useApiPost<TarjetaPost>({
       url: "/api/tarjetas-combustible/",
       onClose,
@@ -40,6 +35,8 @@ export function useFormDataPost({ onClose }: ChoferProps) {
       pin: data.pin,
       estado: data.estado,
       fecha_vencimiento: data.fecha_vencimiento,
+      saldo: parseInt(data.saldo),
+      tipo: data.tipo,
     });
   };
 
@@ -48,5 +45,6 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     submitSuccess,
     onSubmit,
     setSubmitSuccess,
+    loadingPost,
   };
 }

@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 
-//checking if user exists
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const nickname = searchParams.get("nickname");

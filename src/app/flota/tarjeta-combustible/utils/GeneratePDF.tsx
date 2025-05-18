@@ -17,18 +17,15 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
     autoTable(doc, {
       startY: 30,
       head: [
-        [
-          "Nombre y Apellidos",
-          "Carnet de Identidad",
-          "Numero de Licencia",
-          "Teléfono",
-        ],
+        ["Tarjeta", "Pin", "Estado", "Tipo", "Fecha de Vencimiento", "Saldo"],
       ],
       body: data?.map((item) => [
         item.numero,
         item.pin,
         item.estado,
+        item.tipo,
         item.fecha_vencimiento,
+        item.saldo,
       ]),
       styles: {
         fontSize: 10,
@@ -45,7 +42,7 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
       },
     });
 
-    doc.save("reporte.pdf");
+    doc.save("reporte-tarjetas.pdf");
   };
 
   return {

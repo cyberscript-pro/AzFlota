@@ -15,17 +15,13 @@ import { useSession } from "next-auth/react";
 import { Toaster, toast } from "sonner";
 
 import useApiGet from "../../hooks/useApiGet";
-import {
-  VehiculoBack,
-  VehiculoFront,
-  VehiculoPost,
-  VehiculoUpdate,
-} from "../../types/vehiculo-types";
+import { VehiculoBack, VehiculoUpdate } from "../../types/vehiculo-types";
 import LoadingSpinner from "@/app/components/loading";
-import { AreaTrabajoMapper } from "./mappers/vehiculos.mapper";
+import { VehiculoMapper } from "./mappers/vehiculos.mapper";
 import { AreaTrabajoTable } from "./components/TableComponent";
 import { useFormDataPost } from "./data/FormDataPost";
-import UpdateChofer from "./formularios/UpdateVehiculo";
+import GenerateData from "./data/GenerateData";
+import SidebarDashboard from "@/app/components/SidebarDashboard";
 
 const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
@@ -101,8 +97,10 @@ function VehiculoContent() {
     },
   });
 
+  const { generate } = GenerateData();
+
   const memoizedDataFront = React.useMemo(() => {
-    return AreaTrabajoMapper.fromApiToFront(data).dataFront;
+    return VehiculoMapper.fromApiToFront(data).dataFront;
   }, [data]);
 
   useEffect(() => {
@@ -146,70 +144,87 @@ function VehiculoContent() {
     setState((prev) => ({ ...prev }));
   }, [refetch]);
 
-  if (status === "loading" || loading) {
-    return (
-      <div className="fixed inset-0 z-50 flex justify-center items-center">
-        <div className="fixed inset-0 bg-opacity-50 transition-opacity" />
-        <MemoizedImage
-          src="/loading.svg"
-          alt="Loading"
-          width={100}
-          height={100}
-          loading="lazy"
-        />
-      </div>
-    );
-  }
-
   if (error) return <div>Error {error}</div>;
 
   return (
     <div>
       <Toaster richColors />
       {state.permisoLectura && (
-        <div className="w-full min-h-screen z-0">
-          <div className="fixed top-0 left-0 m-1 z-50">
-            <ModalButton
-              className="rounded-4xl p-2"
-              onClick={() => handleNavigate("/dashboard")}
-            >
-              <MemoizedImage
-                src="/back-page.svg"
-                alt="Back Page"
-                width={50}
-                height={50}
-                loading="lazy"
-              />
-            </ModalButton>
-          </div>
+        <div className="flex w-full min-h-screen z-0">
+          <SidebarDashboard />
 
-          <header className="fixed w-full bg-white shadow">
-            <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-gray-900">
-                Gestión de Vehiculos
-              </h1>
-              <div className="flex">
-                <button
-                  onClick={() =>
-                    setState((prev) => ({ ...prev, isReporte: true }))
-                  }
-                  className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
-                >
-                  Generar Reporte
-                </button>
+          <div className="flex-1 flex flex-col">
+            <header className="sticky top-0 w-full bg-white shadow">
+              <div className="w-full mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Gestión de Vehiculos
+                </h1>
+                <div className="flex">
+                  <button
+                    onClick={() =>
+                      setState((prev) => ({ ...prev, isReporte: true }))
+                    }
+                    className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
+                  >
+                    Generar Reporte
+                  </button>
+                </div>
               </div>
-            </div>
-          </header>
+            </header>
 
-          <div className="w-full h-10" />
+            <div className="w-full h-2" />
 
-          <main className="mt-2 h-[100vh-40px]">
-            <MemoizedAreaTrabajoTable
-              refetch={refetch}
-              data={memoizedDataFront}
-              access={state.permisoEscritura}
-            />
-          </main>
+            {status === "loading" || (loading && <LoadingSpinner />)}
+
+            <main className="mt-2 h-[100vh-40px]">
+              <MemoizedAreaTrabajoTable
+                refetch={refetch}
+                data={memoizedDataFront}
+                access={state.permisoEscritura}
+              />
+            </main>
+
+            <footer className="w-full my-5 flex justify-center items-center">
+              <div className="w-lg mx-auto fixed bottom-5 flex justify-between items-center">
+                <ModalButton
+                  disabled={!pagination?.hasPrevPage}
+                  onClick={() => handlePageChange("prev")}
+                  className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  <MemoizedImage
+                    src="/back.svg"
+                    alt="Back"
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                  />
+                </ModalButton>
+
+                <div className="flex mx-2">
+                  <h4 className="mr-6">
+                    Página Actual: {pagination?.currentPage}
+                  </h4>
+                  <h4 className="ml-6">
+                    Última Página: {pagination?.totalPages}
+                  </h4>
+                </div>
+
+                <ModalButton
+                  disabled={!pagination?.hasNextPage}
+                  onClick={() => handlePageChange("next")}
+                  className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  <MemoizedImage
+                    src="/next.svg"
+                    alt="Next"
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                  />
+                </ModalButton>
+              </div>
+            </footer>
+          </div>
 
           <ModalGenerateReporte
             isOpen={state.isReporte}
@@ -217,11 +232,11 @@ function VehiculoContent() {
             selectedValue={state.selectedValue}
             onChange={handleChange}
             radioButtonProps={[
-              { title: "Reporte en PDF", name: "reporte", value: "pdf" },
               { title: "Reporte en Excel", name: "reporte", value: "excel" },
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))
@@ -268,72 +283,6 @@ function VehiculoContent() {
               </ModalButton>
             </div>
           )}
-
-          <footer className="w-full fixed bottom-0 my-5">
-            <div className="w-lg mx-auto flex justify-between items-center">
-              <ModalButton
-                disabled={!pagination?.hasPrevPage}
-                onClick={() => handlePageChange("prev")}
-                className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-              >
-                <MemoizedImage
-                  src="/back.svg"
-                  alt="Back"
-                  width={50}
-                  height={50}
-                  loading="lazy"
-                />
-              </ModalButton>
-
-              <div className="flex">
-                <h4 className="mr-6">
-                  Página Actual: {pagination?.currentPage}
-                </h4>
-                <h4 className="ml-6">
-                  Última Página: {pagination?.totalPages}
-                </h4>
-              </div>
-
-              <ModalButton
-                disabled={!pagination?.hasNextPage}
-                onClick={() => handlePageChange("next")}
-                className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
-              >
-                <MemoizedImage
-                  src="/next.svg"
-                  alt="Next"
-                  width={50}
-                  height={50}
-                  loading="lazy"
-                />
-              </ModalButton>
-            </div>
-          </footer>
-
-          <Modal
-            isOpen={state.isEditAreaTrabajo}
-            onClose={() =>
-              setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
-            }
-          >
-            <ModalBasicStyle
-              title="Editar Vehiculo"
-              classNameTitle="text-gray-900"
-              classNameContainer=""
-            >
-              {state.selectedAreaTrabajo && (
-                <UpdateChofer
-                  id={state.selectedAreaTrabajo.id}
-                  form={form}
-                  data={state.selectedAreaTrabajo}
-                  onClose={() =>
-                    setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
-                  }
-                  onSuccess={handleUpdateSuccess}
-                />
-              )}
-            </ModalBasicStyle>
-          </Modal>
         </div>
       )}
     </div>

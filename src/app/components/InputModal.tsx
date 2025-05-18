@@ -5,7 +5,14 @@ import { Inputs } from "../formularios/AddUser";
 type InputModalProps = {
   register: UseFormRegister<Inputs>;
   errors?: string;
-  name: "password" | "nombre" | "ci" | "role" | "confirmPassword" | "nickname";
+  name:
+    | "password"
+    | "nombre"
+    | "ci"
+    | "role"
+    | "confirmPassword"
+    | "nickname"
+    | "clave";
   type: string;
   title: string;
 };

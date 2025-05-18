@@ -1,5 +1,6 @@
 "use client";
 
+import { Inputs } from "@/app/types/tarjeta-types";
 import {
   FormField,
   FormItem,
@@ -15,7 +16,6 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Inputs } from "../data/FormDataPost";
 
 interface SelectOption {
   value: string;

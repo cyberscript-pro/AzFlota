@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || choferes.length;
 
-    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 1) {
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 0) {
       return NextResponse.json(
         { error: "Parámetros page y limit deben ser números positivos" },
         { status: 400 }

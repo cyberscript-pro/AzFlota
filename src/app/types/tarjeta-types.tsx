@@ -1,22 +1,33 @@
+export type Inputs = {
+  numero: string;
+  pin: string;
+  estado: string;
+  fecha_vencimiento: string;
+  saldo: string;
+  tipo: string;
+};
+
 type Vehiculo = {
   chapa: string;
 };
 
 export interface Tarjeta {
-  uuid: string;
   numero: string;
   pin: string;
   estado: string;
   fecha_vencimiento: string;
+  saldo: string;
+  tipo: string;
   vehiculo?: Vehiculo;
 }
 
 export interface TarjetaFront {
-  id: string;
   numero: string;
   pin: string;
   estado: string;
   fecha_vencimiento: string;
+  saldo: string;
+  tipo: string;
   vehiculo?: Vehiculo;
 }
 
@@ -25,8 +36,8 @@ export interface TarjetaPost {
   pin: string;
   estado: string;
   fecha_vencimiento: string;
+  saldo: number;
+  tipo: string;
 }
 
-export type TarjetaUpdate = Partial<Omit<TarjetaPost, "pin">> & {
-  pin?: number;
-};
+export type TarjetaUpdate = Partial<TarjetaPost>;

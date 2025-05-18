@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { TarjetaFront } from "../../../types/tarjeta-types";
+import { Inputs, TarjetaFront } from "../../../types/tarjeta-types";
 import ModalButton from "../../../components/ModalButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,7 +15,11 @@ import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
 import Modal from "../../../components/modal";
 import UpdateTarjetaCombustible from "../formularios/UpdateTarjetaCombustible";
-import { tarjetaSchemaPost } from "@/app/validations/frontend/tarjeta-post.schema";
+import {
+  tarjetaSchemaPost,
+  tarjetaSchemaUpdate,
+} from "@/app/validations/frontend/tarjeta-post.schema";
+import useApiPost from "@/app/hooks/useApiPost";
 
 type TarjetaCombustibleTableProps = {
   data: TarjetaFront[];
@@ -29,19 +33,28 @@ type DataDelete = {
 };
 
 export type DataUpdate = {
-  id: string;
   numero: string;
   pin: string;
   estado: string;
   fecha_vencimiento: string;
+  saldo: string;
+  tipo: string;
 };
 
-export type Inputs = {
-  numero: string;
-  pin: string;
-  estado: string;
-  fecha_vencimiento: string;
-};
+function mapStatus(backendStatus: string) {
+  switch (backendStatus) {
+    case "Activa":
+      return "Active";
+    case "Inactiva":
+      return "Inactive";
+    case "Bloqueada":
+      return "Blocked";
+    case "Expirada":
+      return "Expired";
+    default:
+      return backendStatus;
+  }
+}
 
 export function TarjetaCombustibleTable({
   data,
@@ -52,11 +65,12 @@ export function TarjetaCombustibleTable({
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
 
   const [dataUpdate, setDataUpdate] = useState<DataUpdate>({
-    id: "",
     numero: "",
     pin: "",
     estado: "",
     fecha_vencimiento: "",
+    saldo: "",
+    tipo: "",
   });
 
   const [dataDelete, setDataDelete] = useState<DataDelete>({
@@ -65,37 +79,55 @@ export function TarjetaCombustibleTable({
   });
 
   const form = useForm<Inputs>({
-    resolver: zodResolver(tarjetaSchemaPost),
+    resolver: zodResolver(tarjetaSchemaUpdate),
   });
+
+  const { onSubmitData, loadingPost, submitSuccess, setSubmitSuccess } =
+    useApiPost<{ tarjeta: string }>({
+      url: "/api/tarjetas-combustible-baja/",
+      onClose: () => setOpenDeleteModal(false),
+      reset: form.reset,
+    });
 
   const { onDelete } = useApiDelete();
 
   const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `/api/tarjetas-combustible/${id}` });
+    onSubmitData({
+      tarjeta: id,
+    });
+    if (!loadingPost) {
+      onDelete({ url: `/api/tarjetas-combustible/${id}` });
+    }
   };
 
   return (
     <div>
-      <div className="p-6 rounded-2xl max-w-fit mx-auto shadow-lg border bg-white overflow-auto">
+      <div className="p-6 rounded-2xl min-w-full mx-auto shadow-lg border bg-white overflow-auto">
         <h2 className="mt-2 text-xl font-semibold mb-4 text-gray-800">
           Lista de Tarjetas de Combustible
         </h2>
-        <Table className="min-w-[600px]">
+        <Table className="min-w-full">
           <TableHeader>
             <TableRow className="bg-gray-100">
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[300px]">
+              <TableHead className="py-3 px-4 text-gray-600 font-medium uppercase tracking-wide w-[200px]">
                 Numero de Tarjeta
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
+              <TableHead className="py-3 px-4 text-gray-600 font-medium uppercase tracking-wide w-[50px]">
                 Pin
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
+              <TableHead className="py-3 px-4 text-gray-600 text-center font-medium uppercase tracking-wide w-[200px]">
+                Tipo de Combustible
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-600 font-medium uppercase tracking-wide w-[50px]">
                 Estado
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[100px]">
+              <TableHead className="py-3 px-4 text-gray-600 font-medium uppercase tracking-wide w-[100px]">
                 Fecha de Vencimiento
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[200px]">
+              <TableHead className="py-3 px-4 text-gray-600 font-medium uppercase tracking-wide w-[100px]">
+                Saldo
+              </TableHead>
+              <TableHead className="py-3 px-4 text-gray-600 font-medium uppercase tracking-wide w-[200px]">
                 Vehiculo Asignado
               </TableHead>
             </TableRow>
@@ -103,24 +135,30 @@ export function TarjetaCombustibleTable({
           <TableBody>
             {data.map((data, idx) => (
               <TableRow
-                key={data.id}
+                key={data.numero}
                 className={
                   idx % 2 === 0
                     ? "bg-white hover:bg-gray-50"
                     : "bg-gray-50 hover:bg-gray-100"
                 }
               >
-                <TableCell className="py-3 px-4 text-gray-700 w-[300px]">
+                <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
                   {data.numero}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[50px]">
                   {data.pin}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
+                  {data.tipo}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[50px]">
                   {data.estado}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[100px]">
                   {data.fecha_vencimiento}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-700 w-[100px]">
+                  {data.saldo}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
                   {data.vehiculo ? data.vehiculo.chapa : "No Asignada"}
@@ -131,17 +169,20 @@ export function TarjetaCombustibleTable({
                       className={`inline-flex mr-2 w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
                       onClick={() => {
                         setDataUpdate({
-                          id: data.id,
                           numero: data.numero,
                           pin: data.pin,
                           estado: data.estado,
                           fecha_vencimiento: data.fecha_vencimiento,
+                          saldo: data.saldo,
+                          tipo: data.tipo,
                         });
                         form.reset({
                           numero: data.numero,
                           pin: data.pin,
-                          estado: data.estado,
+                          estado: mapStatus(data.estado),
                           fecha_vencimiento: data.fecha_vencimiento,
+                          saldo: data.saldo.toString(),
+                          tipo: data.tipo,
                         });
                         setOpenUpdateModal(true);
                       }}
@@ -152,13 +193,13 @@ export function TarjetaCombustibleTable({
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-800 sm:mt-0 sm:w-auto"
                       onClick={() => {
                         setDataDelete({
-                          idDelete: data.id,
+                          idDelete: data.numero,
                           numero: data.numero,
                         });
                         setOpenDeleteModal(true);
                       }}
                     >
-                      Eliminar
+                      Dar de Baja
                     </ModalButton>
                   </TableCell>
                 )}
@@ -181,7 +222,7 @@ export function TarjetaCombustibleTable({
                   setOpenUpdateModal(false);
                   refetch();
                 }}
-                id={dataUpdate.id}
+                numero={dataUpdate.numero}
                 data={dataUpdate}
               />
             </div>
@@ -194,18 +235,18 @@ export function TarjetaCombustibleTable({
           <div className="sm:flex sm:items-start">
             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
               <h3 className="text-base font-semibold leading-6">
-                ¿Esta seguro que desea eliminar el Chofer?
+                ¿Esta seguro que desea dar de baja la Tarjeta?
               </h3>
               <h3 className="text-base font-semibold leading-6 text-red-500">
                 {dataDelete.numero}
               </h3>
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <ModalButton
-                  children="Aceptar"
+                  children={loadingPost ? "Dando de Baja" : "Aceptar"}
                   onClick={() => {
                     onDeleteFuncion(dataDelete.idDelete);
                     setOpenDeleteModal(false);
-                    window.location.reload();
+                    refetch();
                   }}
                   className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
                 />

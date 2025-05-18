@@ -15,7 +15,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Inputs } from "../data/FormDataPost";
+import {Inputs} from "@/app/types/vehiculo-types";
 
 export interface SelectOption {
   value: string;
