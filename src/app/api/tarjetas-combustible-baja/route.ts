@@ -6,7 +6,11 @@ export async function GET(request: NextRequest) {
     const tarjetasBaja = await prisma.tarjetaCombustibleBaja.findMany({
       include: {
         tarjeta: {
-          select: { estado: true },
+          select: {
+            numero: true,
+            pin: true,
+            estado: true,
+          },
         },
       },
     });

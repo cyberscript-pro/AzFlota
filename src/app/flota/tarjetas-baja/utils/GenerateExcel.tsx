@@ -1,9 +1,10 @@
 import ExcelJS from "exceljs";
 import { saveAs } from "file-saver";
 import { AreaTrabajoFront } from "../../../types/area-types";
+import { TarjetaBajaFront } from "@/app/types/tarjetas-baja-types";
 
 interface GenerateExcelProps {
-  data: AreaTrabajoFront[];
+  data: TarjetaBajaFront[];
   fileName?: string;
 }
 
@@ -45,7 +46,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
     worksheet.getColumn(4).width = 30;
   });
 
-  data.forEach((item) => {
+  /*data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
     dataRow.getCell(2).value = item.nombre;
     dataRow.getCell(3).value = item.centro_costo;
@@ -66,7 +67,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         },
       };
     });
-  });
+  });*/
 
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 

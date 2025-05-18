@@ -90,7 +90,7 @@ function SidebarDashboard() {
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
             <SidebarButton
-              onClick={() => handleNavigate("/users/roles")}
+              onClick={() => handleNavigate("/flota/tarjetas-baja")}
               icon={<CreditCard size={20} />}
               tooltipText="Tarjetas de Combustible de Baja"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"

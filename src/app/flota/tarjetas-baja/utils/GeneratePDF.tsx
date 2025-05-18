@@ -1,9 +1,10 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { AreaTrabajoFront } from "../../../types/area-types";
+import { TarjetaBajaFront } from "@/app/types/tarjetas-baja-types";
 
 interface GenerateReporte {
-  data: AreaTrabajoFront[] | undefined;
+  data: TarjetaBajaFront[] | undefined;
 }
 
 const GeneratePDF = ({ data }: GenerateReporte) => {
@@ -17,7 +18,7 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
     autoTable(doc, {
       startY: 30,
       head: [["Area de Trabajo", "Centro de Costo", "Jefe"]],
-      body: data?.map((item) => [item.nombre, item.centro_costo, item.jefe]),
+      //body: data?.map((item) => [item.nombre, item.centro_costo, item.jefe]),
       styles: {
         fontSize: 10,
         cellPadding: 1.5,
