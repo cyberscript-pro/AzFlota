@@ -19,14 +19,41 @@ export const choferSchema = z.object({
     .refine((value) => /^\d{11}$/.test(value), {
       message: "El carnet debe contener exactamente 11 dígitos numéricos",
     })
-    .transform((val) => val.trim()),
+    .transform((val) => val.trim())
+    .refine(
+      async (ci) => {
+        if (ci.length == 11) {
+          const response = await fetch(`/api/choferes/checking?ci=${ci}`);
+          const data = await response.json();
+          return !data.ci;
+        }
+      },
+      {
+        message:
+          "El carnet de identidad ya registrado compuebe los choferes despedidos",
+      }
+    ),
 
   licencia: z
     .string()
     .refine((value) => /^\d{6}$/.test(value), {
       message: "El licencia debe contener exactamente 6 dígitos numéricos",
     })
-    .transform((val) => val.trim()),
+    .transform((val) => val.trim())
+    .refine(
+      async (licencia) => {
+        if (licencia.length == 6) {
+          const response = await fetch(
+            `/api/choferes/checking?licencia=${licencia}`
+          );
+          const data = await response.json();
+          return !data.licencia;
+        }
+      },
+      {
+        message: "Licencia ya registrada compruebe los choferes despedidos",
+      }
+    ),
 
   telefono: z
     .string()

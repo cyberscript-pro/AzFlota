@@ -54,7 +54,7 @@ model Chofer {
   edad        Int
   sexo        String
   ci          String   @unique
-  licencia    String
+  licencia    String   @unique
   telefono    String
   vehiculos   Vehiculo[]
   despido     ChoferesDespedidos?
@@ -114,8 +114,8 @@ model Vehiculo {
 
 model ControlCargas {
   uuid            String            @id @default(uuid())
-  folio           String
-  comprobante     String
+  folio           String            @unique
+  comprobante     String            @unique
   fecha           DateTime          @db.Date
   existencia      Int               
   importe         Int

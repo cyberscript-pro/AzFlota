@@ -39,7 +39,10 @@ function AddVehiculo({
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-4 space-y-4 min-w-[400px]"
+        >
           <InputComponent
             name="folio"
             label="Folio"

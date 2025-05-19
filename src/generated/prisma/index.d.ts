@@ -408,8 +408,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.8.2
+   * Query Engine version: 2060c79ba17c6bb9f5823312b6f6b7f4a845738e
    */
   export type PrismaVersion = {
     client: string
@@ -12907,18 +12907,18 @@ export namespace Prisma {
 
   export type ChoferWhereUniqueInput = Prisma.AtLeast<{
     ci?: string
+    licencia?: string
     AND?: ChoferWhereInput | ChoferWhereInput[]
     OR?: ChoferWhereInput[]
     NOT?: ChoferWhereInput | ChoferWhereInput[]
     nombre?: StringFilter<"Chofer"> | string
     edad?: IntFilter<"Chofer"> | number
     sexo?: StringFilter<"Chofer"> | string
-    licencia?: StringFilter<"Chofer"> | string
     telefono?: StringFilter<"Chofer"> | string
     isAvailable?: BoolFilter<"Chofer"> | boolean
     vehiculos?: VehiculoListRelationFilter
     despido?: XOR<ChoferesDespedidosNullableScalarRelationFilter, ChoferesDespedidosWhereInput> | null
-  }, "ci">
+  }, "ci" | "licencia">
 
   export type ChoferOrderByWithAggregationInput = {
     nombre?: SortOrder
@@ -13196,18 +13196,18 @@ export namespace Prisma {
 
   export type ControlCargasWhereUniqueInput = Prisma.AtLeast<{
     uuid?: string
+    folio?: string
+    comprobante?: string
     AND?: ControlCargasWhereInput | ControlCargasWhereInput[]
     OR?: ControlCargasWhereInput[]
     NOT?: ControlCargasWhereInput | ControlCargasWhereInput[]
-    folio?: StringFilter<"ControlCargas"> | string
-    comprobante?: StringFilter<"ControlCargas"> | string
     fecha?: DateTimeFilter<"ControlCargas"> | Date | string
     existencia?: IntFilter<"ControlCargas"> | number
     importe?: IntFilter<"ControlCargas"> | number
     consumo_dinero?: IntFilter<"ControlCargas"> | number
     vehiculoChapa?: StringFilter<"ControlCargas"> | string
     vehiculo?: XOR<VehiculoScalarRelationFilter, VehiculoWhereInput>
-  }, "uuid">
+  }, "uuid" | "folio" | "comprobante">
 
   export type ControlCargasOrderByWithAggregationInput = {
     uuid?: SortOrder

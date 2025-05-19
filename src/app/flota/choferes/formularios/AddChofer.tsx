@@ -34,7 +34,7 @@ function AddChofer({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="mt-4 space-y-4"
+          className="mt-4 space-y-4 min-w-[400px]"
         >
           <InputComponent
             name="nombre"

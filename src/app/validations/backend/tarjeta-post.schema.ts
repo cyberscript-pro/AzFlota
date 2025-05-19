@@ -33,7 +33,8 @@ export const tarjetaSchemaUpdate = z.object({
     .refine((value) => /^\d{4}$/.test(value), {
       message: "El pin debe contener exactamente 4 dígitos numéricos",
     })
-    .transform((val) => val.trim()),
+    .transform((val) => val.trim())
+    .optional(),
   estado: z.enum(State).optional(),
   fecha_vencimiento: z
     .string()

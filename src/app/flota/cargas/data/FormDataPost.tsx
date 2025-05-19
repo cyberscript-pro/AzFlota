@@ -13,10 +13,7 @@ export function useFormDataPost({ onClose }: CargasProps) {
   const buscarVehiculo = async (chapa: string) => {
     try {
       const { data } = await axios.get(
-        `/api/vehiculos/${encodeURIComponent(chapa)}`,
-        {
-          params: { t: Date.now() },
-        }
+        `/api/vehiculos/${encodeURIComponent(chapa)}`
       );
 
       return data;
@@ -32,7 +29,6 @@ export function useFormDataPost({ onClose }: CargasProps) {
       const { data } = await axios.patch(
         `/api/tarjetas-combustible/${encodeURIComponent(numero)}`,
         {
-          numero,
           saldo,
         }
       );
@@ -66,6 +62,8 @@ export function useFormDataPost({ onClose }: CargasProps) {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const result = await buscarVehiculo(data.vehiculoChapa);
+    console.log(result);
+    console.log(data);
 
     onSubmitData({
       folio: data.folio,
@@ -76,16 +74,15 @@ export function useFormDataPost({ onClose }: CargasProps) {
       consumo_dinero: parseInt(data.consumo_dinero),
       vehiculoChapa: data.vehiculoChapa,
     });
-    
+
     const saldo =
       parseInt(result.tarjeta.saldo) +
       parseInt(data.importe) -
       parseInt(data.consumo_dinero);
 
-    await updateTarjeta(
-      result.tarjeta.numero,
-      saldo
-    );
+    console.log(saldo);
+
+    await updateTarjeta(result.tarjeta.numero, saldo);
   };
 
   return {

@@ -88,8 +88,8 @@ function CargasContent() {
 
   const { form, onSubmit, loadingPost } = useFormDataPost({
     onClose: () => {
-      setState((prev) => ({ ...prev, isCreateAreaTrabajo: false }));
-      toast.success("Vehiculo creado correctamente");
+      setState((prev) => ({ ...prev, isCreateCarga: false }));
+      toast.success("Carga de Combustible creada correctamente");
       refetch();
     },
   });
