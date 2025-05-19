@@ -6,6 +6,7 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const nickname = searchParams.get("nickname");
   const ci = searchParams.get("ci");
+  const rol = searchParams.get("rol");
 
   try {
     if (nickname) {
@@ -20,9 +21,26 @@ export async function GET(request: NextRequest) {
       });
 
       return NextResponse.json({ exists: user });
+    } else if (rol) {
+      if (rol === "DIRECTOR" || rol === "SUPERVISOR") {
+        const users = await prisma.user.findMany({
+          where: { role: rol },
+        });
+
+        if (users.length > 0) {
+          return NextResponse.json({ exists: users });
+        } else {
+          return NextResponse.json({ exist: null });
+        }
+      } else {
+        return NextResponse.json({ exist: null });
+      }
     }
   } catch (error) {
-    return NextResponse.json({ error: "Error fetching user", message: error }, { status: 500 });
+    return NextResponse.json(
+      { error: "Error fetching user", message: error },
+      { status: 500 }
+    );
   }
 }
 

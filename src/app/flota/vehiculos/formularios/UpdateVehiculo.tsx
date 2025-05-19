@@ -112,7 +112,7 @@ function UpdateChofer({
 
           <InputComponent
             name="consumo_km"
-            label="Consumo Litros/Km"
+            label="Consumo Km"
             placeholder="Ingresa el consumo de combustible en litros por Km"
             control={form.control}
           />

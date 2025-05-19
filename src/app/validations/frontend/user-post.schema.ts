@@ -48,12 +48,25 @@ export const userSchemaPost = z
         }
       ),
 
-    role: z.enum(role, {
-      errorMap: () => ({
-        message: "Por favor seleccione un rol",
-        path: ["role"],
-      }),
-    }),
+    role: z
+      .enum(role, {
+        errorMap: () => ({
+          message: "Por favor seleccione un rol",
+          path: ["role"],
+        }),
+      })
+      .refine(
+        async (role) => {
+          if (role) {
+            const response = await fetch(`/api/users/checking?rol=${role}`);
+            const data = await response.json();
+            return !data.exists;
+          }
+        },
+        {
+          message: "Ya existe un usuario con este rol",
+        }
+      ),
 
     clave: z.string().refine((value) => /^\d{4}$/.test(value), {
       message: "La clave debe contener exactamente 4 dígitos numéricos",
@@ -69,28 +82,25 @@ export const userSchemaPost = z
     confirmPassword: z.string().optional(),
   })
   .refine(
-    (data) => data.role === "ECONOMICO" ? data.clave === "1234" : true,
+    (data) => (data.role === "ECONOMICO" ? data.clave === "1234" : true),
+    {
+      message: "La clave de acceso es incorrecta",
+      path: ["clave"],
+    }
+  )
+  .refine((data) => (data.role === "DIRECTOR" ? data.clave === "5678" : true), {
+    message: "La clave de acceso es incorrecta",
+    path: ["clave"],
+  })
+  .refine(
+    (data) => (data.role === "ENCARGADO" ? data.clave === "5679" : true),
     {
       message: "La clave de acceso es incorrecta",
       path: ["clave"],
     }
   )
   .refine(
-    (data) => data.role === "DIRECTOR" ? data.clave === "5678" : true,
-    {
-      message: "La clave de acceso es incorrecta",
-      path: ["clave"],
-    }
-  )
-  .refine(
-    (data) => data.role === "ENCARGADO" ? data.clave === "5679" : true,
-    {
-      message: "La clave de acceso es incorrecta",
-      path: ["clave"],
-    }
-  )
-  .refine(
-    (data) => data.role === "SUPERVISOR" ? data.clave === "4579" : true,
+    (data) => (data.role === "SUPERVISOR" ? data.clave === "4579" : true),
     {
       message: "La clave de acceso es incorrecta",
       path: ["clave"],
