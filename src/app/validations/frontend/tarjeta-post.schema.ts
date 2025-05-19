@@ -50,20 +50,13 @@ export const tarjetaSchemaPost = z.object({
 });
 
 export const tarjetaSchemaUpdate = z.object({
-  numero: z
-    .string()
-    .refine((value) => /^\d{7}$/.test(value), {
-      message:
-        "El numero de tarjeta debe contener exactamente 7 dígitos numéricos",
-    })
-    .transform((val) => val.trim()),
   pin: z
     .string()
     .refine((value) => /^\d{4}$/.test(value), {
       message: "El pin debe contener exactamente 4 dígitos numéricos",
     })
     .transform((val) => val.trim()),
-  estado: z.string().min(1, "Selecciona el estado"),
+  estado: z.string().min(1, "Selecciona el sexo"),
   fecha_vencimiento: z
     .string()
     .refine((date) => new Date(date).toString() !== "Invalid Date", {

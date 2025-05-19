@@ -67,7 +67,7 @@ export async function PATCH(request: Request, { params }: { params: tParams }) {
       return NextResponse.json(result.error, { status: 400 });
     }
 
-    const { numero, pin, estado, fecha_vencimiento, saldo, tipo } = result.data;
+    const { pin, estado, fecha_vencimiento, saldo, tipo } = result.data;
 
     let vencimiento = undefined;
 
@@ -76,9 +76,9 @@ export async function PATCH(request: Request, { params }: { params: tParams }) {
     }
 
     const tarjeta = await prisma.tarjetaCombustible.update({
-      where: { numero },
+      where: { numero: param.numero },
       data: {
-        numero: numero,
+        numero: param.numero,
         pin: pin || tarjetaExists.pin,
         estado: estado || tarjetaExists.estado,
         fecha_vencimiento: vencimiento,

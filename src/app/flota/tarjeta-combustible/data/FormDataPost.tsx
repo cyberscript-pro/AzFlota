@@ -45,6 +45,6 @@ export function useFormDataPost({ onClose }: ChoferProps) {
     submitSuccess,
     onSubmit,
     setSubmitSuccess,
-    loadingPost,
+    loadingPost
   };
 }

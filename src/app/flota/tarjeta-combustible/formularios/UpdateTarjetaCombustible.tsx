@@ -49,9 +49,9 @@ function UpdateTarjetaCombustible({
     try {
       console.log(data);
       await updateData({
-        numero: data.numero,
         pin: data.pin,
         estado: data.estado,
+        tipo: data.tipo,
         fecha_vencimiento: data.fecha_vencimiento,
         saldo: parseInt(data.saldo),
       });
@@ -64,13 +64,6 @@ function UpdateTarjetaCombustible({
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
-          <InputComponent
-            name="numero"
-            label="Numero de Tarjeta"
-            placeholder="Ingresa el numero de la tarjeta"
-            control={form.control}
-          />
-
           <InputComponent
             name="pin"
             label="Pin"

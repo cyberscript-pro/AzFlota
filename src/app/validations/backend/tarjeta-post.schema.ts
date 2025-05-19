@@ -28,14 +28,6 @@ export const tarjetaSchemaPost = z.object({
 });
 
 export const tarjetaSchemaUpdate = z.object({
-  numero: z
-    .string()
-    .refine((value) => /^\d{7}$/.test(value), {
-      message:
-        "El numero de tarjeta debe contener exactamente 7 dígitos numéricos",
-    })
-    .transform((val) => val.trim())
-    .optional(),
   pin: z
     .string()
     .refine((value) => /^\d{4}$/.test(value), {

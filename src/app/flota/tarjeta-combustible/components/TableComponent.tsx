@@ -7,7 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Inputs, TarjetaFront } from "../../../types/tarjeta-types";
+import { InputsUpdate, TarjetaFront } from "../../../types/tarjeta-types";
 import ModalButton from "../../../components/ModalButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -78,7 +78,7 @@ export function TarjetaCombustibleTable({
     numero: "",
   });
 
-  const form = useForm<Inputs>({
+  const form = useForm<InputsUpdate>({
     resolver: zodResolver(tarjetaSchemaUpdate),
   });
 
@@ -177,7 +177,6 @@ export function TarjetaCombustibleTable({
                           tipo: data.tipo,
                         });
                         form.reset({
-                          numero: data.numero,
                           pin: data.pin,
                           estado: mapStatus(data.estado),
                           fecha_vencimiento: data.fecha_vencimiento,
