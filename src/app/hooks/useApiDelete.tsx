@@ -1,35 +1,38 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 type ApiDelete = {
-    url: string;
-}
+  url: string;
+  data?: any;
+};
 
 export default function useApiDelete() {
-    const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
-    const onDelete = async ({ url }: ApiDelete) => {
-        try {
-            const response = await fetch( url, {
-                method: 'DELETE',
-                headers: {
-                'Content-Type': 'application/json',
-                }
-            });
+  const onDelete = async ({ url, data }: ApiDelete) => {
+    try {
+      const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-            if (!response.ok) {
-                throw new Error('Error al realizar la eliminacion');
-            }
+      if (!response.ok) {
+        throw new Error("Error al realizar la eliminacion");
+      }
 
-            setDeleteSuccess(true);
-        
-        } catch (err) {
-            throw new Error(err instanceof Error ? err.message : 'An unknown error occurred');
-        }
-    };
-
-    return {
-        onDelete,
-        deleteSuccess,
-        setDeleteSuccess
+      setDeleteSuccess(true);
+    } catch (err) {
+      throw new Error(
+        err instanceof Error ? err.message : "An unknown error occurred"
+      );
     }
+  };
+
+  return {
+    onDelete,
+    deleteSuccess,
+    setDeleteSuccess,
+  };
 }

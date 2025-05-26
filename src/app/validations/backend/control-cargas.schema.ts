@@ -9,8 +9,8 @@ export const controlCargasSchema = z.object({
       message: "Por favor ingrese una fecha valida",
     }),
   existencia: z.number().min(0),
-  importe: z.number().min(1),
-  consumo_dinero: z.number().min(1),
+  importe: z.number().min(0),
+  consumo_dinero: z.number().min(0),
   vehiculoChapa: z.string().min(1),
 });
 

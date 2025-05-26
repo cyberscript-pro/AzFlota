@@ -1,9 +1,10 @@
-import {NextResponse} from 'next/server'
-import prisma from '../../../../lib/prisma'
+import { NextRequest, NextResponse } from "next/server";
+import prisma from "../../../../lib/prisma";
+import { dateSchema } from "@/app/validations/backend/tarjeta-post.schema";
 
 async function findOne(chapa: string) {
   return prisma.vehiculo.findUnique({
-    where: {chapa},
+    where: { chapa },
     include: {
       chofer: {
         select: {
@@ -26,43 +27,38 @@ async function findOne(chapa: string) {
 
 type tParams = Promise<{ chapa: string }>;
 
-export async function GET(
-  request: Request,
-  { params }: { params: tParams }
-) {
+export async function GET(request: Request, { params }: { params: tParams }) {
   try {
-
     const { chapa } = await params;
 
-    const vehiculo = await findOne(chapa); 
+    const vehiculo = await findOne(chapa);
 
     if (!vehiculo) {
-      return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
+      return NextResponse.json({ error: "Vehicle not found" }, { status: 404 });
     }
 
-    return NextResponse.json(vehiculo)
+    return NextResponse.json(vehiculo);
   } catch (error) {
-    return NextResponse.json({ error: 'Error fetching vehicle', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error fetching vehicle", message: error },
+      { status: 500 }
+    );
   }
 }
 
-// PUT update vehicle
-export async function PATCH(
-  request: Request,
-  { params }: { params: tParams }
-) {
+export async function PATCH(request: Request, { params }: { params: tParams }) {
   try {
-
     const param = await params;
 
-    const vehiculoExists = await findOne(param.chapa); 
+    const vehiculoExists = await findOne(param.chapa);
 
     if (!vehiculoExists) {
-      return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
+      return NextResponse.json({ error: "Vehicle not found" }, { status: 404 });
     }
 
-    const { chapa, marca, tipo, consumo_km, area, chofer, tarjeta } = await request.json()
-    
+    const { chapa, marca, tipo, consumo_km, area, chofer, tarjeta } =
+      await request.json();
+
     const vehiculo = await prisma.vehiculo.update({
       where: { chapa: param.chapa },
       data: {
@@ -72,7 +68,7 @@ export async function PATCH(
         consumo_km: parseInt(consumo_km),
         areaTrabajoUuid: area,
         choferCI: chofer,
-        tarjetaNumero: tarjeta
+        tarjetaNumero: tarjeta,
       },
       include: {
         areaTrabajo: {
@@ -80,7 +76,7 @@ export async function PATCH(
             uuid: true,
             nombre: true,
             centro_costo: true,
-            jefe: true
+            jefe: true,
           },
         },
         chofer: {
@@ -98,35 +94,69 @@ export async function PATCH(
           },
         },
       },
-    })
-    
-    return NextResponse.json(vehiculo)
+    });
+
+    return NextResponse.json(vehiculo);
   } catch (error) {
-    return NextResponse.json({ error: 'Error updating vehicle', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error updating vehicle", message: error },
+      { status: 500 }
+    );
   }
 }
 
 // DELETE vehicle
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: tParams }
 ) {
   try {
-
     const { chapa } = await params;
+    const { inicio, descripcion } = await request.json();
 
-    const vehiculo = await findOne(chapa); 
+    const vehiculo = await findOne(chapa);
 
     if (!vehiculo) {
-      return NextResponse.json({ error: 'Vehicle not found' }, { status: 404 })
+      return NextResponse.json({ error: "Vehicle not found" }, { status: 404 });
     }
 
-    await prisma.vehiculo.delete({
+    const response = await fetch(
+      "http://localhost:3000/api/vehiculos-mantenimiento",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chapa,
+          inicio,
+          descripcion,
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: "Error al enviar los datos" },
+        { status: 400 }
+      );
+    }
+
+    await prisma.vehiculo.update({
       where: { chapa },
-    })
-    
-    return NextResponse.json({ message: 'Vehicle deleted successfully' })
+      data: {
+        isAvailable: false,
+      },
+    });
+
+    return NextResponse.json({
+      message: "Vehicle mantenimiento successfully",
+      elements: { inicio, descripcion, response },
+    });
   } catch (error) {
-    return NextResponse.json({ error: 'Error deleting vehicle', message: error }, { status: 500 })
+    return NextResponse.json(
+      { error: "Error deleting vehicle", message: error },
+      { status: 500 }
+    );
   }
-} 
+}

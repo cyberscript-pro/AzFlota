@@ -82,6 +82,9 @@ export function CargasTable({
               <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[100px]">
                 Consumo en Litros
               </TableHead>
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[100px]">
+                Saldo Final
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -120,6 +123,9 @@ export function CargasTable({
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
                   {Math.ceil(dato.consumo_dinero / 13.9)}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
+                  {dato.existencia + dato.importe - dato.consumo_dinero}
                 </TableCell>
                 {/* {access && idx + 1 == data.length && (
                   <TableCell className="py-3 px-4 text-gray-700 w-[100px]">

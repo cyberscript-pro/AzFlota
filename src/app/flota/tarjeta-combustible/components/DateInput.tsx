@@ -12,7 +12,7 @@ interface DateInputProps {
 }
 
 const DateInput: React.FC<DateInputProps> = ({ name, label, value, onChange, control, required }) => {
-  // Si se usa con react-hook-form, se espera que control esté presente
+
   if (control) {
     return (
       <div className="grid gap-2">
@@ -26,7 +26,7 @@ const DateInput: React.FC<DateInputProps> = ({ name, label, value, onChange, con
       </div>
     );
   }
-  // Si se usa de forma controlada
+
   return (
     <div className="grid gap-2">
       <Label htmlFor={name}>{label}</Label>

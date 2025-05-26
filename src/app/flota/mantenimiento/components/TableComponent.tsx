@@ -8,13 +8,17 @@ import {
 } from "@/components/ui/table";
 import { AreaTrabajoFront } from "../../../types/area-types";
 import ModalButton from "../../../components/ModalButton";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
 import Modal from "../../../components/modal";
 import { areaSchemaPost } from "@/app/validations/frontend/area-trabajo.schema";
 import { VehiculoMantenimientoFront } from "@/app/types/mantenimiento-types";
+import MantenimientoVehiculo from "../formularios/MantenimientoVehiculo";
+import useApiUpdate from "@/app/hooks/useApiUpdate";
+import { toast } from "sonner";
+import { Description } from "@radix-ui/react-dialog";
 
 type ChoferTableProps = {
   data: VehiculoMantenimientoFront[];
@@ -29,6 +33,30 @@ export function AreaTrabajoTable({
 }: ChoferTableProps) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [dataUpdate, setDataUpdate] = useState<{
+    chapa: string;
+    inicio: string;
+    uuid: string;
+  }>({
+    chapa: "",
+    inicio: "",
+    uuid: "",
+  });
+  const [dataDelete, setDataDelete] = useState<{
+    chapa: string;
+    uuid: string;
+  }>({
+    chapa: "",
+    uuid: "",
+  });
+
+  const deleteVehiculo = async (uuid: string) => {
+    try {
+
+    }catch(error) {
+      console.error("Error al enviar datos:", error);
+    }
+  }
 
   return (
     <div className="w-full">
@@ -75,19 +103,28 @@ export function AreaTrabajoTable({
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
                   {data.descripcion}
                 </TableCell>
-                {access && (
+                {access && data.fin === null && (
                   <TableCell className="py-3 px-4 text-gray-700 w-[100px]">
                     <ModalButton
                       className={`inline-flex mr-2 w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
                       onClick={() => {
+                        setDataUpdate({
+                          chapa: data.vehiculo.chapa,
+                          inicio: data.inicio,
+                          uuid: data.id,
+                        });
                         setOpenUpdateModal(true);
                       }}
                     >
-                      Terminar Mantenimiento
+                      Finalizar
                     </ModalButton>
                     <ModalButton
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-800 sm:mt-0 sm:w-auto"
                       onClick={() => {
+                        setDataDelete({
+                          chapa: data.vehiculo.chapa,
+                          uuid: data.id,
+                        })
                         setOpenDeleteModal(true);
                       }}
                     >
@@ -105,10 +142,20 @@ export function AreaTrabajoTable({
           <div className="sm:flex sm:items-start">
             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
               <h3 className="text-base font-semibold leading-6">
-                Actualizacion del Area de Trabajo
+                Finalizar Mantenimiento del Vehiculo
               </h3>
-
-              
+              <MantenimientoVehiculo
+                onClose={() => setOpenUpdateModal(false)}
+                onSuccess={() => {
+                  setOpenUpdateModal(false);
+                  refetch();
+                }}
+                id={dataUpdate.uuid}
+                dataUpdate={{
+                  chapa: dataUpdate.chapa,
+                  inicio: dataUpdate.inicio,
+                }}
+              />
             </div>
           </div>
         </div>
@@ -119,15 +166,14 @@ export function AreaTrabajoTable({
           <div className="sm:flex sm:items-start">
             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
               <h3 className="text-base font-semibold leading-6">
-                ¿Esta seguro que desea eliminar el Area de Trabajo?
+                ¿Esta seguro que desea dar de baja el Vehiculo?
               </h3>
-              <h3 className="text-base font-semibold leading-6 text-red-500">
-                
-              </h3>
+              <h3 className="text-base font-semibold leading-6 text-red-500">{dataDelete.chapa}</h3>
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <ModalButton
                   children="Aceptar"
                   onClick={() => {
+                    deleteVehiculo(dataDelete.uuid);
                     setOpenDeleteModal(false);
                   }}
                   className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}

@@ -207,6 +207,11 @@ exports.Prisma.ViajesVehiculosScalarFieldEnum = {
   vehiculoChapa: 'vehiculoChapa'
 };
 
+exports.Prisma.VehiculoBajaScalarFieldEnum = {
+  vehiculoChapa: 'vehiculoChapa',
+  fecha_baja: 'fecha_baja'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -283,6 +288,10 @@ exports.Prisma.ViajesVehiculosOrderByRelevanceFieldEnum = {
   lugarDestino: 'lugarDestino',
   vehiculoChapa: 'vehiculoChapa'
 };
+
+exports.Prisma.VehiculoBajaOrderByRelevanceFieldEnum = {
+  vehiculoChapa: 'vehiculoChapa'
+};
 exports.Role = exports.$Enums.Role = {
   DIRECTOR: 'DIRECTOR',
   SUPERVISOR: 'SUPERVISOR',
@@ -315,7 +324,8 @@ exports.Prisma.ModelName = {
   ChoferesDespedidos: 'ChoferesDespedidos',
   VehiculosMantenimiento: 'VehiculosMantenimiento',
   VehiculosBaja: 'VehiculosBaja',
-  ViajesVehiculos: 'ViajesVehiculos'
+  ViajesVehiculos: 'ViajesVehiculos',
+  VehiculoBaja: 'VehiculoBaja'
 };
 
 /**

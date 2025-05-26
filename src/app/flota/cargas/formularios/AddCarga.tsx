@@ -11,7 +11,7 @@ import { Inputs } from "@/app/types/cargas-types";
 import DateInput from "../../tarjeta-combustible/components/DateInput";
 import useApiGet from "@/app/hooks/useApiGet";
 import { VehiculoBack } from "@/app/types/vehiculo-types";
-import InputSelect from "../components/InputSelect";
+import InputSelect, { SelectOption } from "../components/InputSelect";
 
 type AddAreaTrabajoProps = {
   onSubmit: SubmitHandler<Inputs>;
@@ -35,6 +35,21 @@ function AddVehiculo({
   const { data } = useApiGet<VehiculoBack>({
     url: "/api/vehiculos?page=1",
   });
+
+  const handleSelectVehiculo = (): SelectOption[] => {
+    const selectOptions: SelectOption[] = [];
+
+    data?.map((dato) => {
+      if (!(dato.tarjeta.estado === "Blocked")) {
+        selectOptions.push({
+          value: dato.chapa,
+          label: `${dato.chapa} - ${dato.tipo}`,
+        });
+      }
+    });
+
+    return selectOptions;
+  };
 
   return (
     <div>
@@ -83,12 +98,7 @@ function AddVehiculo({
             name="vehiculoChapa"
             control={form.control}
             placeholder="Selecciona una opción"
-            options={data?.map((data) => {
-              return {
-                value: data.chapa,
-                label: `${data.chapa} - ${data.tipo}`,
-              };
-            })}
+            options={handleSelectVehiculo()}
             required={true}
           />
 

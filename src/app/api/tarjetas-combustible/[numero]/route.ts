@@ -82,7 +82,7 @@ export async function PATCH(request: Request, { params }: { params: tParams }) {
         pin: pin || tarjetaExists.pin,
         estado: estado || tarjetaExists.estado,
         fecha_vencimiento: vencimiento,
-        saldo: saldo || tarjetaExists.saldo,
+        saldo: saldo,
         tipo: tipo || tarjetaExists.tipo,
       },
       include: {

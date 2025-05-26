@@ -4,7 +4,16 @@ import prisma from "../../../lib/prisma";
 export async function GET(request: NextRequest) {
   try {
     const vehiculos = await prisma.vehiculo.findMany({
+      where: {
+        isAvailable: true,
+      },
       include: {
+        mantenimientos: {
+          select: {
+            inicio: true,
+            fin: true,
+          },
+        },
         areaTrabajo: {
           select: {
             uuid: true,
@@ -80,7 +89,7 @@ export async function POST(request: Request) {
         consumo_km: parseInt(consumo_km),
         areaTrabajoUuid: area,
         choferCI: chofer,
-        tarjetaNumero: tarjeta
+        tarjetaNumero: tarjeta,
       },
       include: {
         areaTrabajo: {
@@ -88,7 +97,7 @@ export async function POST(request: Request) {
             uuid: true,
             nombre: true,
             centro_costo: true,
-            jefe: true
+            jefe: true,
           },
         },
         chofer: {
@@ -106,17 +115,7 @@ export async function POST(request: Request) {
           },
         },
       },
-    })
-
-    // const vehiculo = {
-    //   chapa,
-    //   marca,
-    //   tipo,
-    //   consumo_km: parseInt(consumo_km),
-    //   areaTrabajoUuid: area,
-    //   choferCI: chofer,
-    //   tarjetaNumero: tarjeta,
-    // };
+    });
 
     return NextResponse.json(vehiculo, { status: 201 });
   } catch (error) {

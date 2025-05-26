@@ -21,6 +21,8 @@ import { CargasTable } from "./components/TableComponent";
 import { useFormDataPost } from "./data/FormDataPost";
 import { CargaBack, CargaFront } from "@/app/types/cargas-types";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
+import SearchForm from "@/app/flota/cargas/components/Search";
+import { isSea } from "node:sea";
 
 const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
@@ -67,6 +69,7 @@ function CargasContent() {
 
   const [state, setState] = useState({
     isCreateCarga: false,
+    isSearch: false,
     isReporte: false,
     selectedValue: "pdf",
     pageActual: 1,
@@ -113,14 +116,6 @@ function CargasContent() {
     }));
   }, [session, router]);
 
-  // Handlers memorizados
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
-
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
@@ -148,7 +143,32 @@ function CargasContent() {
                 <h1 className="text-2xl font-bold text-gray-900">
                   Gestión de Cargas de Combustible
                 </h1>
+
                 <div className="flex">
+                  <button
+                    className="mr-4 border p-2 rounded-4xl text-gray-500 hover:text-blue-600 focus:outline-none"
+                    onClick={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        isSearch: true,
+                      }))
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </button>
                   <button
                     onClick={() =>
                       setState((prev) => ({ ...prev, isReporte: true }))
@@ -249,6 +269,23 @@ function CargasContent() {
                 }
                 onSubmit={onSubmit}
                 loadingAdd={loadingPost}
+              />
+            </ModalBasicStyle>
+          </Modal>
+
+          <Modal
+            isOpen={state.isSearch}
+            onClose={() => setState((prev) => ({ ...prev, isSearch: false }))}
+          >
+            <ModalBasicStyle
+              title="Buscador"
+              classNameTitle="text-gray-900"
+              classNameContainer=""
+            >
+              <SearchForm
+                onClose={() =>
+                  setState((prev) => ({ ...prev, isSearch: false }))
+                }
               />
             </ModalBasicStyle>
           </Modal>

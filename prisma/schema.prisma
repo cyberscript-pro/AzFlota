@@ -10,8 +10,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
@@ -42,7 +42,7 @@ model User {
   ci          String   @unique
   password    String
   role        Role     @default(ECONOMICO)
-  isAvailable Boolean   @default(true)
+  isAvailable Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -53,36 +53,35 @@ model Chofer {
   nombre      String
   edad        Int
   sexo        String
-  ci          String   @unique
-  licencia    String   @unique
+  ci          String              @unique
+  licencia    String              @unique
   telefono    String
   vehiculos   Vehiculo[]
   despido     ChoferesDespedidos?
-  isAvailable Boolean   @default(true)
+  isAvailable Boolean             @default(true)
 
   @@map("choferes")
 }
 
-
 model AreaTrabajo {
-  uuid         String    @id @default(uuid())
+  uuid         String     @id @default(uuid())
   nombre       String
   centro_costo String
   jefe         String
-  isAvailable  Boolean   @default(true)
+  isAvailable  Boolean    @default(true)
   vehiculos    Vehiculo[]
 
   @@map("areas-trabajo")
 }
 
 model TarjetaCombustible {
-  numero            String            @unique
+  numero            String                  @unique
   pin               String
-  estado            State             @default(Active)
-  fecha_vencimiento DateTime          @db.Date
+  estado            State                   @default(Active)
+  fecha_vencimiento DateTime                @db.Date
   tipo              TipoCombustible
-  saldo             Int               @default(0)
-  isAvailable       Boolean           @default(true)
+  saldo             Int                     @default(0)
+  isAvailable       Boolean                 @default(true)
   baja              TarjetaCombustibleBaja?
   vehiculo          Vehiculo?
 
@@ -90,84 +89,93 @@ model TarjetaCombustible {
 }
 
 model Vehiculo {
-  chapa           String            @unique
-  marca           String
-  tipo            String
-  isAvailable     Boolean           @default(true)
-  cargas          ControlCargas[]
-  viajes          ViajesVehiculos[]
-  mantenimientos  VehiculosMantenimiento[]
-  baja            VehiculosBaja?
-  consumo_km      Int
+  chapa          String                   @unique
+  marca          String
+  tipo           String
+  isAvailable    Boolean                  @default(true)
+  cargas         ControlCargas[]
+  viajes         ViajesVehiculos[]
+  mantenimientos VehiculosMantenimiento[]
+  baja           VehiculosBaja?
+  consumo_km     Int
 
-  areaTrabajo     AreaTrabajo       @relation(fields: [areaTrabajoUuid], references: [uuid])
+  areaTrabajo     AreaTrabajo @relation(fields: [areaTrabajoUuid], references: [uuid])
   areaTrabajoUuid String
-  
-  chofer          Chofer?           @relation(fields: [choferCI], references: [ci])
-  choferCI      String?
-  
-  tarjeta          TarjetaCombustible? @relation(fields: [tarjetaNumero], references: [numero])
-  tarjetaNumero      String?  @unique
+
+  chofer   Chofer? @relation(fields: [choferCI], references: [ci])
+  choferCI String?
+
+  tarjeta       TarjetaCombustible? @relation(fields: [tarjetaNumero], references: [numero])
+  tarjetaNumero String?             @unique
+  VehiculoBaja  VehiculoBaja[]
 
   @@map("vehiculos")
 }
 
 model ControlCargas {
-  uuid            String            @id @default(uuid())
-  folio           String            @unique
-  comprobante     String            @unique
-  fecha           DateTime          @db.Date
-  existencia      Int               
-  importe         Int
-  consumo_dinero  Int
-  vehiculo        Vehiculo          @relation(fields: [vehiculoChapa], references: [chapa])
-  vehiculoChapa   String
+  uuid           String   @id @default(uuid())
+  folio          String   @unique
+  comprobante    String   @unique
+  fecha          DateTime @db.Date
+  existencia     Int
+  importe        Int
+  consumo_dinero Int
+  vehiculo       Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa  String
 
   @@map("control-cargas")
 }
 
 model TarjetaCombustibleBaja {
-  tarjeta        TarjetaCombustible @relation(fields: [tarjetaNumero], references: [numero])
-  tarjetaNumero  String            @unique
+  tarjeta       TarjetaCombustible @relation(fields: [tarjetaNumero], references: [numero])
+  tarjetaNumero String             @unique
 
   @@map("tarjetas-combustible-baja")
 }
 
 model ChoferesDespedidos {
-  chofer       Chofer          @relation(fields: [choferCI], references: [ci])
-  choferCI     String          @unique
+  chofer   Chofer @relation(fields: [choferCI], references: [ci])
+  choferCI String @unique
 
   @@map("choferes-despedidos")
 }
 
 model VehiculosMantenimiento {
-  uuid          String          @id @default(uuid())
-  descripcion   String
-  inicio        DateTime        @db.Date
-  fin           DateTime?        @db.Date
+  uuid        String    @id @default(uuid())
+  descripcion String
+  inicio      DateTime  @db.Date
+  fin         DateTime? @db.Date
 
-  vehiculo      Vehiculo        @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
   vehiculoChapa String
 
   @@map("vehiculos-mantenimiento")
 }
 
 model VehiculosBaja {
-  vehiculo      Vehiculo         @relation(fields: [vehiculoChapa], references: [chapa])
-  vehiculoChapa String           @unique
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa String   @unique
 
   @@map("vehiculos-baja")
 }
 
 model ViajesVehiculos {
-  uuid                   String            @id @default(uuid())
-  fechaSalida            DateTime          @db.Date
-  fechaLlegada           DateTime          @db.Date 
-  lugarDestino           String
-  combustibleConsumido   Int
+  uuid                 String   @id @default(uuid())
+  fechaSalida          DateTime @db.Date
+  fechaLlegada         DateTime @db.Date
+  lugarDestino         String
+  combustibleConsumido Int
 
-  vehiculo               Vehiculo          @relation(fields: [vehiculoChapa], references: [chapa])
-  vehiculoChapa          String
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  vehiculoChapa String
 
   @@map("viajes-vehiculos")
+}
+
+model VehiculoBaja {
+  vehiculoChapa String
+  fecha_baja    DateTime
+  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+
+  @@id([vehiculoChapa])
 }

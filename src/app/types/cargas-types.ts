@@ -2,9 +2,9 @@ export type Vehiculo = {
   chapa: string;
   tarjeta: {
     numero: string;
-    existencia: number;
-  }
-}
+    saldo: number;
+  };
+};
 
 export interface CargaBack {
   uuid: string;

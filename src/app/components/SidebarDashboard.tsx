@@ -2,7 +2,6 @@ import Image from "next/image";
 import {
   Home,
   Users,
-  Folder,
   Truck,
   Calendar,
   Box,

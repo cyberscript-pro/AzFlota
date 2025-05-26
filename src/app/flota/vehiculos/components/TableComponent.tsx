@@ -13,7 +13,7 @@ import {
   VehiculoFront,
 } from "../../../types/vehiculo-types";
 import ModalButton from "../../../components/ModalButton";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useApiDelete from "@/app/hooks/useApiDelete";
 import { useEffect, useState } from "react";
@@ -25,6 +25,7 @@ import useApiGet from "@/app/hooks/useApiGet";
 import LoadingSpinner from "@/app/components/loading";
 import axios from "axios";
 import { VehiculoMapper } from "../mappers/vehiculos.mapper";
+import MantenimientoVehiculo from "../formularios/MantenimientoVehiculo";
 
 type ChoferTableProps = {
   data: VehiculoFront[];
@@ -102,8 +103,17 @@ export function AreaTrabajoTable({
 
   const { onDelete } = useApiDelete();
 
-  const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `/api/areas-trabajo/${id}` });
+  const onSubmitData: SubmitHandler<{
+    inicio: string;
+    descripcion: string;
+  }> = async (data) => {
+    try {
+      await onDelete({ url: `/api/vehiculos/${dataDelete.chapa}`, data });
+      setOpenDeleteModal(false);
+      refetch();
+    } catch (error) {
+      console.error("Error al enviar datos:", error);
+    }
   };
 
   return (
@@ -158,7 +168,11 @@ export function AreaTrabajoTable({
                     setOpenViajesModal(true);
                   }}
                 >
-                  {data.tarjeta?.numero}
+                  {data.tarjeta?.estado === "Blocked" ? (
+                    <div className="text-red-600">Baja</div>
+                  ) : (
+                    data.tarjeta?.numero
+                  )}
                 </TableCell>
                 <TableCell
                   className="py-3 px-4 text-gray-700 w-[200px]"
@@ -378,28 +392,18 @@ export function AreaTrabajoTable({
           <div className="sm:flex sm:items-start">
             <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
               <h3 className="text-base font-semibold leading-6">
-                ¿Esta seguro que desea eliminar el Area de Trabajo?
+                ¿Esta seguro que desea pasar a mantenimiento el vehiculo?
               </h3>
               <h3 className="text-base font-semibold leading-6 text-red-500">
                 {dataDelete.chapa}
               </h3>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <ModalButton
-                  children="Aceptar"
-                  onClick={() => {
-                    onDeleteFuncion(dataDelete.idDelete);
-                    setOpenDeleteModal(false);
-                  }}
-                  className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
-                />
-                <ModalButton
-                  children="Cancelar"
-                  onClick={() => {
-                    setOpenDeleteModal(false);
-                  }}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                />
-              </div>
+              <MantenimientoVehiculo
+                onClose={() => {
+                  setOpenDeleteModal(false);
+                  refetch();
+                }}
+                onSubmit={onSubmitData}
+              />
             </div>
           </div>
         </div>

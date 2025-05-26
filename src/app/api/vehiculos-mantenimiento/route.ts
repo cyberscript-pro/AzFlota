@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../lib/prisma";
+import { dateSchema } from "@/app/validations/backend/tarjeta-post.schema";
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,8 +11,8 @@ export async function GET(request: NextRequest) {
             chapa: true,
             marca: true,
             tipo: true,
-          }
-        }
+          },
+        },
       },
     });
 
@@ -54,56 +55,40 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: Request) {
   try {
-    const { chapa, marca, tipo, consumo_km, area, chofer, tarjeta } =
+    const {
+      chapa,
+      descripcion,
+      inicio,
+      fin,
+    }: { chapa: string; descripcion: string; inicio: string; fin: string } =
       await request.json();
 
-    const vehiculo = await prisma.vehiculo.create({
+    let fecha_fin = null;
+
+    const fecha_inicio = dateSchema.parse(inicio);
+    if (fin) {
+      fecha_fin = dateSchema.parse(fin);
+    }
+
+    const mantenimiento = await prisma.vehiculosMantenimiento.create({
       data: {
-        chapa,
-        marca,
-        tipo,
-        consumo_km: parseInt(consumo_km),
-        areaTrabajoUuid: area,
-        choferCI: chofer,
-        tarjetaNumero: tarjeta
+        vehiculoChapa: chapa,
+        descripcion,
+        inicio: fecha_inicio,
+        fin: fecha_fin,
       },
       include: {
-        areaTrabajo: {
+        vehiculo: {
           select: {
-            uuid: true,
-            nombre: true,
-            centro_costo: true,
-            jefe: true
-          },
-        },
-        chofer: {
-          select: {
-            nombre: true,
-            ci: true,
-            licencia: true,
-          },
-        },
-        tarjeta: {
-          select: {
-            numero: true,
-            estado: true,
-            fecha_vencimiento: true,
+            chapa: true,
+            marca: true,
+            tipo: true,
           },
         },
       },
-    })
+    });
 
-    // const vehiculo = {
-    //   chapa,
-    //   marca,
-    //   tipo,
-    //   consumo_km: parseInt(consumo_km),
-    //   areaTrabajoUuid: area,
-    //   choferCI: chofer,
-    //   tarjetaNumero: tarjeta,
-    // };
-
-    return NextResponse.json(vehiculo, { status: 201 });
+    return NextResponse.json(mantenimiento, { status: 201 });
   } catch (error) {
     return NextResponse.json(
       { error: "Error creating vehicle", message: error },

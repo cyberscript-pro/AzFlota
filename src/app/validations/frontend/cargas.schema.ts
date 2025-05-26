@@ -57,15 +57,15 @@ export const controlCargasSchema = z
   })
   .refine(
     async (data) => {
-      if (data.consumo_dinero) {
+      if (data.vehiculoChapa.length > 6 && data.vehiculoChapa.length < 8) {
         const response = await fetch(
           `/api/vehiculos/${encodeURIComponent(data.vehiculoChapa)}`
         );
         const datos = await response.json();
-        return datos.tarjeta.saldo + parseInt(data.importe) <
+        return datos.tarjeta.saldo + parseInt(data.importe) >=
           parseInt(data.consumo_dinero)
-          ? false
-          : true;
+          ? true
+          : false;
       }
     },
     {
