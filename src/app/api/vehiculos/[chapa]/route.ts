@@ -121,7 +121,7 @@ export async function DELETE(
     }
 
     const response = await fetch(
-      "http://localhost:3000/api/vehiculos-mantenimiento",
+      `${process.env.NEXTAUTH_URL}/api/vehiculos-mantenimiento`,
       {
         method: "POST",
         headers: {
