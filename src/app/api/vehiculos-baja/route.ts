@@ -1,58 +1,52 @@
 import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    // const session = await getServerSession(authOptions);
+    const vehiculos = await prisma.vehiculosBaja.findMany({
+      include: {
+        vehiculo: {
+          select: {
+            chapa: true,
+            marca: true,
+            tipo: true,
+          },
+        },
+      },
+    });
 
-    // if (!session) {
-    //   return NextResponse.json(
-    //     { error: "No autorizado" },
-    //     { status: 401 }
-    //   );
-    // }
+    const searchParams = request.nextUrl.searchParams;
+    const page = Number(searchParams.get("page")) || 1;
+    const limit = Number(searchParams.get("limit")) || vehiculos.length;
 
-    // const { searchParams } = new URL(request.url);
-    // const page = parseInt(searchParams.get("page") || "1");
-    // const limit = parseInt(searchParams.get("limit") || "10");
-    // const skip = (page - 1) * limit;
+    if (isNaN(page) || isNaN(limit) || page < 1 || limit < 0) {
+      return NextResponse.json(
+        { error: "Parámetros page y limit deben ser números positivos" },
+        { status: 400 }
+      );
+    }
 
-    // const [vehiculosBaja, total] = await Promise.all([
-    //   prisma.vehiculoBaja.findMany({
-    //     skip,
-    //     take: limit,
-    //     include: {
-    //       vehiculo: {
-    //         select: {
-    //           chapa: true,
-    //           marca: true,
-    //           tipo: true,
-    //         },
-    //       },
-    //     },
-    //     orderBy: {
-    //       fecha_baja: "desc",
-    //     },
-    //   }),
-    //   prisma.vehiculoBaja.count(),
-    // ]);
+    const startIndex = (page - 1) * limit;
+    const endIndex = startIndex + limit;
+    const totalItems = vehiculos.length;
+    const totalPages = Math.ceil(totalItems / limit);
 
-    // const totalPages = Math.ceil(total / limit);
+    const paginatedItems = vehiculos.slice(startIndex, endIndex);
 
-    // return NextResponse.json({
-    //   data: vehiculosBaja,
-    //   pagination: {
-    //     total,
-    //     totalPages,
-    //     currentPage: page,
-    //     hasNextPage: page < totalPages,
-    //     hasPrevPage: page > 1,
-    //   },
-    // });
+    return NextResponse.json({
+      data: paginatedItems,
+      pagination: {
+        currentPage: page,
+        totalPages,
+        totalItems,
+        itemsPerPage: limit,
+        hasNextPage: endIndex < totalItems,
+        hasPrevPage: startIndex > 0,
+      },
+    });
   } catch (error) {
-    console.error("Error al obtener vehículos de baja:", error);
     return NextResponse.json(
-      { error: "Error al obtener vehículos de baja" },
+      { error: "Error fetching mantenimientos", message: error },
       { status: 500 }
     );
   }

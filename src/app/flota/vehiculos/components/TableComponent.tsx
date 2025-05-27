@@ -217,7 +217,11 @@ export function AreaTrabajoTable({
                     setOpenViajesModal(true);
                   }}
                 >
-                  {data.chofer?.nombre}
+                  {data.chofer.isAvailable ? (
+                    data.chofer.nombre
+                  ) : (
+                    <div className="text-red-600">Dado de Baja</div>
+                  )}
                 </TableCell>
                 <TableCell
                   className="py-3 px-4 text-gray-700 w-[300px]"
@@ -275,7 +279,7 @@ export function AreaTrabajoTable({
                         setOpenDeleteModal(true);
                       }}
                     >
-                      Pasar a Mantenimiento
+                      Iniciar Mantenimiento
                     </ModalButton>
                   </TableCell>
                 )}

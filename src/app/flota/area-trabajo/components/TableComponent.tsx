@@ -140,7 +140,7 @@ export function AreaTrabajoTable({
                     >
                       Editar
                     </ModalButton>
-                    <ModalButton
+                    {/* <ModalButton
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-800 sm:mt-0 sm:w-auto"
                       onClick={() => {
                         setDataDelete({
@@ -151,7 +151,7 @@ export function AreaTrabajoTable({
                       }}
                     >
                       Eliminar
-                    </ModalButton>
+                    </ModalButton> */}
                   </TableCell>
                 )}
               </TableRow>

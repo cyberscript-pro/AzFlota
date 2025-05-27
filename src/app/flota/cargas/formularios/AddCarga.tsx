@@ -40,7 +40,7 @@ function AddVehiculo({
     const selectOptions: SelectOption[] = [];
 
     data?.map((dato) => {
-      if (!(dato.tarjeta.estado === "Blocked")) {
+      if (!(dato.tarjeta.estado === "Blocked") && dato.chofer.isAvailable) {
         selectOptions.push({
           value: dato.chapa,
           label: `${dato.chapa} - ${dato.tipo}`,

@@ -112,6 +112,12 @@ export async function DELETE(
       );
     }
 
+    await prisma.choferesDespedidos.create({
+      data: {
+        choferCI: ci,
+      }
+    })
+
     await prisma.chofer.update({
       where: { ci },
       data: {

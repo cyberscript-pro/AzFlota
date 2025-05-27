@@ -77,13 +77,13 @@ function SidebarDashboard() {
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
             <SidebarButton
-              onClick={() => handleNavigate("/users")}
+              onClick={() => handleNavigate("/flota/choferes-baja")}
               icon={<Users size={20} />}
-              tooltipText="Choferes Despedidos"
+              tooltipText="Choferes de Baja"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"
             />
             <SidebarButton
-              onClick={() => handleNavigate("")}
+              onClick={() => handleNavigate("/flota/vehiculos-baja")}
               icon={<Fence size={20} />}
               tooltipText="Vehiculos de Baja"
               className="flex items-center space-x-3 hover:opacity-80 cursor-pointer"

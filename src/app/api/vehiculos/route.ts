@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
             nombre: true,
             ci: true,
             licencia: true,
+            isAvailable: true,
           },
         },
         tarjeta: {

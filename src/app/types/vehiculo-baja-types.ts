@@ -1,9 +1,13 @@
 export type VehiculoBaja = {
-    vehiculoChapa: string;
-    fecha_baja: Date;
-    vehiculo: {
-        chapa: string;
-        marca: string;
-        tipo: string;
-    };
-}; 
+  vehiculo: {
+    chapa: string;
+    marca: string;
+    tipo: string;
+  };
+};
+
+export type VehiculoBajaFront = {
+  chapa: string;
+  marca: string;
+  tipo: string;
+};

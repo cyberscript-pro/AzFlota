@@ -9,6 +9,7 @@ export interface Chofer {
     licencia: string;
     telefono: string;
     vehiculos?: Vehiculo[];
+    isAvailable?: boolean;
 }
 
 export interface ChoferFront {
