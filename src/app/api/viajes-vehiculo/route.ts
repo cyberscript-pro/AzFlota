@@ -49,24 +49,20 @@ export async function POST(request: Request) {
       lugarDestino,
       combustibleConsumido,
       vehiculoChapa,
+      kmRecorridos,
+      lugarSalida,
     } = response.data;
 
     const salida = dateSchema.parse(fechaSalida);
     const llegada = dateSchema.parse(fechaLlegada);
 
-    // const viaje = {
-    //   salida,
-    //   llegada,
-    //   lugarDestino,
-    //   combustibleConsumido,
-    //   vehiculoChapa,
-    // };
-
     const viaje = await prisma.viajesVehiculos.create({
       data: {
         fechaSalida: salida,
         fechaLlegada: llegada,
+        lugarSalida,
         lugarDestino,
+        kmRecorridos,
         combustibleConsumido,
         vehiculoChapa,
       },

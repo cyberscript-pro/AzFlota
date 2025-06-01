@@ -100,7 +100,7 @@ function AddTarjetaCombustible({
                 loadingAdd ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              {loadingAdd ? "Registrando..." : "Registrar"}
+              {form.formState.isSubmitting ? "Registrando..." : "Registrar"}
             </button>
             <button
               type="button"

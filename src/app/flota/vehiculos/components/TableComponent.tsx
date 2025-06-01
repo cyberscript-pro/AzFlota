@@ -26,6 +26,7 @@ import LoadingSpinner from "@/app/components/loading";
 import axios from "axios";
 import { VehiculoMapper } from "../mappers/vehiculos.mapper";
 import MantenimientoVehiculo from "../formularios/MantenimientoVehiculo";
+import { useRouter } from "next/navigation";
 
 type ChoferTableProps = {
   data: VehiculoFront[];
@@ -53,6 +54,7 @@ export function AreaTrabajoTable({
   access = false,
   refetch,
 }: ChoferTableProps) {
+  const router = useRouter();
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [openViajesModal, setOpenViajesModal] = useState(false);
@@ -105,7 +107,7 @@ export function AreaTrabajoTable({
 
   const onSubmitData: SubmitHandler<{
     inicio: string;
-    descripcion: string;
+    motivo: string;
   }> = async (data) => {
     try {
       await onDelete({ url: `/api/vehiculos/${dataDelete.chapa}`, data });
@@ -165,7 +167,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[200px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.tarjeta?.estado === "Blocked" ? (
@@ -178,7 +180,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[200px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.chapa}
@@ -187,7 +189,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[200px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.marca}
@@ -196,7 +198,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[200px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.tipo}
@@ -205,7 +207,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[200px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.consumo_km} kilometros
@@ -214,7 +216,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[300px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.chofer.isAvailable ? (
@@ -227,7 +229,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[300px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.area?.jefe}
@@ -236,7 +238,7 @@ export function AreaTrabajoTable({
                   className="py-3 px-4 text-gray-700 w-[200px]"
                   onClick={() => {
                     setChapa(data.chapa);
-                    setOpenViajesModal(true);
+                    router.push(`/flota/vehiculos/viajes?ch=${data.chapa}`);
                   }}
                 >
                   {data.area?.nombre}
@@ -296,75 +298,7 @@ export function AreaTrabajoTable({
       >
         <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
           <div className="sm:flex sm:items-start">
-            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
-              <div className="flex gap-1 items-center mb-3">
-                <button
-                  onClick={() => setOpenViajesModal(false)}
-                  className="mr-4 py-1 px-1 rounded-2xl"
-                >
-                  <Image
-                    src="/back.svg"
-                    alt="Back"
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                  />
-                </button>
-                <h3 className="text-base font-semibold leading-6">
-                  Viajes del Vehiculo con chapa: {chapa}
-                </h3>
-              </div>
-
-              <Table className="min-w-[600px]">
-                <TableHeader>
-                  <TableRow className="bg-gray-100">
-                    <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[200px]">
-                      Vehiculo
-                    </TableHead>
-                    <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[200px]">
-                      Fecha Salida
-                    </TableHead>
-                    <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[200px]">
-                      Fecha Llegada
-                    </TableHead>
-                    <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[200px]">
-                      Consumo de Combustible
-                    </TableHead>
-                    <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[300px]">
-                      Lugar de Destino
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {dataViajes?.map((data, idx) => (
-                    <TableRow
-                      key={idx}
-                      className={
-                        idx % 2 === 0
-                          ? "bg-white hover:bg-gray-50"
-                          : "bg-gray-50 hover:bg-gray-100"
-                      }
-                    >
-                      <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                        {data.vehiculoChapa}
-                      </TableCell>
-                      <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                        {data.fechaSalida}
-                      </TableCell>
-                      <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                        {data.fechaLlegada}
-                      </TableCell>
-                      <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                        {data.combustibleConsumido} litros
-                      </TableCell>
-                      <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                        {data.lugarDestino}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+            <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full"></div>
           </div>
         </div>
       </Modal>

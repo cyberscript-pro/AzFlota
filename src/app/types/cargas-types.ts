@@ -3,6 +3,7 @@ export type Vehiculo = {
   tarjeta: {
     numero: string;
     saldo: number;
+    tipo: "Diesel" | "Especial" | "B91" | "B83";
   };
 };
 
@@ -43,7 +44,7 @@ export type Inputs = {
   comprobante: string;
   fecha: string;
   importe: string;
-  consumo_dinero: string;
+  km_recorridos: string;
   vehiculoChapa: string;
 };
 

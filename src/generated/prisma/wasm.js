@@ -188,6 +188,7 @@ exports.Prisma.ChoferesDespedidosScalarFieldEnum = {
 
 exports.Prisma.VehiculosMantenimientoScalarFieldEnum = {
   uuid: 'uuid',
+  motivo: 'motivo',
   descripcion: 'descripcion',
   inicio: 'inicio',
   fin: 'fin',
@@ -202,7 +203,9 @@ exports.Prisma.ViajesVehiculosScalarFieldEnum = {
   uuid: 'uuid',
   fechaSalida: 'fechaSalida',
   fechaLlegada: 'fechaLlegada',
+  lugarSalida: 'lugarSalida',
   lugarDestino: 'lugarDestino',
+  kmRecorridos: 'kmRecorridos',
   combustibleConsumido: 'combustibleConsumido',
   vehiculoChapa: 'vehiculoChapa'
 };
@@ -275,6 +278,7 @@ exports.Prisma.ChoferesDespedidosOrderByRelevanceFieldEnum = {
 
 exports.Prisma.VehiculosMantenimientoOrderByRelevanceFieldEnum = {
   uuid: 'uuid',
+  motivo: 'motivo',
   descripcion: 'descripcion',
   vehiculoChapa: 'vehiculoChapa'
 };
@@ -285,6 +289,7 @@ exports.Prisma.VehiculosBajaOrderByRelevanceFieldEnum = {
 
 exports.Prisma.ViajesVehiculosOrderByRelevanceFieldEnum = {
   uuid: 'uuid',
+  lugarSalida: 'lugarSalida',
   lugarDestino: 'lugarDestino',
   vehiculoChapa: 'vehiculoChapa'
 };

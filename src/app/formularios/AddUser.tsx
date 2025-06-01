@@ -36,7 +36,7 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<Inputs>({
     resolver: zodResolver(userSchemaPost),
@@ -127,7 +127,7 @@ export default function AddUserForm({ isOpen, onClose }: AddUserProps) {
               type="submit"
               className="mt-4 w-full rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
             >
-              {loadingPost ? "Registrandote..." : "Registrarme"}
+              {isSubmitting ? "Registrandote..." : "Registrarme"}
             </button>
           </form>
         </ModalBasicStyle>

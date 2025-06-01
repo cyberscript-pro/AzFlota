@@ -6,6 +6,8 @@ import DateInput from "../../tarjeta-combustible/components/DateInput";
 import useApiUpdate from "@/app/hooks/useApiUpdate";
 import { toast } from "sonner";
 import { dateSchema } from "@/app/validations/frontend/tarjeta-post.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { mantenimientoSchemaFin } from "@/app/validations/frontend/mantenimiento.schema";
 
 function MantenimientoVehiculo({
   id,
@@ -15,7 +17,7 @@ function MantenimientoVehiculo({
 }: {
   id: string;
   onClose: () => void;
-  dataUpdate: { chapa: string; inicio: string };
+  dataUpdate: { chapa: string; inicio: string; motivo: string };
   onSuccess: () => void;
 }) {
   const { updateData } = useApiUpdate({
@@ -35,12 +37,14 @@ function MantenimientoVehiculo({
       await updateData({
         chapa: dataUpdate.chapa,
         inicio: fecha_inicio,
+        motivo: dataUpdate.motivo,
         fin: data.fin,
         descripcion: data.descripcion,
       });
       console.log({
         chapa: dataUpdate.chapa,
         inicio: fecha_inicio,
+        motivo: dataUpdate.motivo,
         fin: data.fin,
         descripcion: data.descripcion,
       });
@@ -57,6 +61,7 @@ function MantenimientoVehiculo({
       fin: "",
       descripcion: "",
     },
+    resolver: zodResolver(mantenimientoSchemaFin),
   });
 
   return (
@@ -73,7 +78,7 @@ function MantenimientoVehiculo({
 
         <InputComponent
           name="descripcion"
-          label="Descripción del Mantenimiento"
+          label="Descripción del Mantenimiento Realizado"
           placeholder="Ingresa la descripción del mantenimiento"
           control={form.control}
         />

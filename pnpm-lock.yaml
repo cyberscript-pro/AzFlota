@@ -41,6 +41,9 @@ importers:
       '@shadcn/ui':
         specifier: ^0.0.4
         version: 0.0.4
+      '@tanstack/react-query':
+        specifier: ^5.79.0
+        version: 5.79.0(react@19.1.0)
       axios:
         specifier: ^1.9.0
         version: 1.9.0
@@ -991,6 +994,14 @@ packages:
 
   '@tailwindcss/postcss@4.1.4':
     resolution: {integrity: sha512-bjV6sqycCEa+AQSt2Kr7wpGF1bOZJ5wsqnLEkqSbM/JEHxx/yhMH8wHmdkPyApF9xhHeMSwnnkDUUMMM/hYnXw==}
+
+  '@tanstack/query-core@5.79.0':
+    resolution: {integrity: sha512-s+epTqqLM0/TbJzMAK7OEhZIzh63P9sWz5HEFc5XHL4FvKQXQkcjI8F3nee+H/xVVn7mrP610nVXwOytTSYd0w==}
+
+  '@tanstack/react-query@5.79.0':
+    resolution: {integrity: sha512-DjC4JIYZnYzxaTzbg3osOU63VNLP67dOrWet2cZvXgmgwAXNxfS52AMq86M5++ILuzW+BqTUEVMTjhrZ7/XBuA==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tanstack/react-virtual@3.13.6':
     resolution: {integrity: sha512-WT7nWs8ximoQ0CDx/ngoFP7HbQF9Q2wQe4nh2NB+u2486eX3nZRE40P9g6ccCVq7ZfTSH5gFOuCoVH5DLNS/aA==}
@@ -3084,6 +3095,13 @@ snapshots:
       '@tailwindcss/oxide': 4.1.4
       postcss: 8.5.3
       tailwindcss: 4.1.4
+
+  '@tanstack/query-core@5.79.0': {}
+
+  '@tanstack/react-query@5.79.0(react@19.1.0)':
+    dependencies:
+      '@tanstack/query-core': 5.79.0
+      react: 19.1.0
 
   '@tanstack/react-virtual@3.13.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:

@@ -37,7 +37,7 @@ export async function PATCH(request: Request, { params }: { params: tParams }) {
   try {
     const param = await params;
 
-    const { chapa, descripcion, fin, inicio } = await request.json();
+    const { chapa, descripcion, fin, inicio, motivo } = await request.json();
 
     const fecha_inicio = dateSchema.parse(inicio);
     const fecha_fin = dateSchema.parse(fin);
@@ -62,6 +62,7 @@ export async function PATCH(request: Request, { params }: { params: tParams }) {
       data: {
         vehiculoChapa: chapa,
         inicio: fecha_inicio,
+        motivo,
         descripcion,
         fin: fecha_fin,
       },

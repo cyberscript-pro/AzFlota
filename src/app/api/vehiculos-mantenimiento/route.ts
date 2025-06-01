@@ -60,8 +60,14 @@ export async function POST(request: Request) {
       descripcion,
       inicio,
       fin,
-    }: { chapa: string; descripcion: string; inicio: string; fin: string } =
-      await request.json();
+      motivo,
+    }: {
+      chapa: string;
+      motivo: string;
+      descripcion: string;
+      inicio: string;
+      fin: string;
+    } = await request.json();
 
     let fecha_fin = null;
 
@@ -73,6 +79,7 @@ export async function POST(request: Request) {
     const mantenimiento = await prisma.vehiculosMantenimiento.create({
       data: {
         vehiculoChapa: chapa,
+        motivo,
         descripcion,
         inicio: fecha_inicio,
         fin: fecha_fin,

@@ -44,7 +44,9 @@ export class VehiculoMapper {
           id: viaje.uuid,
           fechaSalida: salida,
           fechaLlegada: llegada,
+          lugarSalida: viaje.lugarSalida,
           lugarDestino: viaje.lugarDestino,
+          kmRecorridos: viaje.kmRecorridos,
           combustibleConsumido: viaje.combustibleConsumido,
           vehiculoChapa: viaje.vehiculoChapa,
         })

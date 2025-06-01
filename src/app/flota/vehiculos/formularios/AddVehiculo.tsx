@@ -52,7 +52,7 @@ function AddVehiculo({
       if (!data.vehiculo) {
         selectOptions.push({
           value: data.numero,
-          label: `${data.numero}`,
+          label: `${data.numero} - ${data.tipo}`,
         });
       }
     });
@@ -140,10 +140,12 @@ function AddVehiculo({
             <button
               type="submit"
               className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
-                loadingAdd ? "opacity-50 cursor-not-allowed" : ""
+                form.formState.isSubmitting
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
               }`}
             >
-              {loadingAdd ? "Registrando..." : "Registrar"}
+              {form.formState.isSubmitting ? "Registrando..." : "Registrar"}
             </button>
             <button
               type="button"

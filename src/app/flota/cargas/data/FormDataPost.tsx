@@ -4,12 +4,19 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import useApiPost from "../../../hooks/useApiPost";
 import { CargaPost, Inputs } from "@/app/types/cargas-types";
 import { controlCargasSchema } from "@/app/validations/frontend/cargas.schema";
+import { on } from "events";
 
 type CargasProps = {
   onClose: () => void;
+  onViajes: () => void;
+  onSubmitCarga: (data: Inputs) => void;
 };
 
-export function useFormDataPost({ onClose }: CargasProps) {
+export function useFormDataPost({
+  onClose,
+  onViajes,
+  onSubmitCarga,
+}: CargasProps) {
   const buscarVehiculo = async (chapa: string) => {
     try {
       const { data } = await axios.get(
@@ -47,8 +54,8 @@ export function useFormDataPost({ onClose }: CargasProps) {
       folio: "",
       comprobante: "",
       fecha: "",
-      importe: "",
-      consumo_dinero: "",
+      importe: "0",
+      km_recorridos: "0",
       vehiculoChapa: "",
     },
   });
@@ -61,28 +68,30 @@ export function useFormDataPost({ onClose }: CargasProps) {
     });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const result = await buscarVehiculo(data.vehiculoChapa);
-    console.log(result);
-    console.log(data);
+    if (parseInt(data.km_recorridos) > 0) {
+      onClose();
+      onSubmitCarga(data);
+      onViajes();
+    } else {
+      const result = await buscarVehiculo(data.vehiculoChapa);
 
-    onSubmitData({
-      folio: data.folio,
-      comprobante: data.comprobante,
-      fecha: data.fecha,
-      existencia: parseInt(result.tarjeta.saldo),
-      importe: parseInt(data.importe),
-      consumo_dinero: parseInt(data.consumo_dinero),
-      vehiculoChapa: data.vehiculoChapa,
-    });
+      onSubmitData({
+        folio: data.folio,
+        comprobante: data.comprobante,
+        fecha: data.fecha,
+        existencia: parseInt(result.tarjeta.saldo),
+        importe: parseInt(data.importe),
+        consumo_dinero: 0,
+        vehiculoChapa: data.vehiculoChapa,
+      });
 
-    const saldo =
-      parseInt(result.tarjeta.saldo) +
-      parseInt(data.importe) -
-      parseInt(data.consumo_dinero);
+      const saldo =
+        parseInt(result.tarjeta.saldo) +
+        parseInt(data.importe) -
+        parseInt("0");
 
-    console.log(saldo);
-
-    await updateTarjeta(result.tarjeta.numero, saldo);
+      await updateTarjeta(result.tarjeta.numero, saldo);
+    }
   };
 
   return {

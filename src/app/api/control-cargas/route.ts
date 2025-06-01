@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
                 estado: true,
                 fecha_vencimiento: true,
                 saldo: true,
+                tipo: true,
               },
             },
           },

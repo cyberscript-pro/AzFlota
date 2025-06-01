@@ -121,14 +121,6 @@ function VehiculoContent() {
     }));
   }, [session, router]);
 
-  // Handlers memorizados
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
-
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
@@ -140,12 +132,6 @@ function VehiculoContent() {
         direction === "next" ? prev.pageActual + 1 : prev.pageActual - 1,
     }));
   }, []);
-
-  const handleUpdateSuccess = useCallback(async () => {
-    await refetch();
-
-    setState((prev) => ({ ...prev }));
-  }, [refetch]);
 
   if (error) return <div>Error {error}</div>;
 

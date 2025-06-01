@@ -12,6 +12,11 @@ import DateInput from "../../tarjeta-combustible/components/DateInput";
 import useApiGet from "@/app/hooks/useApiGet";
 import { VehiculoBack } from "@/app/types/vehiculo-types";
 import InputSelect, { SelectOption } from "../components/InputSelect";
+import { set } from "zod";
+import Modal from "@/app/components/modal";
+import ModalBasicStyle from "@/app/components/ModalBasicStyle";
+import AddViajes from "./AddViajes";
+import { on } from "events";
 
 type AddAreaTrabajoProps = {
   onSubmit: SubmitHandler<Inputs>;
@@ -32,6 +37,7 @@ function AddVehiculo({
   errors,
   onClose,
 }: AddAreaTrabajoProps) {
+
   const { data } = useApiGet<VehiculoBack>({
     url: "/api/vehiculos?page=1",
   });
@@ -50,6 +56,8 @@ function AddVehiculo({
 
     return selectOptions;
   };
+
+  const kmRecorridos = parseInt(form.watch("km_recorridos"));
 
   return (
     <div>
@@ -87,11 +95,18 @@ function AddVehiculo({
           />
 
           <InputComponent
+            name="km_recorridos"
+            label="Cantidad de km recorridos"
+            placeholder="Ingresa la cantidad de km recorridos"
+            control={form.control}
+          />
+          {/* 
+          <InputComponent
             name="consumo_dinero"
             label="Consumo en dinero"
             placeholder="Ingresa el consumo en dinero"
             control={form.control}
-          />
+          /> */}
 
           <InputSelect
             label="Vehiculo"
@@ -105,9 +120,17 @@ function AddVehiculo({
           <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
               type="submit"
-              className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
+              className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
+                form.formState.isSubmitting
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
+              }`}
             >
-              {form.formState.isSubmitting ? "Registrando..." : "Registrar"}
+              {kmRecorridos > 0
+                ? "Siguiente"
+                : form.formState.isSubmitting
+                ? "Registrando..."
+                : "Registrar"}
             </button>
             <button
               type="button"

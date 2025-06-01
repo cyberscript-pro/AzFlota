@@ -142,7 +142,8 @@ model ChoferesDespedidos {
 
 model VehiculosMantenimiento {
   uuid        String    @id @default(uuid())
-  descripcion String
+  motivo      String
+  descripcion String?
   inicio      DateTime  @db.Date
   fin         DateTime? @db.Date
 
@@ -163,7 +164,9 @@ model ViajesVehiculos {
   uuid                 String   @id @default(uuid())
   fechaSalida          DateTime @db.Date
   fechaLlegada         DateTime @db.Date
+  lugarSalida          String
   lugarDestino         String
+  kmRecorridos         Int
   combustibleConsumido Int
 
   vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])

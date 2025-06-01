@@ -12,6 +12,7 @@ import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
 import Modal from "../../../components/modal";
 import { CargaFront } from "@/app/types/cargas-types";
+import { TipoCombustible } from "@/generated/prisma";
 
 type ChoferTableProps = {
   data: CargaFront[];
@@ -46,6 +47,25 @@ export function CargasTable({
     onDelete({ url: `/api/control-cargas/${id}` });
   };
 
+  const tipoCombustible = (tipoCombustible: "Diesel" | "Especial" | "B91" | "B83", dinero: number) => {
+    switch (tipoCombustible) {
+      case "Diesel":
+        return Math.ceil(dinero / 13.9);
+        break;
+      case "Especial":
+        return Math.ceil(dinero / 17.4);
+        break;
+      case "B91":
+        return Math.ceil(dinero / 16.4);
+        break;
+      case "B83":
+        return Math.ceil(dinero / 14.6);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div>
       <div className="p-6 rounded-2xl min-w-full overflow-auto shadow-lg border bg-white">
@@ -57,6 +77,9 @@ export function CargasTable({
             <TableRow className="bg-gray-100">
               <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[150px]">
                 Vehiculo
+              </TableHead>
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[50px]">
+                Tipo
               </TableHead>
               <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[50px]">
                 Folio
@@ -101,6 +124,9 @@ export function CargasTable({
                   {dato.vehiculo.chapa}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
+                  {dato.vehiculo.tarjeta.tipo}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
                   {dato.folio}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
@@ -122,7 +148,7 @@ export function CargasTable({
                   {dato.consumo_dinero}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
-                  {Math.ceil(dato.consumo_dinero / 13.9)}
+                  {tipoCombustible(dato.vehiculo.tarjeta.tipo, dato.consumo_dinero)}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
                   {dato.existencia + dato.importe - dato.consumo_dinero}

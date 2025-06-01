@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
+import Image from "next/image";
 import {
   LineChart,
   Line,
@@ -8,83 +9,167 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
+  Area,
 } from "recharts";
 import LogoutButton from "./LogoutComponent";
 import UserButton from "./UserComponent";
-
-const sampleData = [
-  { name: "Sep", Diesel: 2, G_Especial: 8, B91: 2, B83: 1 },
-  { name: "Oct", Diesel: 7, G_Especial: 9, B91: 3, B83: 3 },
-  { name: "Nov", Diesel: 17, G_Especial: 7, B91: 5, B83: 2 },
-  { name: "Dic", Diesel: 20, G_Especial: 1, B91: 8, B83: 5 },
-  { name: "Ene", Diesel: 8, G_Especial: 4, B91: 5, B83: 6 },
-  { name: "Feb", Diesel: 9, G_Especial: 3, B91: 2, B83: 4 },
-  { name: "Mar", Diesel: 5, G_Especial: 2, B91: 3, B83: 4 },
-  { name: "Abr", Diesel: 15, G_Especial: 4, B91: 5, B83: 6 },
-  { name: "May", Diesel: 12, G_Especial: 3, B91: 2, B83: 4 },
-];
-
-const mantenimientoData = [
-  { name: "Ene", Mantenimiento: 8 },
-  { name: "Feb", Mantenimiento: 5 },
-  { name: "Mar", Mantenimiento: 9 },
-  { name: "Abr", Mantenimiento: 3 },
-  { name: "May", Mantenimiento: 1 },
-];
+import { Chofer } from "../types/choferes-types";
+import { VehiculoBack } from "../types/vehiculo-types";
+import { AreaTrabajoBack } from "../types/area-types";
+import { Tarjeta } from "../types/tarjeta-types";
+import { CargaBack } from "../types/cargas-types";
+import { VehiculoMantenimientoBack } from "../types/mantenimiento-types";
+import { useQuery } from "@tanstack/react-query";
+import { TarjetaBaja } from "../types/tarjetas-baja-types";
+import { VehiculoBaja } from "../types/vehiculo-baja-types";
+import LoadingSpinner from "./loading";
 
 type DashboardComponentProps = {
-  choferes: number;
-  vehiculos: number;
-  areas: number;
-  tarjetas: number;
-  cargas: number;
-  mantenimiento: number;
   role?: string;
   name?: string;
 };
 
+async function fetchData<T>(url: string): Promise<T> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error("Network response was not ok");
+  const result = await response.json();
+  return result.data;
+}
+
 export default function DashboardComponent({
-  choferes,
-  vehiculos,
-  areas,
-  tarjetas,
-  cargas,
-  mantenimiento,
   role,
   name,
 }: DashboardComponentProps) {
   const [openUser, setOpenUser] = useState(false);
 
+  const [shouldFetch, setShouldFetch] = useState(false);
+
+  const areasQuery = useQuery<AreaTrabajoBack[]>({
+    queryKey: ["areas"],
+    queryFn: () => fetchData<AreaTrabajoBack[]>("/api/areas-trabajo"),
+    enabled: shouldFetch,
+  });
+
+  const choferesQuery = useQuery<Chofer[]>({
+    queryKey: ["choferes"],
+    queryFn: () => fetchData<Chofer[]>("/api/choferes"),
+    enabled: shouldFetch,
+  });
+
+  const tarjetasQuery = useQuery<Tarjeta[]>({
+    queryKey: ["tarjetas"],
+    queryFn: () => fetchData<Tarjeta[]>("/api/tarjetas-combustible"),
+    enabled: shouldFetch,
+  });
+
+  const vehiculosQuery = useQuery<VehiculoBack[]>({
+    queryKey: ["vehiculos"],
+    queryFn: () => fetchData<VehiculoBack[]>("/api/vehiculos"),
+    enabled: shouldFetch,
+  });
+
+  const cargasQuery = useQuery<CargaBack[]>({
+    queryKey: ["cargas"],
+    queryFn: () => fetchData<CargaBack[]>("/api/control-cargas"),
+    enabled: shouldFetch,
+  });
+
+  const mantenimientoQuery = useQuery<VehiculoMantenimientoBack[]>({
+    queryKey: ["mantenimiento"],
+    queryFn: () =>
+      fetchData<VehiculoMantenimientoBack[]>("/api/vehiculos-mantenimiento"),
+    enabled: shouldFetch,
+  });
+
+  const tarjetasBajaQuery = useQuery<TarjetaBaja[]>({
+    queryKey: ["tarjetas_baja"],
+    queryFn: () => fetchData<TarjetaBaja[]>("/api/tarjetas-combustible-baja"),
+    enabled: shouldFetch,
+  });
+
+  const vehiculosBajaQuery = useQuery<VehiculoBaja[]>({
+    queryKey: ["vehiculos_baja"],
+    queryFn: () => fetchData<VehiculoBaja[]>("/api/vehiculos-baja"),
+    enabled: shouldFetch,
+  });
+
+  const choferesBajaQuery = useQuery<Chofer[]>({
+    queryKey: ["choferes_baja"],
+    queryFn: () => fetchData<Chofer[]>("/api/choferes-despedidos"),
+    enabled: shouldFetch,
+  });
+
+  useEffect(() => {
+    setShouldFetch(true);
+  }, []);
+
+  const datosAgrupados = [];
+  const mantenimientosData = [];
+
+  if (cargasQuery.data) {
+    datosAgrupados.push(...agruparPorMesYCombustible(cargasQuery.data));
+  }
+
+  if (mantenimientoQuery.data) {
+    mantenimientosData.push(
+      ...agruparPorMesYMantenimiento(mantenimientoQuery.data)
+    );
+  }
+
   const cards = [
     {
       title: "Choferes Registrados",
-      value: choferes,
+      value: choferesQuery.data?.length,
       color: "bg-gradient-to-r from-indigo-500 to-purple-500",
+      loading: choferesQuery.isLoading,
     },
     {
       title: "Vehículos Registrados",
-      value: vehiculos,
+      value: vehiculosQuery.data?.length,
       color: "bg-gradient-to-r from-pink-400 to-red-400",
+      loading: vehiculosQuery.isLoading,
     },
     {
       title: "Areas de Trabajo",
-      value: areas,
+      value: areasQuery.data?.length,
       color: "bg-gradient-to-r from-green-400 to-teal-400",
+      loading: areasQuery.isLoading,
     },
     {
       title: "Tarjetas de Combustible",
-      value: tarjetas,
+      value: tarjetasQuery.data?.length,
       color: "bg-gradient-to-r from-yellow-400 to-orange-400",
+      loading: tarjetasQuery.isLoading,
     },
     {
       title: "Control de Cargas",
-      value: cargas,
+      value: cargasQuery.data?.length,
       color: "bg-gradient-to-r from-cyan-400 to-blue-500",
+      loading: cargasQuery.isLoading,
     },
     {
-      title: "Vehiculos en Mantenimiento",
-      value: mantenimiento,
+      title: "Mantenimientos Realizados",
+      value: mantenimientoQuery.data?.length,
       color: "bg-gradient-to-r from-emerald-400 to-teal-500",
+      loading: mantenimientoQuery.isLoading,
+    },
+    {
+      title: "Tarjetas de Combustible de Baja",
+      value: tarjetasBajaQuery.data?.length,
+      color: "bg-gradient-to-r from-orange-400 to-pink-500",
+      loading: tarjetasBajaQuery.isLoading,
+    },
+    {
+      title: "Vehiculos de Baja",
+      value: vehiculosBajaQuery.data?.length,
+      color: "bg-gradient-to-r from-purple-400 to-indigo-600",
+      loading: vehiculosBajaQuery.isLoading,
+    },
+    {
+      title: "Choferes de Baja",
+      value: choferesBajaQuery.data?.length,
+      color: "bg-gradient-to-r from-emerald-400 to-teal-600",
+      loading: choferesBajaQuery.isLoading,
     },
   ];
 
@@ -114,7 +199,17 @@ export default function DashboardComponent({
             >
               <div>
                 <p className="text-sm font-medium uppercase">{card.title}</p>
-                <p className="text-2xl font-bold mt-2">{card.value}</p>
+                {card.loading ? (
+                  <Image
+                    src="/loading.svg"
+                    alt="Loading"
+                    width={30}
+                    height={30}
+                    loading="lazy"
+                  />
+                ) : (
+                  <p className="text-2xl font-bold mt-2">{card.value}</p>
+                )}
               </div>
               <div>{/* Icono opcional */}</div>
             </div>
@@ -122,40 +217,53 @@ export default function DashboardComponent({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
-          {/* Resumen General - Barras */}
           <div className="bg-white rounded-lg p-6 shadow">
             <h2 className="text-lg font-medium text-gray-800 mb-4">
               Resumen General de Combustible
             </h2>
-            <div style={{ height: 250, minWidth: "100%" }}>
-              <ResponsiveContainer>
-                <BarChart data={sampleData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="Diesel" fill="#4F46E5" />
-                  <Bar dataKey="G_Especial" fill="#10B981" />
-                  <Bar dataKey="B91" fill="#F00" />
-                  <Bar dataKey="B83" fill="#F59E0B" />
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="overflow-x-auto">
+              <div
+                style={{
+                  width: "100%",
+                  height: "300px",
+                }}
+              >
+                {datosAgrupados ? (
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={datosAgrupados}
+                      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                      layout="horizontal"
+                    >
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="Diesel" fill="#4F46E5" barSize={40} />
+                      <Bar dataKey="Especial" fill="#10B981" barSize={40} />
+                      <Bar dataKey="B91" fill="#F00" barSize={40} />
+                      <Bar dataKey="B83" fill="#F59E0B" barSize={40} />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <LoadingSpinner />
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Tendencia de Órdenes - Línea */}
           <div className="bg-white rounded-lg p-6 shadow">
             <h2 className="text-lg font-medium text-gray-800 mb-4">
               Tendencia de Mantenimiento de Vehiculos
             </h2>
             <div style={{ width: "100%", height: 250 }}>
               <ResponsiveContainer>
-                <LineChart data={mantenimientoData}>
+                <LineChart data={mantenimientosData}>
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
                   <Line
                     type="monotone"
-                    dataKey="Mantenimiento"
+                    dataKey="mantenimientos"
                     stroke="#2563EB"
                     strokeWidth={2}
                   />
@@ -167,4 +275,158 @@ export default function DashboardComponent({
       </div>
     </main>
   );
+}
+
+function agruparPorMesYCombustible(cargas: CargaBack[]) {
+  const meses = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+
+  const resultado: Record<
+    string,
+    {
+      name: string;
+      Diesel: number;
+      Especial: number;
+      B91: number;
+      B83: number;
+    }
+  > = {};
+
+  cargas.forEach((carga) => {
+    const [añoStr, mesStr, diaStr] = carga.fecha.split("-");
+    const año = parseInt(añoStr, 10);
+    const mes = parseInt(mesStr, 10) - 1;
+    const dia = parseInt(diaStr, 10);
+
+    const fecha = new Date(año, mes, dia);
+    const mesCorrecto = fecha.getMonth();
+    const añoCorrecto = fecha.getFullYear();
+    const clave = `${mesCorrecto}-${añoCorrecto}`;
+    const nombreMes = `${meses[mesCorrecto]} ${añoCorrecto}`;
+
+    const tipoCombustible = determinarTipoCombustible(carga);
+    const dinero = carga.consumo_dinero;
+
+    if (!resultado[clave]) {
+      resultado[clave] = {
+        name: nombreMes,
+        Diesel: 0,
+        Especial: 0,
+        B91: 0,
+        B83: 0,
+      };
+    }
+
+    switch (tipoCombustible) {
+      case "Diesel":
+        resultado[clave].Diesel += Math.ceil(dinero / 13.9);
+        break;
+      case "Especial":
+        resultado[clave].Especial += Math.ceil(dinero / 17.4);
+        break;
+      case "B91":
+        resultado[clave].B91 += Math.ceil(dinero / 16.4);
+        break;
+      case "B83":
+        resultado[clave].B83 += Math.ceil(dinero / 14.6);
+        break;
+      default:
+        break;
+    }
+  });
+
+  return Object.values(resultado).sort((a, b) => {
+    const [mesA, añoA] = a.name.split(" ");
+    const [mesB, añoB] = b.name.split(" ");
+    const indexA = meses.indexOf(mesA);
+    const indexB = meses.indexOf(mesB);
+    return (
+      new Date(Number(añoA), indexA).getTime() -
+      new Date(Number(añoB), indexB).getTime()
+    );
+  });
+}
+
+function agruparPorMesYMantenimiento(
+  mantenimientos: VehiculoMantenimientoBack[]
+) {
+  const meses = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+
+  const resultado: Record<
+    string,
+    {
+      name: string;
+      mantenimientos: number;
+    }
+  > = {};
+
+  mantenimientos.forEach((mantenimiento) => {
+    const fecha = new Date(mantenimiento.inicio);
+    const mes = fecha.getMonth();
+    const año = fecha.getFullYear();
+    const clave = `${mes}-${año}`;
+    const nombreMes = `${meses[mes]} ${año}`;
+
+    if (!resultado[clave]) {
+      resultado[clave] = {
+        name: nombreMes,
+        mantenimientos: 0,
+      };
+    }
+
+    resultado[clave].mantenimientos += 1;
+  });
+
+  return Object.values(resultado).sort((a, b) => {
+    const [mesA, añoA] = a.name.split(" ");
+    const [mesB, añoB] = b.name.split(" ");
+    const indexA = meses.indexOf(mesA);
+    const indexB = meses.indexOf(mesB);
+    return (
+      new Date(Number(añoA), indexA).getTime() -
+      new Date(Number(añoB), indexB).getTime()
+    );
+  });
+}
+
+function determinarTipoCombustible(
+  carga: CargaBack
+): "Diesel" | "Especial" | "B91" | "B83" {
+  switch (carga.vehiculo.tarjeta.tipo) {
+    case "Diesel":
+      return "Diesel";
+    case "Especial":
+      return "Especial";
+    case "B91":
+      return "B91";
+    case "B83":
+      return "B83";
+    default:
+      return "Diesel";
+  }
 }

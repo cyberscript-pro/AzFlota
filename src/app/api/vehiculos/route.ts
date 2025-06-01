@@ -35,6 +35,8 @@ export async function GET(request: NextRequest) {
             numero: true,
             estado: true,
             fecha_vencimiento: true,
+            tipo: true,
+            saldo: true,
           },
         },
       },

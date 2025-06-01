@@ -40,13 +40,12 @@ export default function Modal({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
-      {/* Fondo oscuro */}
+
       <div
         className="fixed inset-0 bg-gray-500/50 bg-opacity-50 transition-opacity"
-        onClick={isCloseonClick ? onClose : undefined}
+        // onClick={isCloseonClick ? onClose : undefined}
       />
 
-      {/* Contenedor del modal */}
       <div className="flex min-h-full items-center justify-center p-4 text-center">
         <div
           className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all max-w-full"

@@ -32,7 +32,7 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<LoginInputs>({
     resolver: zodResolver(userSchemaLogin),
@@ -59,7 +59,7 @@ export default function Login() {
     }
   };
 
-  if(loginError !== "") {
+  if (loginError !== "") {
     toast.error(loginError);
   }
 
@@ -127,10 +127,11 @@ export default function Login() {
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse justify-between sm:px-6">
               <button
                 type="submit"
-                className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${isLoading ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
+                  isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
-                {isLoading ? "Iniciando Sesion..." : "Iniciar Sesion"}
+                {isSubmitting ? "Iniciando Sesion..." : "Iniciar Sesion"}
               </button>
               <button
                 type="button"

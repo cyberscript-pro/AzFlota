@@ -3,22 +3,25 @@ import { Form } from "@/components/ui/form";
 import React from "react";
 import { useForm } from "react-hook-form";
 import DateInput from "../../tarjeta-combustible/components/DateInput";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { mantenimientoSchemaInicio } from "@/app/validations/frontend/mantenimiento.schema";
 
 function MantenimientoVehiculo({
   onClose,
   onSubmit,
 }: {
   onClose: () => void;
-  onSubmit: (data: { inicio: string; descripcion: string }) => void;
+  onSubmit: (data: { inicio: string; motivo: string }) => void;
 }) {
   const form = useForm<{
     inicio: string;
-    descripcion: string;
+    motivo: string;
   }>({
     defaultValues: {
       inicio: "",
-      descripcion: "",
+      motivo: "",
     },
+    resolver: zodResolver(mantenimientoSchemaInicio),
   });
 
   return (
@@ -34,8 +37,8 @@ function MantenimientoVehiculo({
         />
 
         <InputComponent
-          name="descripcion"
-          label="Descripción del Mantenimiento"
+          name="motivo"
+          label="Motivo del Mantenimiento"
           placeholder="Ingresa la descripción del mantenimiento"
           control={form.control}
         />

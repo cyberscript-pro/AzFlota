@@ -116,7 +116,7 @@ function UpdateChofer({
                 loading ? "opacity-50 cursor-not-allowed" : ""
               }`}
             >
-              {loading ? "Actualizando..." : "Actualizar"}
+              {form.formState.isSubmitting ? "Actualizando..." : "Actualizar"}
             </button>
             <button
               type="button"

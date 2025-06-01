@@ -19,10 +19,12 @@ import LoadingSpinner from "@/app/components/loading";
 import { CargasMapper } from "./mappers/cargas.mapper";
 import { CargasTable } from "./components/TableComponent";
 import { useFormDataPost } from "./data/FormDataPost";
-import { CargaBack, CargaFront } from "@/app/types/cargas-types";
+import { CargaBack, CargaFront, Inputs } from "@/app/types/cargas-types";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
 import SearchForm from "@/app/flota/cargas/components/Search";
 import { isSea } from "node:sea";
+import AddViajes from "./formularios/AddViajes";
+import { set } from "zod";
 
 const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
@@ -69,6 +71,7 @@ function CargasContent() {
 
   const [state, setState] = useState({
     isCreateCarga: false,
+    isCreateViajes: false,
     isSearch: false,
     isReporte: false,
     selectedValue: "pdf",
@@ -78,6 +81,15 @@ function CargasContent() {
     permisoTotal: false,
     selectedCarga: null as CargaFront | null,
     isEditCarga: false,
+  });
+
+  const [dataForm, setDataForm] = useState<Inputs>({
+    km_recorridos: "0",
+    folio: "",
+    comprobante: "",
+    fecha: "",
+    importe: "0",
+    vehiculoChapa: "",
   });
 
   const apiUrl = useMemo(
@@ -94,6 +106,12 @@ function CargasContent() {
       setState((prev) => ({ ...prev, isCreateCarga: false }));
       toast.success("Carga de Combustible creada correctamente");
       refetch();
+    },
+    onViajes: () => {
+      setState((prev) => ({ ...prev, isCreateViajes: true }));
+    },
+    onSubmitCarga: (data: Inputs) => {
+      setDataForm(data);
     },
   });
 
@@ -269,6 +287,29 @@ function CargasContent() {
                 }
                 onSubmit={onSubmit}
                 loadingAdd={loadingPost}
+              />
+            </ModalBasicStyle>
+          </Modal>
+
+          <Modal
+            isOpen={state.isCreateViajes}
+            onClose={() =>
+              setState((prev) => ({ ...prev, isCreateViajes: false }))
+            }
+          >
+            <ModalBasicStyle
+              title="Registro de Viajes"
+              classNameTitle="text-gray-900"
+              classNameContainer=""
+            >
+              <AddViajes
+                onClose={() => {
+                  setState((prev) => ({ ...prev, isCreateViajes: false }));
+                  toast.success("Carga de Combustible y Viaje creados correctamente");
+                  refetch();
+                }}
+                dataCarga={dataForm}
+                form2={form}
               />
             </ModalBasicStyle>
           </Modal>

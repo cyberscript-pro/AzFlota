@@ -5,6 +5,7 @@ type Vehiculo = {
 export type VehiculoMantenimientoBack = {
   uuid: string;
   descripcion: string;
+  motivo: string;
   inicio: string;
   fin: string;
   vehiculo: Vehiculo;
@@ -13,6 +14,7 @@ export type VehiculoMantenimientoBack = {
 export type VehiculoMantenimientoFront = {
   id: string;
   descripcion: string;
+  motivo: string;
   inicio: string;
   fin: string;
   vehiculo: Vehiculo;

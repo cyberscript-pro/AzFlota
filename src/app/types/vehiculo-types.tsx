@@ -47,7 +47,9 @@ export type DataViajesBack = {
   uuid: string;
   fechaSalida: string;
   fechaLlegada: string;
+  lugarSalida: string;
   lugarDestino: string;
+  kmRecorridos: number;
   combustibleConsumido: number;
   vehiculoChapa: string;
 };
@@ -56,9 +58,28 @@ export type DataViajesFront = {
   id: string;
   fechaSalida: string;
   fechaLlegada: string;
+  lugarSalida: string;
   lugarDestino: string;
+  kmRecorridos: number;
   combustibleConsumido: number;
   vehiculoChapa: string;
+};
+
+export type DataViajesPost = {
+  fechaSalida: string;
+  fechaLlegada: string;
+  lugarSalida: string;
+  lugarDestino: string;
+  kmRecorridos: number;
+  combustibleConsumido: number;
+  vehiculoChapa: string;
+};
+
+export type InputsDataViajes = {
+  fechaSalida: string;
+  fechaLlegada: string;
+  lugarSalida: string;
+  lugarDestino: string;
 };
 
 export type Inputs = {

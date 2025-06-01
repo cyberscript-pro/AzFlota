@@ -4,7 +4,7 @@ import { FieldValues, UseFormReset } from "react-hook-form";
 
 type ApiPost = {
   url: string;
-  onClose: () => void;
+  onClose?: () => void;
   reset: any;
 };
 
@@ -30,7 +30,7 @@ export default function useApiPost<T>({ url, onClose, reset }: ApiPost) {
 
       setSubmitSuccess(true);
       reset();
-      onClose();
+      onClose ? onClose() : null;
     } catch (err) {
       throw new Error(
         err instanceof Error ? err.message : "An unknown error occurred"

@@ -37,9 +37,11 @@ export function AreaTrabajoTable({
     chapa: string;
     inicio: string;
     uuid: string;
+    motivo: string;
   }>({
     chapa: "",
     inicio: "",
+    motivo: "",
     uuid: "",
   });
   const [dataDelete, setDataDelete] = useState<{
@@ -52,11 +54,10 @@ export function AreaTrabajoTable({
 
   const deleteVehiculo = async (uuid: string) => {
     try {
-
-    }catch(error) {
+    } catch (error) {
       console.error("Error al enviar datos:", error);
     }
-  }
+  };
 
   return (
     <div className="w-full">
@@ -67,18 +68,22 @@ export function AreaTrabajoTable({
         <Table className="min-w-full">
           <TableHeader>
             <TableRow className="bg-gray-100">
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[300px]">
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[120px]">
                 Vehiculo
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[120px]">
                 Fecha Inicio
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[120px]">
                 Fecha Fin
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[200px] max-w-[300px]">
+                Motivo
+              </TableHead>
+              <TableHead className="text-gray-600 font-medium uppercase min-w-[200px] max-w-[300px]">
                 Descripcion
               </TableHead>
+              {access && <TableHead className="w-[200px]"></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -91,26 +96,30 @@ export function AreaTrabajoTable({
                     : "bg-gray-50 hover:bg-gray-100"
                 }
               >
-                <TableCell className="py-3 px-4 text-gray-700 w-[300px]">
+                <TableCell className="py-3 px-4 text-gray-700 w-[120px]">
                   {data.vehiculo.chapa}
                 </TableCell>
-                <TableCell className="py-3 px-4 text-gray-700 w-[50px]">
+                <TableCell className="py-3 px-4 text-gray-700 w-[120px]">
                   {data.inicio}
                 </TableCell>
-                <TableCell className="py-3 px-4 text-gray-700 w-[50px]">
+                <TableCell className="py-3 px-4 text-gray-700 w-[120px]">
                   {data.fin}
                 </TableCell>
-                <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
+                <TableCell className="py-3 px-4 text-gray-700 min-w-[200px] max-w-[300px] whitespace-normal break-words">
+                  {data.motivo}
+                </TableCell>
+                <TableCell className="py-3 px-4 text-gray-700 min-w-[200px] max-w-[300px] whitespace-normal break-words">
                   {data.descripcion}
                 </TableCell>
                 {access && data.fin === null && (
-                  <TableCell className="py-3 px-4 text-gray-700 w-[100px]">
+                  <TableCell className="py-3 px-4 text-gray-700 w-[200px] whitespace-nowrap">
                     <ModalButton
-                      className={`inline-flex mr-2 w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
+                      className={`inline-flex mr-2 justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-auto`}
                       onClick={() => {
                         setDataUpdate({
                           chapa: data.vehiculo.chapa,
                           inicio: data.inicio,
+                          motivo: data.motivo,
                           uuid: data.id,
                         });
                         setOpenUpdateModal(true);
@@ -119,12 +128,12 @@ export function AreaTrabajoTable({
                       Finalizar
                     </ModalButton>
                     <ModalButton
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-800 sm:mt-0 sm:w-auto"
+                      className="inline-flex justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-800 sm:w-auto"
                       onClick={() => {
                         setDataDelete({
                           chapa: data.vehiculo.chapa,
                           uuid: data.id,
-                        })
+                        });
                         setOpenDeleteModal(true);
                       }}
                     >
@@ -154,6 +163,7 @@ export function AreaTrabajoTable({
                 dataUpdate={{
                   chapa: dataUpdate.chapa,
                   inicio: dataUpdate.inicio,
+                  motivo: dataUpdate.motivo,
                 }}
               />
             </div>
@@ -168,7 +178,9 @@ export function AreaTrabajoTable({
               <h3 className="text-base font-semibold leading-6">
                 ¿Esta seguro que desea dar de baja el Vehiculo?
               </h3>
-              <h3 className="text-base font-semibold leading-6 text-red-500">{dataDelete.chapa}</h3>
+              <h3 className="text-base font-semibold leading-6 text-red-500">
+                {dataDelete.chapa}
+              </h3>
               <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <ModalButton
                   children="Aceptar"

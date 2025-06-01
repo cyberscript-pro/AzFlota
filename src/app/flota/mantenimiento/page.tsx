@@ -139,7 +139,7 @@ function AreaTrabajoContent() {
         <div className="flex w-full min-h-screen z-0">
           <SidebarDashboard />
           <div className="flex-1 flex flex-col">
-            <header className="sticky top-0 w-full bg-white shadow">
+            <header className="sticky top-0 w-full z-50 inset-3 bg-white shadow">
               <div className="w-full mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-gray-900">
                   Gestión de Mantenimientos de Vehiculos
@@ -161,7 +161,7 @@ function AreaTrabajoContent() {
 
             <div className="w-full h-2" />
 
-            <main className="mt-2 h-[100vh-40px] min-w-full">
+            <main className="mt-2 min-h-screen min-w-full z-0 inset-0">
               <MemoizedAreaTrabajoTable
                 refetch={refetch}
                 data={memoizedDataFront}
@@ -210,23 +210,23 @@ function AreaTrabajoContent() {
               </div>
             </footer>
           </div>
-            <Modal
-              isOpen={state.isEditAreaTrabajo}
-              onClose={() =>
-                setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
-              }
+          <Modal
+            isOpen={state.isEditAreaTrabajo}
+            onClose={() =>
+              setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
+            }
+          >
+            <ModalBasicStyle
+              title="Editar Area de Trabajo"
+              classNameTitle="text-gray-900"
+              classNameContainer=""
             >
-              <ModalBasicStyle
-                title="Editar Area de Trabajo"
-                classNameTitle="text-gray-900"
-                classNameContainer=""
-              >
-                {/* {state.selectedAreaTrabajo && (
+              {/* {state.selectedAreaTrabajo && (
                   
                 )} */}
-                <div></div>
-              </ModalBasicStyle>
-            </Modal>
+              <div></div>
+            </ModalBasicStyle>
+          </Modal>
 
           <ModalGenerateReporte
             isOpen={state.isReporte}

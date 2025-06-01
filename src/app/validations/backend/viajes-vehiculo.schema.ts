@@ -11,11 +11,17 @@ export const viajesVehiculoSchema = z.object({
     .refine((date) => new Date(date).toString() !== "Invalid Date", {
       message: "Por favor introduzca una fecha valida",
     }),
+    lugarSalida: z.string().min(1, {
+      message: "El lugar de salida es requerido",
+    }),
   lugarDestino: z.string().min(1, {
-    message: "El lugar es requerido",
+    message: "El lugar de salida es requerido",
   }),
   combustibleConsumido: z.number().positive().min(1, {
     message: "El combustible consumido en el viaje es requerido",
+  }),
+  kmRecorridos: z.number().positive().min(1, {
+    message: "Los kilometros recorridos en el viaje es requerido",
   }),
   vehiculoChapa: z.string().min(6, {
     message: "La chapa del vehiculo es requerida",

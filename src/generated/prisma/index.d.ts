@@ -9836,6 +9836,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoMinAggregateOutputType = {
     uuid: string | null
+    motivo: string | null
     descripcion: string | null
     inicio: Date | null
     fin: Date | null
@@ -9844,6 +9845,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoMaxAggregateOutputType = {
     uuid: string | null
+    motivo: string | null
     descripcion: string | null
     inicio: Date | null
     fin: Date | null
@@ -9852,6 +9854,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoCountAggregateOutputType = {
     uuid: number
+    motivo: number
     descripcion: number
     inicio: number
     fin: number
@@ -9862,6 +9865,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoMinAggregateInputType = {
     uuid?: true
+    motivo?: true
     descripcion?: true
     inicio?: true
     fin?: true
@@ -9870,6 +9874,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoMaxAggregateInputType = {
     uuid?: true
+    motivo?: true
     descripcion?: true
     inicio?: true
     fin?: true
@@ -9878,6 +9883,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoCountAggregateInputType = {
     uuid?: true
+    motivo?: true
     descripcion?: true
     inicio?: true
     fin?: true
@@ -9959,7 +9965,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoGroupByOutputType = {
     uuid: string
-    descripcion: string
+    motivo: string
+    descripcion: string | null
     inicio: Date
     fin: Date | null
     vehiculoChapa: string
@@ -9984,6 +9991,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     uuid?: boolean
+    motivo?: boolean
     descripcion?: boolean
     inicio?: boolean
     fin?: boolean
@@ -9995,13 +10003,14 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoSelectScalar = {
     uuid?: boolean
+    motivo?: boolean
     descripcion?: boolean
     inicio?: boolean
     fin?: boolean
     vehiculoChapa?: boolean
   }
 
-  export type VehiculosMantenimientoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "descripcion" | "inicio" | "fin" | "vehiculoChapa", ExtArgs["result"]["vehiculosMantenimiento"]>
+  export type VehiculosMantenimientoOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "motivo" | "descripcion" | "inicio" | "fin" | "vehiculoChapa", ExtArgs["result"]["vehiculosMantenimiento"]>
   export type VehiculosMantenimientoInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehiculo?: boolean | VehiculoDefaultArgs<ExtArgs>
   }
@@ -10013,7 +10022,8 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       uuid: string
-      descripcion: string
+      motivo: string
+      descripcion: string | null
       inicio: Date
       fin: Date | null
       vehiculoChapa: string
@@ -10388,6 +10398,7 @@ export namespace Prisma {
    */
   interface VehiculosMantenimientoFieldRefs {
     readonly uuid: FieldRef<"VehiculosMantenimiento", 'String'>
+    readonly motivo: FieldRef<"VehiculosMantenimiento", 'String'>
     readonly descripcion: FieldRef<"VehiculosMantenimiento", 'String'>
     readonly inicio: FieldRef<"VehiculosMantenimiento", 'DateTime'>
     readonly fin: FieldRef<"VehiculosMantenimiento", 'DateTime'>
@@ -11651,10 +11662,12 @@ export namespace Prisma {
   }
 
   export type ViajesVehiculosAvgAggregateOutputType = {
+    kmRecorridos: number | null
     combustibleConsumido: number | null
   }
 
   export type ViajesVehiculosSumAggregateOutputType = {
+    kmRecorridos: number | null
     combustibleConsumido: number | null
   }
 
@@ -11662,7 +11675,9 @@ export namespace Prisma {
     uuid: string | null
     fechaSalida: Date | null
     fechaLlegada: Date | null
+    lugarSalida: string | null
     lugarDestino: string | null
+    kmRecorridos: number | null
     combustibleConsumido: number | null
     vehiculoChapa: string | null
   }
@@ -11671,7 +11686,9 @@ export namespace Prisma {
     uuid: string | null
     fechaSalida: Date | null
     fechaLlegada: Date | null
+    lugarSalida: string | null
     lugarDestino: string | null
+    kmRecorridos: number | null
     combustibleConsumido: number | null
     vehiculoChapa: string | null
   }
@@ -11680,7 +11697,9 @@ export namespace Prisma {
     uuid: number
     fechaSalida: number
     fechaLlegada: number
+    lugarSalida: number
     lugarDestino: number
+    kmRecorridos: number
     combustibleConsumido: number
     vehiculoChapa: number
     _all: number
@@ -11688,10 +11707,12 @@ export namespace Prisma {
 
 
   export type ViajesVehiculosAvgAggregateInputType = {
+    kmRecorridos?: true
     combustibleConsumido?: true
   }
 
   export type ViajesVehiculosSumAggregateInputType = {
+    kmRecorridos?: true
     combustibleConsumido?: true
   }
 
@@ -11699,7 +11720,9 @@ export namespace Prisma {
     uuid?: true
     fechaSalida?: true
     fechaLlegada?: true
+    lugarSalida?: true
     lugarDestino?: true
+    kmRecorridos?: true
     combustibleConsumido?: true
     vehiculoChapa?: true
   }
@@ -11708,7 +11731,9 @@ export namespace Prisma {
     uuid?: true
     fechaSalida?: true
     fechaLlegada?: true
+    lugarSalida?: true
     lugarDestino?: true
+    kmRecorridos?: true
     combustibleConsumido?: true
     vehiculoChapa?: true
   }
@@ -11717,7 +11742,9 @@ export namespace Prisma {
     uuid?: true
     fechaSalida?: true
     fechaLlegada?: true
+    lugarSalida?: true
     lugarDestino?: true
+    kmRecorridos?: true
     combustibleConsumido?: true
     vehiculoChapa?: true
     _all?: true
@@ -11813,7 +11840,9 @@ export namespace Prisma {
     uuid: string
     fechaSalida: Date
     fechaLlegada: Date
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
     vehiculoChapa: string
     _count: ViajesVehiculosCountAggregateOutputType | null
@@ -11841,7 +11870,9 @@ export namespace Prisma {
     uuid?: boolean
     fechaSalida?: boolean
     fechaLlegada?: boolean
+    lugarSalida?: boolean
     lugarDestino?: boolean
+    kmRecorridos?: boolean
     combustibleConsumido?: boolean
     vehiculoChapa?: boolean
     vehiculo?: boolean | VehiculoDefaultArgs<ExtArgs>
@@ -11853,12 +11884,14 @@ export namespace Prisma {
     uuid?: boolean
     fechaSalida?: boolean
     fechaLlegada?: boolean
+    lugarSalida?: boolean
     lugarDestino?: boolean
+    kmRecorridos?: boolean
     combustibleConsumido?: boolean
     vehiculoChapa?: boolean
   }
 
-  export type ViajesVehiculosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "fechaSalida" | "fechaLlegada" | "lugarDestino" | "combustibleConsumido" | "vehiculoChapa", ExtArgs["result"]["viajesVehiculos"]>
+  export type ViajesVehiculosOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"uuid" | "fechaSalida" | "fechaLlegada" | "lugarSalida" | "lugarDestino" | "kmRecorridos" | "combustibleConsumido" | "vehiculoChapa", ExtArgs["result"]["viajesVehiculos"]>
   export type ViajesVehiculosInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     vehiculo?: boolean | VehiculoDefaultArgs<ExtArgs>
   }
@@ -11872,7 +11905,9 @@ export namespace Prisma {
       uuid: string
       fechaSalida: Date
       fechaLlegada: Date
+      lugarSalida: string
       lugarDestino: string
+      kmRecorridos: number
       combustibleConsumido: number
       vehiculoChapa: string
     }, ExtArgs["result"]["viajesVehiculos"]>
@@ -12248,7 +12283,9 @@ export namespace Prisma {
     readonly uuid: FieldRef<"ViajesVehiculos", 'String'>
     readonly fechaSalida: FieldRef<"ViajesVehiculos", 'DateTime'>
     readonly fechaLlegada: FieldRef<"ViajesVehiculos", 'DateTime'>
+    readonly lugarSalida: FieldRef<"ViajesVehiculos", 'String'>
     readonly lugarDestino: FieldRef<"ViajesVehiculos", 'String'>
+    readonly kmRecorridos: FieldRef<"ViajesVehiculos", 'Int'>
     readonly combustibleConsumido: FieldRef<"ViajesVehiculos", 'Int'>
     readonly vehiculoChapa: FieldRef<"ViajesVehiculos", 'String'>
   }
@@ -13617,6 +13654,7 @@ export namespace Prisma {
 
   export const VehiculosMantenimientoScalarFieldEnum: {
     uuid: 'uuid',
+    motivo: 'motivo',
     descripcion: 'descripcion',
     inicio: 'inicio',
     fin: 'fin',
@@ -13637,7 +13675,9 @@ export namespace Prisma {
     uuid: 'uuid',
     fechaSalida: 'fechaSalida',
     fechaLlegada: 'fechaLlegada',
+    lugarSalida: 'lugarSalida',
     lugarDestino: 'lugarDestino',
+    kmRecorridos: 'kmRecorridos',
     combustibleConsumido: 'combustibleConsumido',
     vehiculoChapa: 'vehiculoChapa'
   };
@@ -13746,6 +13786,7 @@ export namespace Prisma {
 
   export const VehiculosMantenimientoOrderByRelevanceFieldEnum: {
     uuid: 'uuid',
+    motivo: 'motivo',
     descripcion: 'descripcion',
     vehiculoChapa: 'vehiculoChapa'
   };
@@ -13762,6 +13803,7 @@ export namespace Prisma {
 
   export const ViajesVehiculosOrderByRelevanceFieldEnum: {
     uuid: 'uuid',
+    lugarSalida: 'lugarSalida',
     lugarDestino: 'lugarDestino',
     vehiculoChapa: 'vehiculoChapa'
   };
@@ -14350,7 +14392,8 @@ export namespace Prisma {
     OR?: VehiculosMantenimientoWhereInput[]
     NOT?: VehiculosMantenimientoWhereInput | VehiculosMantenimientoWhereInput[]
     uuid?: StringFilter<"VehiculosMantenimiento"> | string
-    descripcion?: StringFilter<"VehiculosMantenimiento"> | string
+    motivo?: StringFilter<"VehiculosMantenimiento"> | string
+    descripcion?: StringNullableFilter<"VehiculosMantenimiento"> | string | null
     inicio?: DateTimeFilter<"VehiculosMantenimiento"> | Date | string
     fin?: DateTimeNullableFilter<"VehiculosMantenimiento"> | Date | string | null
     vehiculoChapa?: StringFilter<"VehiculosMantenimiento"> | string
@@ -14359,7 +14402,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoOrderByWithRelationInput = {
     uuid?: SortOrder
-    descripcion?: SortOrder
+    motivo?: SortOrder
+    descripcion?: SortOrderInput | SortOrder
     inicio?: SortOrder
     fin?: SortOrderInput | SortOrder
     vehiculoChapa?: SortOrder
@@ -14372,7 +14416,8 @@ export namespace Prisma {
     AND?: VehiculosMantenimientoWhereInput | VehiculosMantenimientoWhereInput[]
     OR?: VehiculosMantenimientoWhereInput[]
     NOT?: VehiculosMantenimientoWhereInput | VehiculosMantenimientoWhereInput[]
-    descripcion?: StringFilter<"VehiculosMantenimiento"> | string
+    motivo?: StringFilter<"VehiculosMantenimiento"> | string
+    descripcion?: StringNullableFilter<"VehiculosMantenimiento"> | string | null
     inicio?: DateTimeFilter<"VehiculosMantenimiento"> | Date | string
     fin?: DateTimeNullableFilter<"VehiculosMantenimiento"> | Date | string | null
     vehiculoChapa?: StringFilter<"VehiculosMantenimiento"> | string
@@ -14381,7 +14426,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoOrderByWithAggregationInput = {
     uuid?: SortOrder
-    descripcion?: SortOrder
+    motivo?: SortOrder
+    descripcion?: SortOrderInput | SortOrder
     inicio?: SortOrder
     fin?: SortOrderInput | SortOrder
     vehiculoChapa?: SortOrder
@@ -14395,7 +14441,8 @@ export namespace Prisma {
     OR?: VehiculosMantenimientoScalarWhereWithAggregatesInput[]
     NOT?: VehiculosMantenimientoScalarWhereWithAggregatesInput | VehiculosMantenimientoScalarWhereWithAggregatesInput[]
     uuid?: StringWithAggregatesFilter<"VehiculosMantenimiento"> | string
-    descripcion?: StringWithAggregatesFilter<"VehiculosMantenimiento"> | string
+    motivo?: StringWithAggregatesFilter<"VehiculosMantenimiento"> | string
+    descripcion?: StringNullableWithAggregatesFilter<"VehiculosMantenimiento"> | string | null
     inicio?: DateTimeWithAggregatesFilter<"VehiculosMantenimiento"> | Date | string
     fin?: DateTimeNullableWithAggregatesFilter<"VehiculosMantenimiento"> | Date | string | null
     vehiculoChapa?: StringWithAggregatesFilter<"VehiculosMantenimiento"> | string
@@ -14444,7 +14491,9 @@ export namespace Prisma {
     uuid?: StringFilter<"ViajesVehiculos"> | string
     fechaSalida?: DateTimeFilter<"ViajesVehiculos"> | Date | string
     fechaLlegada?: DateTimeFilter<"ViajesVehiculos"> | Date | string
+    lugarSalida?: StringFilter<"ViajesVehiculos"> | string
     lugarDestino?: StringFilter<"ViajesVehiculos"> | string
+    kmRecorridos?: IntFilter<"ViajesVehiculos"> | number
     combustibleConsumido?: IntFilter<"ViajesVehiculos"> | number
     vehiculoChapa?: StringFilter<"ViajesVehiculos"> | string
     vehiculo?: XOR<VehiculoScalarRelationFilter, VehiculoWhereInput>
@@ -14454,7 +14503,9 @@ export namespace Prisma {
     uuid?: SortOrder
     fechaSalida?: SortOrder
     fechaLlegada?: SortOrder
+    lugarSalida?: SortOrder
     lugarDestino?: SortOrder
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
     vehiculoChapa?: SortOrder
     vehiculo?: VehiculoOrderByWithRelationInput
@@ -14468,7 +14519,9 @@ export namespace Prisma {
     NOT?: ViajesVehiculosWhereInput | ViajesVehiculosWhereInput[]
     fechaSalida?: DateTimeFilter<"ViajesVehiculos"> | Date | string
     fechaLlegada?: DateTimeFilter<"ViajesVehiculos"> | Date | string
+    lugarSalida?: StringFilter<"ViajesVehiculos"> | string
     lugarDestino?: StringFilter<"ViajesVehiculos"> | string
+    kmRecorridos?: IntFilter<"ViajesVehiculos"> | number
     combustibleConsumido?: IntFilter<"ViajesVehiculos"> | number
     vehiculoChapa?: StringFilter<"ViajesVehiculos"> | string
     vehiculo?: XOR<VehiculoScalarRelationFilter, VehiculoWhereInput>
@@ -14478,7 +14531,9 @@ export namespace Prisma {
     uuid?: SortOrder
     fechaSalida?: SortOrder
     fechaLlegada?: SortOrder
+    lugarSalida?: SortOrder
     lugarDestino?: SortOrder
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
     vehiculoChapa?: SortOrder
     _count?: ViajesVehiculosCountOrderByAggregateInput
@@ -14495,7 +14550,9 @@ export namespace Prisma {
     uuid?: StringWithAggregatesFilter<"ViajesVehiculos"> | string
     fechaSalida?: DateTimeWithAggregatesFilter<"ViajesVehiculos"> | Date | string
     fechaLlegada?: DateTimeWithAggregatesFilter<"ViajesVehiculos"> | Date | string
+    lugarSalida?: StringWithAggregatesFilter<"ViajesVehiculos"> | string
     lugarDestino?: StringWithAggregatesFilter<"ViajesVehiculos"> | string
+    kmRecorridos?: IntWithAggregatesFilter<"ViajesVehiculos"> | number
     combustibleConsumido?: IntWithAggregatesFilter<"ViajesVehiculos"> | number
     vehiculoChapa?: StringWithAggregatesFilter<"ViajesVehiculos"> | string
   }
@@ -15062,7 +15119,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoCreateInput = {
     uuid?: string
-    descripcion: string
+    motivo: string
+    descripcion?: string | null
     inicio: Date | string
     fin?: Date | string | null
     vehiculo: VehiculoCreateNestedOneWithoutMantenimientosInput
@@ -15070,7 +15128,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoUncheckedCreateInput = {
     uuid?: string
-    descripcion: string
+    motivo: string
+    descripcion?: string | null
     inicio: Date | string
     fin?: Date | string | null
     vehiculoChapa: string
@@ -15078,7 +15137,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vehiculo?: VehiculoUpdateOneRequiredWithoutMantenimientosNestedInput
@@ -15086,7 +15146,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoUncheckedUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vehiculoChapa?: StringFieldUpdateOperationsInput | string
@@ -15094,7 +15155,8 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoCreateManyInput = {
     uuid?: string
-    descripcion: string
+    motivo: string
+    descripcion?: string | null
     inicio: Date | string
     fin?: Date | string | null
     vehiculoChapa: string
@@ -15102,14 +15164,16 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VehiculosMantenimientoUncheckedUpdateManyInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     vehiculoChapa?: StringFieldUpdateOperationsInput | string
@@ -15147,7 +15211,9 @@ export namespace Prisma {
     uuid?: string
     fechaSalida: Date | string
     fechaLlegada: Date | string
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
     vehiculo: VehiculoCreateNestedOneWithoutViajesInput
   }
@@ -15156,7 +15222,9 @@ export namespace Prisma {
     uuid?: string
     fechaSalida: Date | string
     fechaLlegada: Date | string
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
     vehiculoChapa: string
   }
@@ -15165,7 +15233,9 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
     vehiculo?: VehiculoUpdateOneRequiredWithoutViajesNestedInput
   }
@@ -15174,7 +15244,9 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
     vehiculoChapa?: StringFieldUpdateOperationsInput | string
   }
@@ -15183,7 +15255,9 @@ export namespace Prisma {
     uuid?: string
     fechaSalida: Date | string
     fechaLlegada: Date | string
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
     vehiculoChapa: string
   }
@@ -15192,7 +15266,9 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
   }
 
@@ -15200,7 +15276,9 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
     vehiculoChapa?: StringFieldUpdateOperationsInput | string
   }
@@ -15836,6 +15914,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoCountOrderByAggregateInput = {
     uuid?: SortOrder
+    motivo?: SortOrder
     descripcion?: SortOrder
     inicio?: SortOrder
     fin?: SortOrder
@@ -15844,6 +15923,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoMaxOrderByAggregateInput = {
     uuid?: SortOrder
+    motivo?: SortOrder
     descripcion?: SortOrder
     inicio?: SortOrder
     fin?: SortOrder
@@ -15852,6 +15932,7 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoMinOrderByAggregateInput = {
     uuid?: SortOrder
+    motivo?: SortOrder
     descripcion?: SortOrder
     inicio?: SortOrder
     fin?: SortOrder
@@ -15900,12 +15981,15 @@ export namespace Prisma {
     uuid?: SortOrder
     fechaSalida?: SortOrder
     fechaLlegada?: SortOrder
+    lugarSalida?: SortOrder
     lugarDestino?: SortOrder
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
     vehiculoChapa?: SortOrder
   }
 
   export type ViajesVehiculosAvgOrderByAggregateInput = {
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
   }
 
@@ -15913,7 +15997,9 @@ export namespace Prisma {
     uuid?: SortOrder
     fechaSalida?: SortOrder
     fechaLlegada?: SortOrder
+    lugarSalida?: SortOrder
     lugarDestino?: SortOrder
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
     vehiculoChapa?: SortOrder
   }
@@ -15922,12 +16008,15 @@ export namespace Prisma {
     uuid?: SortOrder
     fechaSalida?: SortOrder
     fechaLlegada?: SortOrder
+    lugarSalida?: SortOrder
     lugarDestino?: SortOrder
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
     vehiculoChapa?: SortOrder
   }
 
   export type ViajesVehiculosSumOrderByAggregateInput = {
+    kmRecorridos?: SortOrder
     combustibleConsumido?: SortOrder
   }
 
@@ -17045,7 +17134,9 @@ export namespace Prisma {
     uuid?: string
     fechaSalida: Date | string
     fechaLlegada: Date | string
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
   }
 
@@ -17053,7 +17144,9 @@ export namespace Prisma {
     uuid?: string
     fechaSalida: Date | string
     fechaLlegada: Date | string
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
   }
 
@@ -17069,14 +17162,16 @@ export namespace Prisma {
 
   export type VehiculosMantenimientoCreateWithoutVehiculoInput = {
     uuid?: string
-    descripcion: string
+    motivo: string
+    descripcion?: string | null
     inicio: Date | string
     fin?: Date | string | null
   }
 
   export type VehiculosMantenimientoUncheckedCreateWithoutVehiculoInput = {
     uuid?: string
-    descripcion: string
+    motivo: string
+    descripcion?: string | null
     inicio: Date | string
     fin?: Date | string | null
   }
@@ -17250,7 +17345,9 @@ export namespace Prisma {
     uuid?: StringFilter<"ViajesVehiculos"> | string
     fechaSalida?: DateTimeFilter<"ViajesVehiculos"> | Date | string
     fechaLlegada?: DateTimeFilter<"ViajesVehiculos"> | Date | string
+    lugarSalida?: StringFilter<"ViajesVehiculos"> | string
     lugarDestino?: StringFilter<"ViajesVehiculos"> | string
+    kmRecorridos?: IntFilter<"ViajesVehiculos"> | number
     combustibleConsumido?: IntFilter<"ViajesVehiculos"> | number
     vehiculoChapa?: StringFilter<"ViajesVehiculos"> | string
   }
@@ -17276,7 +17373,8 @@ export namespace Prisma {
     OR?: VehiculosMantenimientoScalarWhereInput[]
     NOT?: VehiculosMantenimientoScalarWhereInput | VehiculosMantenimientoScalarWhereInput[]
     uuid?: StringFilter<"VehiculosMantenimiento"> | string
-    descripcion?: StringFilter<"VehiculosMantenimiento"> | string
+    motivo?: StringFilter<"VehiculosMantenimiento"> | string
+    descripcion?: StringNullableFilter<"VehiculosMantenimiento"> | string | null
     inicio?: DateTimeFilter<"VehiculosMantenimiento"> | Date | string
     fin?: DateTimeNullableFilter<"VehiculosMantenimiento"> | Date | string | null
     vehiculoChapa?: StringFilter<"VehiculosMantenimiento"> | string
@@ -18032,13 +18130,16 @@ export namespace Prisma {
     uuid?: string
     fechaSalida: Date | string
     fechaLlegada: Date | string
+    lugarSalida: string
     lugarDestino: string
+    kmRecorridos: number
     combustibleConsumido: number
   }
 
   export type VehiculosMantenimientoCreateManyVehiculoInput = {
     uuid?: string
-    descripcion: string
+    motivo: string
+    descripcion?: string | null
     inicio: Date | string
     fin?: Date | string | null
   }
@@ -18081,7 +18182,9 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18089,7 +18192,9 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
   }
 
@@ -18097,27 +18202,32 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     fechaSalida?: DateTimeFieldUpdateOperationsInput | Date | string
     fechaLlegada?: DateTimeFieldUpdateOperationsInput | Date | string
+    lugarSalida?: StringFieldUpdateOperationsInput | string
     lugarDestino?: StringFieldUpdateOperationsInput | string
+    kmRecorridos?: IntFieldUpdateOperationsInput | number
     combustibleConsumido?: IntFieldUpdateOperationsInput | number
   }
 
   export type VehiculosMantenimientoUpdateWithoutVehiculoInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VehiculosMantenimientoUncheckedUpdateWithoutVehiculoInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type VehiculosMantenimientoUncheckedUpdateManyWithoutVehiculoInput = {
     uuid?: StringFieldUpdateOperationsInput | string
-    descripcion?: StringFieldUpdateOperationsInput | string
+    motivo?: StringFieldUpdateOperationsInput | string
+    descripcion?: NullableStringFieldUpdateOperationsInput | string | null
     inicio?: DateTimeFieldUpdateOperationsInput | Date | string
     fin?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }

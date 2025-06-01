@@ -19,6 +19,7 @@ async function findOne(chapa: string) {
           estado: true,
           fecha_vencimiento: true,
           saldo: true,
+          tipo: true,
         },
       },
     },
@@ -112,7 +113,7 @@ export async function DELETE(
 ) {
   try {
     const { chapa } = await params;
-    const { inicio, descripcion } = await request.json();
+    const { inicio, motivo } = await request.json();
 
     const vehiculo = await findOne(chapa);
 
@@ -130,7 +131,7 @@ export async function DELETE(
         body: JSON.stringify({
           chapa,
           inicio,
-          descripcion,
+          motivo,
         }),
       }
     );
@@ -151,7 +152,7 @@ export async function DELETE(
 
     return NextResponse.json({
       message: "Vehicle mantenimiento successfully",
-      elements: { inicio, descripcion, response },
+      elements: { inicio, motivo, response },
     });
   } catch (error) {
     return NextResponse.json(

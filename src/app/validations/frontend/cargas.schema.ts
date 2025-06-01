@@ -1,3 +1,4 @@
+import { VehiculoBack } from "@/app/types/vehiculo-types";
 import { z } from "zod";
 
 export const controlCargasSchema = z
@@ -48,7 +49,7 @@ export const controlCargasSchema = z
     importe: z.string().min(1, {
       message: "Por favor ingrese el importe",
     }),
-    consumo_dinero: z.string().min(1, {
+    km_recorridos: z.string().min(1, {
       message: "Por favor ingrese el consumo en dinero",
     }),
     vehiculoChapa: z.string().min(1, {
@@ -61,15 +62,33 @@ export const controlCargasSchema = z
         const response = await fetch(
           `/api/vehiculos/${encodeURIComponent(data.vehiculoChapa)}`
         );
-        const datos = await response.json();
-        return datos.tarjeta.saldo + parseInt(data.importe) >=
-          parseInt(data.consumo_dinero)
+        const datos: VehiculoBack = await response.json();
+
+        let precio = 0;
+
+        switch (datos.tarjeta.tipo) {
+          case "Diesel":
+            precio = 13.9;
+            break;
+          case "Especial":
+            precio = 17.4;
+            break;
+          case "B91":
+            precio = 16.4;
+            break;
+          case "B83":
+            precio = 14.6;
+            break;
+        }
+
+        return parseInt(datos.tarjeta.saldo) + parseInt(data.importe) >=
+          (parseInt(data.km_recorridos) / parseInt(datos.consumo_km)) * precio
           ? true
           : false;
       }
     },
     {
       message: "El Consumo es mayor al saldo disponible",
-      path: ["consumo_dinero"],
+      path: ["km_recorridos"],
     }
   );
