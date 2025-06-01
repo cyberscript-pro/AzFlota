@@ -111,7 +111,7 @@ export function AreaTrabajoTable({
                 <TableCell className="py-3 px-4 text-gray-700 min-w-[200px] max-w-[300px] whitespace-normal break-words">
                   {data.descripcion}
                 </TableCell>
-                {access && data.fin === null && (
+                {access && data.fin === "" && (
                   <TableCell className="py-3 px-4 text-gray-700 w-[200px] whitespace-nowrap">
                     <ModalButton
                       className={`inline-flex mr-2 justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-auto`}

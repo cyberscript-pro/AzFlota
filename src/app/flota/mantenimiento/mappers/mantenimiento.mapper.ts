@@ -11,16 +11,17 @@ export class MantenimientoMapper {
 
     let fechaInicio: string;
     let fechaFin: string;
+
     mantenimientos?.map(
       (mantenimiento) => (
         (fechaInicio = mantenimiento.inicio.split("T")[0]),
-        (fechaFin = mantenimiento.fin.split("T")[0]),
+        (fechaFin = mantenimiento.fin ? mantenimiento.fin.split("T")[0] : ""),
         dataFront.push({
           id: mantenimiento.uuid,
           descripcion: mantenimiento.descripcion,
           motivo: mantenimiento.motivo,
           inicio: fechaInicio,
-          fin: fechaFin,
+          fin: fechaFin ? fechaFin : "",
           vehiculo: mantenimiento.vehiculo,
         })
       )

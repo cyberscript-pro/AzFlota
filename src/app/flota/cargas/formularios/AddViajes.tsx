@@ -115,6 +115,8 @@ function AddViajes({ onClose, dataCarga, form2 }: AddAreaTrabajoProps) {
         break;
     }
 
+    console.log(result.tarjeta.saldo);
+
     onSubmitCarga({
       folio: dataCarga.folio,
       comprobante: dataCarga.comprobante,
@@ -141,7 +143,8 @@ function AddViajes({ onClose, dataCarga, form2 }: AddAreaTrabajoProps) {
       lugarSalida: data.lugarSalida,
       lugarDestino: data.lugarDestino,
       kmRecorridos: parseInt(dataCarga.km_recorridos),
-      combustibleConsumido: (parseInt(dataCarga.km_recorridos) / parseInt(result.consumo_km)),
+      combustibleConsumido:
+        parseInt(dataCarga.km_recorridos) / parseInt(result.consumo_km),
       vehiculoChapa: dataCarga.vehiculoChapa,
     });
   };
