@@ -23,6 +23,7 @@ import { useFormDataPost } from "./data/FormDataPost";
 import UpdateChofer from "./formularios/UpdateAreaTrabajo";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
 import { set } from "zod";
+import SearchForm from "./components/Search";
 
 // Importaciones dinámicas para reducir el bundle inicial
 const Modal = dynamic(() => import("@/app/components/modal"), {
@@ -71,6 +72,7 @@ function AreaTrabajoContent() {
 
   const [state, setState] = useState({
     isCreateAreaTrabajo: false,
+    isSearch: false,
     isReporte: false,
     selectedValue: "pdf",
     pageActual: 1,
@@ -118,14 +120,6 @@ function AreaTrabajoContent() {
     }));
   }, [session, router]);
 
-  // Handlers memorizados
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
-
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
@@ -160,6 +154,30 @@ function AreaTrabajoContent() {
                 </h1>
                 <div className="flex">
                   <button
+                    className="mr-4 border p-2 rounded-4xl text-gray-500 hover:text-blue-600 focus:outline-none"
+                    onClick={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        isSearch: true,
+                      }))
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </button>
+                  <button
                     onClick={() =>
                       setState((prev) => ({ ...prev, isReporte: true }))
                     }
@@ -171,7 +189,7 @@ function AreaTrabajoContent() {
               </div>
             </header>
 
-            {status === "loading" || loading && <LoadingSpinner />}
+            {status === "loading" || (loading && <LoadingSpinner />)}
 
             <div className="w-full h-2" />
 
@@ -183,71 +201,74 @@ function AreaTrabajoContent() {
               />
             </main>
 
-          <footer className="w-full my-5 flex justify-center items-center">
-            <div className="w-lg mx-auto flex fixed bottom-5 justify-between items-center">
-              <ModalButton
-                disabled={!pagination?.hasPrevPage}
-                onClick={() => handlePageChange("prev")}
-                className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
-              >
-                <MemoizedImage
-                  src="/back.svg"
-                  alt="Back"
-                  width={50}
-                  height={50}
-                  loading="lazy"
-                />
-              </ModalButton>
+            <footer className="w-full my-5 flex justify-center items-center">
+              <div className="w-lg mx-auto flex fixed bottom-5 justify-between items-center">
+                <ModalButton
+                  disabled={!pagination?.hasPrevPage}
+                  onClick={() => handlePageChange("prev")}
+                  className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-sm font-semibold text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  <MemoizedImage
+                    src="/back.svg"
+                    alt="Back"
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                  />
+                </ModalButton>
 
-              <div className="flex mx-2">
-                <h4 className="mr-6">
-                  Página Actual: {pagination?.currentPage}
-                </h4>
-                <h4 className="ml-6">
-                  Última Página: {pagination?.totalPages}
-                </h4>
+                <div className="flex mx-2">
+                  <h4 className="mr-6">
+                    Página Actual: {pagination?.currentPage}
+                  </h4>
+                  <h4 className="ml-6">
+                    Última Página: {pagination?.totalPages}
+                  </h4>
+                </div>
+
+                <ModalButton
+                  disabled={!pagination?.hasNextPage}
+                  onClick={() => handlePageChange("next")}
+                  className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
+                >
+                  <MemoizedImage
+                    src="/next.svg"
+                    alt="Next"
+                    width={50}
+                    height={50}
+                    loading="lazy"
+                  />
+                </ModalButton>
               </div>
+            </footer>
 
-              <ModalButton
-                disabled={!pagination?.hasNextPage}
-                onClick={() => handlePageChange("next")}
-                className="inline-flex w-full justify-center items-center border-2 border-black rounded-4xl text-white shadow-sm sm:ml-3 sm:w-auto"
-              >
-                <MemoizedImage
-                  src="/next.svg"
-                  alt="Next"
-                  width={50}
-                  height={50}
-                  loading="lazy"
-                />
-              </ModalButton>
-            </div>
-          </footer>
-
-          <Modal
-            isOpen={state.isEditAreaTrabajo}
-            onClose={() =>
-              setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
-            }
-          >
-            <ModalBasicStyle
-              title="Editar Area de Trabajo"
-              classNameTitle="text-gray-900"
-              classNameContainer=""
+            <Modal
+              isOpen={state.isEditAreaTrabajo}
+              onClose={() =>
+                setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
+              }
             >
-              {state.selectedAreaTrabajo && (
-                <UpdateChofer
-                  id={state.selectedAreaTrabajo.id}
-                  form={form}
-                  data={state.selectedAreaTrabajo}
-                  onClose={() =>
-                    setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
-                  }
-                  onSuccess={handleUpdateSuccess}
-                />
-              )}
-            </ModalBasicStyle>
-          </Modal>
+              <ModalBasicStyle
+                title="Editar Area de Trabajo"
+                classNameTitle="text-gray-900"
+                classNameContainer=""
+              >
+                {state.selectedAreaTrabajo && (
+                  <UpdateChofer
+                    id={state.selectedAreaTrabajo.id}
+                    form={form}
+                    data={state.selectedAreaTrabajo}
+                    onClose={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        isEditAreaTrabajo: false,
+                      }))
+                    }
+                    onSuccess={handleUpdateSuccess}
+                  />
+                )}
+              </ModalBasicStyle>
+            </Modal>
           </div>
 
           <ModalGenerateReporte
@@ -285,6 +306,23 @@ function AreaTrabajoContent() {
                 }
                 onSubmit={onSubmit}
                 loading={loadingPost}
+              />
+            </ModalBasicStyle>
+          </Modal>
+
+          <Modal
+            isOpen={state.isSearch}
+            onClose={() => setState((prev) => ({ ...prev, isSearch: false }))}
+          >
+            <ModalBasicStyle
+              title="Buscador"
+              classNameTitle="text-gray-900"
+              classNameContainer=""
+            >
+              <SearchForm
+                onClose={() =>
+                  setState((prev) => ({ ...prev, isSearch: false }))
+                }
               />
             </ModalBasicStyle>
           </Modal>

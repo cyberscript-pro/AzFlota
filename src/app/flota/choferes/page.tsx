@@ -23,6 +23,7 @@ import { useFormDataPost } from "./data/FormDataPost";
 import UpdateChofer from "./formularios/UpdateChofer";
 import GenerateData from "./data/GenerateData";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
+import SearchForm from "./components/Search";
 
 // Importaciones dinámicas para reducir el bundle inicial
 const Modal = dynamic(() => import("@/app/components/modal"), {
@@ -53,7 +54,6 @@ const ModalButton = dynamic(() => import("../../components/ModalButton"), {
   ssr: false,
 });
 
-// Componentes memorizados
 const MemoizedChoferTable = memo(ChoferTable);
 const MemoizedImage = memo(Image);
 
@@ -69,9 +69,9 @@ function ChoferesContent() {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  // State declarations usando un reducer para optimizar el manejo del estado
   const [state, setState] = useState({
     isCreateChofer: false,
+    isSearch: false,
     isReporte: false,
     selectedValue: "pdf",
     pageActual: 1,
@@ -102,12 +102,10 @@ function ChoferesContent() {
 
   const { generate } = GenerateData();
 
-  // Memoización de datos transformados
   const memoizedDataFront = React.useMemo(() => {
     return ChoferMapper.fromApiToFront(data).dataFront;
   }, [data]);
 
-  // Effects optimizados
   useEffect(() => {
     if (!session) {
       router.push("/login");
@@ -123,14 +121,6 @@ function ChoferesContent() {
     }));
   }, [session, router]);
 
-  // Handlers memorizados
-  const handleNavigate = useCallback(
-    (path: string) => {
-      router.push(path);
-    },
-    [router]
-  );
-
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setState((prev) => ({ ...prev, selectedValue: e.target.value }));
   }, []);
@@ -142,11 +132,6 @@ function ChoferesContent() {
         direction === "next" ? prev.pageActual + 1 : prev.pageActual - 1,
     }));
   }, []);
-
-  const handleUpdateSuccess = useCallback(async () => {
-    await refetch();
-    setState((prev) => ({ ...prev }));
-  }, [refetch]);
 
   if (error) return <div>Error {error}</div>;
 
@@ -164,6 +149,30 @@ function ChoferesContent() {
                   Gestión de Choferes
                 </h1>
                 <div className="flex">
+                  <button
+                    className="mr-4 border p-2 rounded-4xl text-gray-500 hover:text-blue-600 focus:outline-none"
+                    onClick={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        isSearch: true,
+                      }))
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </button>
                   <button
                     onClick={() =>
                       setState((prev) => ({ ...prev, isReporte: true }))
@@ -226,6 +235,23 @@ function ChoferesContent() {
                   }
                   onSubmit={onSubmit}
                   loading={loadingPost}
+                />
+              </ModalBasicStyle>
+            </Modal>
+
+            <Modal
+              isOpen={state.isSearch}
+              onClose={() => setState((prev) => ({ ...prev, isSearch: false }))}
+            >
+              <ModalBasicStyle
+                title="Buscador"
+                classNameTitle="text-gray-900"
+                classNameContainer=""
+              >
+                <SearchForm
+                  onClose={() =>
+                    setState((prev) => ({ ...prev, isSearch: false }))
+                  }
                 />
               </ModalBasicStyle>
             </Modal>

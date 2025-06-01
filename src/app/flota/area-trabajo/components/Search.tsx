@@ -11,29 +11,29 @@ const SearchForm = ({ onClose }: Props) => {
   const router = useRouter();
 
   const handleSearch: SubmitHandler<{
-    tipo: string;
-    marca: string;
-    chapa: string;
+    nombre: string;
+    centro: string;
+    jefe: string;
   }> = (data) => {
 
     router.push(
-      `/flota/vehiculos/search?ch=${encodeURIComponent(
-        data.chapa
-      )}&m=${encodeURIComponent(data.marca)}&t=${encodeURIComponent(
-        data.tipo
+      `/flota/area-trabajo/search?no=${encodeURIComponent(
+        data.nombre
+      )}&ce=${encodeURIComponent(data.centro)}&je=${encodeURIComponent(
+        data.jefe
       )}`
     );
   };
 
   const form = useForm<{
-    tipo: string;
-    marca: string;
-    chapa: string;
+    nombre: string;
+    centro: string;
+    jefe: string;
   }>({
     defaultValues: {
-      chapa: "",
-      marca: "",
-      tipo: "",
+      nombre: "",
+      centro: "",
+      jefe: "",
     },
   });
 
@@ -44,23 +44,23 @@ const SearchForm = ({ onClose }: Props) => {
         className="mt-4 space-y-4 min-w-[400px]"
       >
         <InputComponent
-          name="chapa"
-          label="Chapa"
-          placeholder="Ingresa el chapa"
+          name="nombre"
+          label="Nombre del Area de Trabajo"
+          placeholder="Ingresa el nombre"
           control={form.control}
         />
 
         <InputComponent
-          name="marca"
-          label="Marca"
-          placeholder="Ingresa la marca"
+          name="centro"
+          label="Centro de Costo"
+          placeholder="Ingresa el centro de costo"
           control={form.control}
         />
 
         <InputComponent
-          name="tipo"
-          label="Tipo"
-          placeholder="Ingresa el tipo"
+          name="jefe"
+          label="Jefe del Area de Trabajo"
+          placeholder="Ingresa el nombre del jefe"
           control={form.control}
         />
 
