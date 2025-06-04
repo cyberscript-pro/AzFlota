@@ -60,6 +60,23 @@ export const controlCargasSchema = z
     async (data) => {
       if (data.vehiculoChapa.length > 6 && data.vehiculoChapa.length < 8) {
         const response = await fetch(
+          `/api/control-cargas/checking/date?chapa=${encodeURIComponent(
+            data.vehiculoChapa
+          )}&fecha=${encodeURIComponent(data.fecha)}`
+        );
+        const present = await response.json();
+        return !present.exists;
+      }
+    },
+    {
+      message: "La fecha debe ser posterior a la de la última carga registrada",
+      path: ["fecha"],
+    }
+  )
+  .refine(
+    async (data) => {
+      if (data.vehiculoChapa.length > 6 && data.vehiculoChapa.length < 8) {
+        const response = await fetch(
           `/api/vehiculos/${encodeURIComponent(data.vehiculoChapa)}`
         );
         const datos: VehiculoBack = await response.json();

@@ -62,3 +62,25 @@ export const choferSchema = z.object({
     })
     .transform((val) => val.trim()),
 });
+
+export const choferSchemaUpdate = z.object({
+  nombre: z.string().min(2, { message: "El nombre es requerido" }).max(200, {
+    message: "El nombre debe tener como maximo 200 caracteres",
+  }),
+
+  edad: z
+    .string()
+    .refine((value) => /^\d{2}$/.test(value), {
+      message: "La edad debe contener exactamente 2 dígitos numéricos",
+    })
+    .transform((val) => val.trim()),
+
+  sexo: z.string().min(1, "Selecciona el sexo"),
+
+  telefono: z
+    .string()
+    .refine((value) => /^\d{8}$/.test(value), {
+      message: "El teléfono debe contener exactamente 8 dígitos numéricos",
+    })
+    .transform((val) => val.trim()),
+});

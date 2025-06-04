@@ -9,7 +9,7 @@ interface GenerateExcelProps {
 
 export async function GenerateExcel({ data }: GenerateExcelProps) {
   const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet("Reporte de Choferes");
+  const worksheet = workbook.addWorksheet("Reporte de Areas de Trabajo");
 
   const columns = [
     { header: "Area de Trabajo", key: "area", width: 30 },
@@ -50,7 +50,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
     dataRow.getCell(2).value = item.nombre;
     dataRow.getCell(3).value = item.centro_costo;
     dataRow.getCell(4).value = item.jefe;
-    [2, 3, 4, 5, 6, 7].forEach((colNumber) => {
+    [2, 3, 4].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
       cell.style = {
         font: { size: 11 },
@@ -71,5 +71,5 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
+  saveAs(new Blob([buffer]), "reporte_areas.xlsx");
 }

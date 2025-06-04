@@ -65,7 +65,7 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
     dataRow.getCell(7).value = item.chofer.nombre;
     dataRow.getCell(8).value = item.area.jefe;
     dataRow.getCell(9).value = item.area.nombre;
-    [2, 3, 4, 5, 6, 7].forEach((colNumber) => {
+    [2, 3, 4, 5, 6, 7, 8, 9].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
       cell.style = {
         font: { size: 11 },

@@ -91,3 +91,12 @@ export type Inputs = {
   tarjeta: string;
   area: string;
 };
+
+export type InputsUpdate = {
+  marca: string;
+  tipo: string;
+  consumo_km: string;
+  chofer: string;
+  tarjeta: string;
+  area: string;
+};

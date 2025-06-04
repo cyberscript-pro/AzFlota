@@ -24,15 +24,8 @@ type ChoferTableProps = {
 };
 
 type DataDelete = {
-  idDelete: string;
+  ci: string;
   nombre: string;
-};
-
-export type DataUpdate = {
-  id: string;
-  nombre: string;
-  centro_costo: string;
-  jefe: string;
 };
 
 export type Inputs = {
@@ -47,17 +40,9 @@ export function AreaTrabajoTable({
   refetch,
 }: ChoferTableProps) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [openUpdateModal, setOpenUpdateModal] = useState(false);
-
-  const [dataUpdate, setDataUpdate] = useState<DataUpdate>({
-    id: "",
-    nombre: "",
-    centro_costo: "",
-    jefe: "",
-  });
 
   const [dataDelete, setDataDelete] = useState<DataDelete>({
-    idDelete: "",
+    ci: "",
     nombre: "",
   });
 
@@ -67,8 +52,8 @@ export function AreaTrabajoTable({
 
   const { onDelete } = useApiDelete();
 
-  const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `/api/areas-trabajo/${id}` });
+  const onDeleteFuncion = (ci: string) => {
+    onDelete({ url: `/api/choferes-despedidos/${ci}`, refetch });
   };
 
   return (
@@ -80,7 +65,7 @@ export function AreaTrabajoTable({
         <Table className="min-w-full">
           <TableHeader>
             <TableRow className="bg-gray-100">
-            <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[300px]">
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[300px]">
                 Nombre y Apellidos
               </TableHead>
               <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
@@ -128,10 +113,57 @@ export function AreaTrabajoTable({
                 <TableCell className="py-3 px-6 text-gray-700 w-[100px]">
                   {data.telefono}
                 </TableCell>
+                {access && (
+                  <TableCell className="py-3 px-4 text-gray-700 w-[200px] whitespace-nowrap">
+                    <ModalButton
+                      className="inline-flex justify-center rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-800 sm:w-auto"
+                      onClick={() => {
+                        setDataDelete({
+                          ci: data.ci,
+                          nombre: data.nombre,
+                        });
+                        setOpenDeleteModal(true);
+                      }}
+                    >
+                      Recontratar
+                    </ModalButton>
+                  </TableCell>
+                )}
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        <Modal
+          isOpen={openDeleteModal}
+          onClose={() => setOpenDeleteModal(false)}
+        >
+          <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+            <div className="sm:flex sm:items-start">
+              <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left w-full">
+                <h3 className="text-base font-semibold leading-6">
+                  Recontratar el chofer con CI: {dataDelete.ci}
+                </h3>
+                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                  <ModalButton
+                    children="Aceptar"
+                    onClick={() => {
+                      onDeleteFuncion(dataDelete.ci);
+                      setOpenDeleteModal(false);
+                    }}
+                    className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
+                  />
+                  <ModalButton
+                    children="Cancelar"
+                    onClick={() => {
+                      setOpenDeleteModal(false);
+                    }}
+                    className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
       </div>
     </div>
   );

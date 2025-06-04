@@ -11,7 +11,7 @@ import { ChoferFront } from "../../../types/choferes-types";
 import ModalButton from "../../../components/ModalButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { choferSchema } from "@/app/validations/frontend/chofer.schema";
+import { choferSchemaUpdate } from "@/app/validations/frontend/chofer.schema";
 import useApiDelete from "@/app/hooks/useApiDelete";
 import { useState } from "react";
 import Modal from "../../../components/modal";
@@ -41,8 +41,6 @@ export type Inputs = {
   nombre: string;
   edad: string;
   sexo: string;
-  ci: string;
-  licencia: string;
   telefono: string;
 };
 
@@ -69,13 +67,13 @@ export function ChoferTable({
   });
 
   const form = useForm<Inputs>({
-    resolver: zodResolver(choferSchema),
+    resolver: zodResolver(choferSchemaUpdate),
   });
 
   const { onDelete } = useApiDelete();
 
   const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `/api/choferes/${id}` });
+    onDelete({ url: `/api/choferes/${id}`, refetch });
   };
 
   return (
@@ -158,8 +156,6 @@ export function ChoferTable({
                           nombre: data.nombre,
                           edad: data.edad,
                           sexo: data.sexo,
-                          ci: data.ci,
-                          licencia: data.licencia,
                           telefono: data.telefono,
                         });
                         setOpenUpdateModal(true);
@@ -201,7 +197,7 @@ export function ChoferTable({
                   refetch();
                 }}
                 id={dataUpdate.ci}
-                data={dataUpdate}
+                dataUpdate={dataUpdate}
               />
             </div>
           </div>
@@ -224,7 +220,6 @@ export function ChoferTable({
                   onClick={() => {
                     onDeleteFuncion(dataDelete.idDelete);
                     setOpenDeleteModal(false);
-                    refetch();
                   }}
                   className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
                 />

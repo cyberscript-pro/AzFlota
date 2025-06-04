@@ -12,12 +12,16 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   const worksheet = workbook.addWorksheet("Reporte de Choferes");
 
   const columns = [
-    { header: "Nombre y Apellidos", key: "nombre", width: 30 },
-    { header: "Edad", key: "licencia", width: 20 },
-    { header: "Sexo", key: "licencia", width: 20 },
-    { header: "Carnet de Identidad", key: "carnet", width: 20 },
-    { header: "Número de la Licencia", key: "licencia", width: 20 },
-    { header: "Teléfono", key: "telefono", width: 20 },
+    { header: "Vehiculo", key: "vehicle", width: 30 },
+    { header: "Folio", key: "folio", width: 20 },
+    { header: "Comprobante", key: "comprobante", width: 20 },
+    { header: "Fecha", key: "date", width: 20 },
+    { header: "Existencia Inicial", key: "inicial", width: 20 },
+    { header: "Importe", key: "importe", width: 20 },
+    { header: "Total", key: "total", width: 20 },
+    { header: "Consumo en $", key: "consumo", width: 20 },
+    { header: "Consumo en Litros", key: "consumoLitro", width: 20 },
+    { header: "Saldo Final", key: "saldo", width: 20 },
   ];
 
   worksheet.addRow([]);
@@ -44,22 +48,50 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
       },
     };
     worksheet.getColumn(2).width = 30;
-    worksheet.getColumn(3).width = 20;
-    worksheet.getColumn(4).width = 20;
+    worksheet.getColumn(3).width = 30;
+    worksheet.getColumn(4).width = 30;
     worksheet.getColumn(5).width = 30;
     worksheet.getColumn(6).width = 30;
     worksheet.getColumn(7).width = 30;
+    worksheet.getColumn(8).width = 30;
+    worksheet.getColumn(9).width = 30;
+    worksheet.getColumn(10).width = 30;
+    worksheet.getColumn(11).width = 30;
   });
 
-  /*data.forEach((item) => {
+  data.forEach((item) => {
+
+    let precio = 0;
+
+    switch (item.vehiculo.tarjeta.tipo) {
+      case "Diesel":
+        precio = 13.9;
+        break;
+      case "Especial":
+        precio = 17.4;
+        break;
+      case "B91":
+        precio =  16.4;
+        break;
+      case "B83":
+        precio = 14.6;
+        break;
+      default:
+        break;
+    }
+
     const dataRow = worksheet.addRow([]);
-    dataRow.getCell(2).value = item.nombre;
-    dataRow.getCell(3).value = item.ci;
-    dataRow.getCell(4).value = item.ci;
-    dataRow.getCell(5).value = item.ci;
-    dataRow.getCell(6).value = item.licencia;
-    dataRow.getCell(7).value = item.telefono;
-    [2, 3, 4, 5, 6, 7].forEach((colNumber) => {
+    dataRow.getCell(2).value = item.vehiculo.chapa;
+    dataRow.getCell(3).value = item.folio;
+    dataRow.getCell(4).value = item.comprobante;
+    dataRow.getCell(5).value = item.fecha;
+    dataRow.getCell(6).value = item.existencia;
+    dataRow.getCell(7).value = item.importe;
+    dataRow.getCell(8).value = (item.existencia + item.importe);
+    dataRow.getCell(9).value = item.consumo_dinero;
+    dataRow.getCell(10).value = (item.consumo_dinero / precio);
+    dataRow.getCell(11).value = ((item.existencia + item.importe) - item.consumo_dinero);   
+    [2, 3, 4, 5, 6, 7, 8, 9, 10, 11].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
       cell.style = {
         font: { size: 11 },
@@ -75,10 +107,10 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         },
       };
     });
-  });*/
+  });
 
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
+  saveAs(new Blob([buffer]), "reporte_cargas.xlsx");
 }

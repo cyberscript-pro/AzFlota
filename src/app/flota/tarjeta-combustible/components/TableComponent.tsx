@@ -180,8 +180,6 @@ export function TarjetaCombustibleTable({
                           pin: data.pin,
                           estado: mapStatus(data.estado),
                           fecha_vencimiento: data.fecha_vencimiento,
-                          saldo: data.saldo.toString(),
-                          tipo: data.tipo,
                         });
                         setOpenUpdateModal(true);
                       }}
@@ -222,6 +220,7 @@ export function TarjetaCombustibleTable({
                   refetch();
                 }}
                 numero={dataUpdate.numero}
+                tipo={dataUpdate.tipo}
                 data={dataUpdate}
               />
             </div>

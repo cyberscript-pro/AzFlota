@@ -24,6 +24,7 @@ import UpdateChofer from "./formularios/UpdateAreaTrabajo";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
 import { set } from "zod";
 import SearchForm from "./components/Search";
+import GenerateData from "./data/GenerateData";
 
 // Importaciones dinámicas para reducir el bundle inicial
 const Modal = dynamic(() => import("@/app/components/modal"), {
@@ -82,6 +83,8 @@ function AreaTrabajoContent() {
     selectedAreaTrabajo: null as AreaTrabajoFront | null,
     isEditAreaTrabajo: false,
   });
+
+  const { generate } = GenerateData();
 
   const apiUrl = useMemo(
     () => `/api/areas-trabajo?page=${state.pageActual}&limit=${10}`,
@@ -282,6 +285,7 @@ function AreaTrabajoContent() {
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))

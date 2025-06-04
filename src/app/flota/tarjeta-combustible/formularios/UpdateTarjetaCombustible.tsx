@@ -7,6 +7,7 @@ import {
 } from "react-hook-form";
 import {
   Inputs,
+  InputsUpdate,
   Tarjeta,
   TarjetaFront,
   TarjetaPost,
@@ -21,6 +22,7 @@ import DateInput from "../components/DateInput";
 
 type UpdateTarjetaCombustibleProps = {
   numero: string;
+  tipo: string;
   form: any;
   onClose: () => void;
   data: TarjetaFront;
@@ -29,13 +31,14 @@ type UpdateTarjetaCombustibleProps = {
 
 function UpdateTarjetaCombustible({
   numero,
+  tipo,
   form,
   data,
   onClose,
   onSuccess,
 }: UpdateTarjetaCombustibleProps) {
   const { loading, error, updateData } = useApiUpdate<TarjetaUpdate>({
-    url: `/api/tarjetas-combustible/${numero}`,
+    url: `/api/tarjetas-combustible/${numero}?tipo=${tipo}`,
     onSuccess: async () => {
       toast.success("Tarjeta Combustible actualizada correctamente");
       if (onSuccess) {
@@ -45,15 +48,13 @@ function UpdateTarjetaCombustible({
     },
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<InputsUpdate> = async (data) => {
     try {
       console.log(data);
       await updateData({
         pin: data.pin,
         estado: data.estado,
-        tipo: data.tipo,
         fecha_vencimiento: data.fecha_vencimiento,
-        saldo: parseInt(data.saldo),
       });
     } catch (error) {
       toast.error("Error al actualizar la tarjeta combustible");
@@ -69,20 +70,6 @@ function UpdateTarjetaCombustible({
             label="Pin"
             placeholder="Ingresa el pin de la tarjeta"
             control={form.control}
-          />
-
-          <InputSelect
-            label="Tipo de Combustible"
-            name="tipo"
-            control={form.control}
-            placeholder="Selecciona una opción"
-            options={[
-              { value: "Diesel", label: "Diesel" },
-              { value: "Especial", label: "Gasolina Especial" },
-              { value: "B91", label: "Gasolina B-91" },
-              { value: "B83", label: "Gasolina B-83" },
-            ]}
-            required={true}
           />
 
           <InputSelect
@@ -104,13 +91,6 @@ function UpdateTarjetaCombustible({
             label="Fecha de Vencimiento"
             control={form.control}
             required
-          />
-
-          <InputComponent
-            name="saldo"
-            label="Saldo"
-            placeholder="Ingresa el saldo de la tarjeta"
-            control={form.control}
           />
 
           <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">

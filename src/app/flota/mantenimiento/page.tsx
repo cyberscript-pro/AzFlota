@@ -21,6 +21,7 @@ import { AreaTrabajoTable } from "./components/TableComponent";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
 import { VehiculoMantenimientoBack } from "@/app/types/mantenimiento-types";
 import { MantenimientoMapper } from "./mappers/mantenimiento.mapper";
+import GenerateData from "./data/GenerateData";
 
 // Importaciones dinámicas para reducir el bundle inicial
 const Modal = dynamic(() => import("@/app/components/modal"), {
@@ -84,6 +85,8 @@ function AreaTrabajoContent() {
     useApiGet<VehiculoMantenimientoBack>({
       url: apiUrl,
     });
+
+  const { generate } = GenerateData();
 
   const memoizedDataFront = React.useMemo(() => {
     return MantenimientoMapper.fromApiToFront(data).dataFront;
@@ -210,23 +213,6 @@ function AreaTrabajoContent() {
               </div>
             </footer>
           </div>
-          <Modal
-            isOpen={state.isEditAreaTrabajo}
-            onClose={() =>
-              setState((prev) => ({ ...prev, isEditAreaTrabajo: false }))
-            }
-          >
-            <ModalBasicStyle
-              title="Editar Area de Trabajo"
-              classNameTitle="text-gray-900"
-              classNameContainer=""
-            >
-              {/* {state.selectedAreaTrabajo && (
-                  
-                )} */}
-              <div></div>
-            </ModalBasicStyle>
-          </Modal>
 
           <ModalGenerateReporte
             isOpen={state.isReporte}
@@ -234,11 +220,11 @@ function AreaTrabajoContent() {
             selectedValue={state.selectedValue}
             onChange={handleChange}
             radioButtonProps={[
-              { title: "Reporte en PDF", name: "reporte", value: "pdf" },
               { title: "Reporte en Excel", name: "reporte", value: "excel" },
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))

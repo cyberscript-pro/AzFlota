@@ -27,7 +27,7 @@ interface InputSelectProps {
   label?: string;
   options: SelectOption[];
   name: keyof Inputs;
-  control: any; // useForm().control
+  control: any;
   disabled?: boolean;
   required?: boolean;
   placeholder: string;

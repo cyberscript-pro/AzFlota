@@ -39,8 +39,7 @@ export async function GET(
   }
 }
 
-// PUT update work area
-export async function PUT(
+export async function PATCH(
   request: Request,
   { params }: { params: tParams }
 ) {

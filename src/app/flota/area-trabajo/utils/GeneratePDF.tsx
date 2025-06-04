@@ -12,7 +12,7 @@ const GeneratePDF = ({ data }: GenerateReporte) => {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
-    doc.text("Reporte de Choferes", 14, 22);
+    doc.text("Reporte de Areas de Trabajo", 14, 22);
 
     autoTable(doc, {
       startY: 30,

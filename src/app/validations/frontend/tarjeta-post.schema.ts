@@ -62,8 +62,6 @@ export const tarjetaSchemaUpdate = z.object({
     .refine((date) => new Date(date).toString() !== "Invalid Date", {
       message: "Por favor ingrese una fecha valida",
     }),
-  saldo: z.string().min(0),
-  tipo: z.string().min(1, "Selecciona el tipo de combustible"),
 });
 
 export const dateSchema = z

@@ -5,7 +5,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
-import { Inputs, VehiculoPost } from "../../../types/vehiculo-types";
+import { InputsUpdate, VehiculoPost } from "../../../types/vehiculo-types";
 import useApiUpdate from "../../../hooks/useApiUpdate";
 import InputSelect, { SelectOption } from "../components/InputSelect";
 import { Form } from "@/components/ui/form";
@@ -69,10 +69,10 @@ function UpdateChofer({
     return selectOptions;
   };
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<InputsUpdate> = async (data) => {
     try {
       await updateData({
-        chapa: data.chapa,
+        chapa: id,
         marca: data.marca,
         tipo: data.tipo,
         consumo_km: data.consumo_km,
@@ -88,14 +88,10 @@ function UpdateChofer({
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
-          <InputComponent
-            name="chapa"
-            label="Chapa del Vehiculo"
-            placeholder="Ingresa la chapa"
-            control={form.control}
-          />
-
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-4 space-y-4 min-w-[350px]"
+        >
           <InputComponent
             name="marca"
             label="Marca del Vehiculo"
@@ -161,9 +157,11 @@ function UpdateChofer({
           <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
               type="submit"
-              disabled={loading}
+              disabled={form.formState.isSubmitting}
               className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
+                form.formState.isSubmitting
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
               }`}
             >
               {form.formState.isSubmitting ? "Actualizando..." : "Actualizar"}

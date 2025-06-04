@@ -11,8 +11,6 @@ export type InputsUpdate = {
   pin: string;
   estado: string;
   fecha_vencimiento: string;
-  saldo: string;
-  tipo: string;
 };
 
 type Vehiculo = {

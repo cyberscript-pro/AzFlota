@@ -44,7 +44,7 @@ export function CargasTable({
   const { onDelete } = useApiDelete();
 
   const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `/api/control-cargas/${id}` });
+    onDelete({ url: `/api/control-cargas/${id}`, refetch });
   };
 
   const tipoCombustible = (tipoCombustible: "Diesel" | "Especial" | "B91" | "B83", dinero: number) => {

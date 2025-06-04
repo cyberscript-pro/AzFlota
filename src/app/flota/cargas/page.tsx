@@ -25,6 +25,7 @@ import SearchForm from "@/app/flota/cargas/components/Search";
 import { isSea } from "node:sea";
 import AddViajes from "./formularios/AddViajes";
 import { set } from "zod";
+import GenerateData from "./data/GenerateData";
 
 const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
@@ -100,6 +101,8 @@ function CargasContent() {
   const { loading, error, data, pagination, refetch } = useApiGet<CargaBack>({
     url: apiUrl,
   });
+
+  const { generate } = GenerateData();
 
   const { form, onSubmit, loadingPost } = useFormDataPost({
     onClose: () => {
@@ -263,6 +266,7 @@ function CargasContent() {
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))
@@ -305,7 +309,9 @@ function CargasContent() {
               <AddViajes
                 onClose={() => {
                   setState((prev) => ({ ...prev, isCreateViajes: false }));
-                  toast.success("Carga de Combustible y Viaje creados correctamente");
+                  toast.success(
+                    "Carga de Combustible y Viaje creados correctamente"
+                  );
                   refetch();
                 }}
                 dataCarga={dataForm}

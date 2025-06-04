@@ -16,7 +16,7 @@ type UpdateChoferProps = {
   id: string;
   form: any;
   onClose: () => void;
-  data: ChoferFront;
+  dataUpdate: ChoferFront;
   onSuccess?: () => Promise<void>;
 };
 
@@ -24,15 +24,13 @@ type Inputs = {
   nombre: string;
   edad: string;
   sexo: string;
-  ci: string;
-  licencia: string;
   telefono: string;
 };
 
 function UpdateChofer({
   id,
   form,
-  data,
+  dataUpdate,
   onClose,
   onSuccess,
 }: UpdateChoferProps) {
@@ -53,8 +51,8 @@ function UpdateChofer({
         nombre: data.nombre,
         edad: Number(data.edad),
         sexo: data.sexo == "M" ? "M" : "F",
-        ci: data.ci,
-        licencia: data.licencia,
+        ci: dataUpdate.ci,
+        licencia: dataUpdate.licencia,
         telefono: data.telefono,
       });
     } catch (error) {
@@ -65,7 +63,10 @@ function UpdateChofer({
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-4 space-y-4 min-w-[350px]"
+        >
           <InputComponent
             name="nombre"
             label="Nombre y Apellidos"
@@ -90,18 +91,6 @@ function UpdateChofer({
             required={true}
           />
           <InputComponent
-            name="ci"
-            label="Carnet de Identidad"
-            placeholder="Ingresa tu CI"
-            control={form.control}
-          />
-          <InputComponent
-            name="licencia"
-            label="Licencia de Conducción"
-            placeholder="Ingresa tu Licencia"
-            control={form.control}
-          />
-          <InputComponent
             name="telefono"
             label="Teléfono"
             placeholder="Ingresa tu numero de teléfono"
@@ -111,9 +100,11 @@ function UpdateChofer({
           <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
               type="submit"
-              disabled={loading}
+              disabled={form.formState.isSubmitting}
               className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
+                form.formState.isSubmitting
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
               }`}
             >
               {form.formState.isSubmitting ? "Actualizando..." : "Actualizar"}

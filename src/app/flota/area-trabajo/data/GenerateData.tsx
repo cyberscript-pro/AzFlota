@@ -6,7 +6,7 @@ import { GenerateExcel } from "../utils/GenerateExcel";
 
 function GenerateData() {
   const { loading, data } = useApiGet<AreaTrabajoBack>({
-    url: "/api/area-trabajo?page=1",
+    url: `/api/areas-trabajo?page=1`,
   });
 
   const { dataFront } = AreaTrabajoMapper.fromApiToFront(data);

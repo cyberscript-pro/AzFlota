@@ -10,6 +10,7 @@ import {
 import {
   DataViajesFront,
   Inputs,
+  InputsUpdate,
   VehiculoFront,
 } from "../../../types/vehiculo-types";
 import ModalButton from "../../../components/ModalButton";
@@ -19,8 +20,7 @@ import useApiDelete from "@/app/hooks/useApiDelete";
 import { useEffect, useState } from "react";
 import Modal from "../../../components/modal";
 import UpdateAreaTrabajo from "../formularios/UpdateVehiculo";
-import { vehiculoSchemaUpdate } from "@/app/validations/frontend/vehiculo-update.schema";
-import { vehiculoSchemaPost } from "@/app/validations/frontend/vehiculo-post.schema";
+import { vehiculoSchemaUpdate } from "@/app/validations/frontend/vehiculo-post.schema";
 import useApiGet from "@/app/hooks/useApiGet";
 import LoadingSpinner from "@/app/components/loading";
 import axios from "axios";
@@ -99,8 +99,8 @@ export function AreaTrabajoTable({
     chapa: "",
   });
 
-  const form = useForm<Inputs>({
-    resolver: zodResolver(vehiculoSchemaPost),
+  const form = useForm<InputsUpdate>({
+    resolver: zodResolver(vehiculoSchemaUpdate),
   });
 
   const { onDelete } = useApiDelete();
@@ -258,10 +258,9 @@ export function AreaTrabajoTable({
                           area: data.area.nombre,
                         });
                         form.reset({
-                          chapa: data.chapa,
                           marca: data.marca,
                           tipo: data.tipo,
-                          consumo_km: data.consumo_km,
+                          consumo_km: data.consumo_km.toString(),
                           chofer: data.chofer.ci,
                           tarjeta: data.tarjeta.numero,
                           area: data.area.uuid,

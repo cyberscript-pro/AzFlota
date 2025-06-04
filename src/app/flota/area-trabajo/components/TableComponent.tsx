@@ -88,7 +88,7 @@ export function AreaTrabajoTable({
               <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
                 Nombre y Apellidos del Jefe
               </TableHead>
-              <TableHead className="text-gray-600 font-medium uppercase tracking-wide w-[50px]">
+              <TableHead className="text-gray-600 font-medium uppercase tracking-wide min-w-[200px] max-w-[300px]">
                 Vehiculos Asignados
               </TableHead>
             </TableRow>
@@ -112,7 +112,7 @@ export function AreaTrabajoTable({
                 <TableCell className="py-3 px-4 text-gray-700 w-[50px]">
                   {data.jefe}
                 </TableCell>
-                <TableCell className="py-3 px-4 text-gray-700 w-[200px]">
+                <TableCell className="py-3 px-4 text-gray-700 min-w-[200px] max-w-[300px] whitespace-normal break-words">
                   {data.vehiculos
                     ? data.vehiculos
                         ?.map((vehiculo) => vehiculo.chapa)
