@@ -14,9 +14,10 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   const worksheet = workbook.addWorksheet("Reporte de Choferes");
 
   const columns = [
-    { header: "Area de Trabajo", key: "area", width: 30 },
-    { header: "Centro de Costo", key: "costo", width: 20 },
-    { header: "Jefe", key: "jefe", width: 20 },
+    { header: "Chapa", key: "chapa", width: 30 },
+    { header: "Marca", key: "marca", width: 20 },
+    { header: "Tipo", key: "tipo", width: 20 },
+    { header: "Fecha de Baja", key: "baja", width: 30 },
   ];
 
   worksheet.addRow([]);
@@ -42,17 +43,19 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         right: { style: "thin", color: { argb: "00000000" } },
       },
     };
-    worksheet.getColumn(2).width = 30;
+    worksheet.getColumn(2).width = 20;
     worksheet.getColumn(3).width = 20;
-    worksheet.getColumn(4).width = 30;
+    worksheet.getColumn(4).width = 20;
+    worksheet.getColumn(5).width = 20;
   });
 
-  /*data.forEach((item) => {
+  data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
-    dataRow.getCell(2).value = item.nombre;
-    dataRow.getCell(3).value = item.centro_costo;
-    dataRow.getCell(4).value = item.jefe;
-    [2, 3, 4, 5, 6, 7].forEach((colNumber) => {
+    dataRow.getCell(2).value = item.chapa;
+    dataRow.getCell(3).value = item.marca;
+    dataRow.getCell(4).value = item.tipo;
+    dataRow.getCell(5).value = item.baja;
+    [2, 3, 4, 5].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
       cell.style = {
         font: { size: 11 },
@@ -68,10 +71,10 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         },
       };
     });
-  });*/
+  });
 
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
+  saveAs(new Blob([buffer]), "reporte_vehiculos_baja.xlsx");
 }

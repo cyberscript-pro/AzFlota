@@ -141,13 +141,38 @@ function AreaTrabajoContent() {
       {state.permisoLectura && (
         <div className="flex w-full min-h-screen z-0">
           <SidebarDashboard />
+
           <div className="flex-1 flex flex-col">
-            <header className="sticky top-0 w-full z-50 inset-3 bg-white shadow">
+            <header className="sticky top-0 w-full bg-white shadow">
               <div className="w-full mx-auto py-4 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
                 <h1 className="text-2xl font-bold text-gray-900">
-                  Gestión de Mantenimientos de Vehiculos
+                  Gestión de Vehiculos en Mantenimiento
                 </h1>
                 <div className="flex">
+                  {/* <button
+                    className="mr-4 border p-2 rounded-4xl text-gray-500 hover:text-blue-600 focus:outline-none"
+                    onClick={() =>
+                      setState((prev) => ({
+                        ...prev,
+                        isSearch: true,
+                      }))
+                    }
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </button> */}
                   <button
                     onClick={() =>
                       setState((prev) => ({ ...prev, isReporte: true }))
@@ -164,7 +189,7 @@ function AreaTrabajoContent() {
 
             <div className="w-full h-2" />
 
-            <main className="mt-2 min-h-screen min-w-full z-0 inset-0">
+            <main className="mt-2 h-[100vh-40px] min-w-full">
               <MemoizedAreaTrabajoTable
                 refetch={refetch}
                 data={memoizedDataFront}

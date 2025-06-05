@@ -19,6 +19,7 @@ import MantenimientoVehiculo from "../formularios/MantenimientoVehiculo";
 import useApiUpdate from "@/app/hooks/useApiUpdate";
 import { toast } from "sonner";
 import { Description } from "@radix-ui/react-dialog";
+import BajaVehiculo from "../formularios/BajaVehiculo";
 
 type ChoferTableProps = {
   data: VehiculoMantenimientoFront[];
@@ -47,12 +48,16 @@ export function AreaTrabajoTable({
   const [dataDelete, setDataDelete] = useState<{
     chapa: string;
     uuid: string;
+    motivo: string;
+    inicio: string;
   }>({
     chapa: "",
     uuid: "",
+    motivo: "",
+    inicio: "",
   });
 
-  const deleteVehiculo = async (uuid: string) => {
+  const deleteVehiculo = async (uuid: string, chapa: string) => {
     try {
     } catch (error) {
       console.error("Error al enviar datos:", error);
@@ -132,6 +137,8 @@ export function AreaTrabajoTable({
                       onClick={() => {
                         setDataDelete({
                           chapa: data.vehiculo.chapa,
+                          inicio: data.inicio,
+                          motivo: data.motivo,
                           uuid: data.id,
                         });
                         setOpenDeleteModal(true);
@@ -181,23 +188,14 @@ export function AreaTrabajoTable({
               <h3 className="text-base font-semibold leading-6 text-red-500">
                 {dataDelete.chapa}
               </h3>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <ModalButton
-                  children="Aceptar"
-                  onClick={() => {
-                    deleteVehiculo(dataDelete.uuid);
-                    setOpenDeleteModal(false);
-                  }}
-                  className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
-                />
-                <ModalButton
-                  children="Cancelar"
-                  onClick={() => {
-                    setOpenDeleteModal(false);
-                  }}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                />
-              </div>
+              <BajaVehiculo
+                onClose={() => {
+                  setOpenDeleteModal(false);
+                  refetch();
+                }}
+                id={dataDelete.uuid}
+                dataDelete={dataDelete}
+              />
             </div>
           </div>
         </div>

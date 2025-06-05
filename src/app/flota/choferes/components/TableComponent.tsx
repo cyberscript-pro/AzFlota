@@ -70,7 +70,7 @@ export function ChoferTable({
     resolver: zodResolver(choferSchemaUpdate),
   });
 
-  const { onDelete } = useApiDelete();
+  const { onDelete } = useApiDelete({});
 
   const onDeleteFuncion = (id: string) => {
     onDelete({ url: `/api/choferes/${id}`, refetch });

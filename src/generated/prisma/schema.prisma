@@ -107,7 +107,6 @@ model Vehiculo {
 
   tarjeta       TarjetaCombustible? @relation(fields: [tarjetaNumero], references: [numero])
   tarjetaNumero String?             @unique
-  VehiculoBaja  VehiculoBaja[]
 
   @@map("vehiculos")
 }
@@ -155,6 +154,7 @@ model VehiculosMantenimiento {
 
 model VehiculosBaja {
   vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
+  fecha_baja    DateTime
   vehiculoChapa String   @unique
 
   @@map("vehiculos-baja")
@@ -173,12 +173,4 @@ model ViajesVehiculos {
   vehiculoChapa String
 
   @@map("viajes-vehiculos")
-}
-
-model VehiculoBaja {
-  vehiculoChapa String
-  fecha_baja    DateTime
-  vehiculo      Vehiculo @relation(fields: [vehiculoChapa], references: [chapa])
-
-  @@id([vehiculoChapa])
 }

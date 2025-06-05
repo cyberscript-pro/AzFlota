@@ -13,9 +13,9 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
   const worksheet = workbook.addWorksheet("Reporte de Choferes");
 
   const columns = [
-    { header: "Area de Trabajo", key: "area", width: 30 },
-    { header: "Centro de Costo", key: "costo", width: 20 },
-    { header: "Jefe", key: "jefe", width: 20 },
+    { header: "Numero de Tarjeta", key: "numero_tarjeta", width: 30 },
+    { header: "Pin", key: "pin", width: 20 },
+    { header: "Estado", key: "status", width: 20 },
   ];
 
   worksheet.addRow([]);
@@ -41,17 +41,17 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         right: { style: "thin", color: { argb: "00000000" } },
       },
     };
-    worksheet.getColumn(2).width = 30;
+    worksheet.getColumn(2).width = 20;
     worksheet.getColumn(3).width = 20;
-    worksheet.getColumn(4).width = 30;
+    worksheet.getColumn(4).width = 20;
   });
 
-  /*data.forEach((item) => {
+  data.forEach((item) => {
     const dataRow = worksheet.addRow([]);
-    dataRow.getCell(2).value = item.nombre;
-    dataRow.getCell(3).value = item.centro_costo;
-    dataRow.getCell(4).value = item.jefe;
-    [2, 3, 4, 5, 6, 7].forEach((colNumber) => {
+    dataRow.getCell(2).value = item.numero;
+    dataRow.getCell(3).value = item.pin;
+    dataRow.getCell(4).value = item.estado;
+    [2, 3, 4].forEach((colNumber) => {
       const cell = dataRow.getCell(colNumber);
       cell.style = {
         font: { size: 11 },
@@ -67,10 +67,10 @@ export async function GenerateExcel({ data }: GenerateExcelProps) {
         },
       };
     });
-  });*/
+  });
 
   worksheet.views = [{ state: "frozen", ySplit: 3 }];
 
   const buffer = await workbook.xlsx.writeBuffer();
-  saveAs(new Blob([buffer]), "reporte_choferes.xlsx");
+  saveAs(new Blob([buffer]), "reporte_tarjetas_baja.xlsx");
 }

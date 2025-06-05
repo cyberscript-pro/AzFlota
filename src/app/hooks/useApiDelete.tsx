@@ -7,7 +7,11 @@ type ApiDelete = {
   refetch?: () => Promise<void>;
 };
 
-export default function useApiDelete() {
+type DeleteProps = {
+  onClose?: () => void;
+};
+
+export default function useApiDelete({ onClose }: DeleteProps) {
   const [deleteSuccess, setDeleteSuccess] = useState(false);
 
   const onDelete = async ({ url, data, refetch }: ApiDelete) => {
@@ -24,8 +28,9 @@ export default function useApiDelete() {
         throw new Error("Error al realizar la eliminacion");
       }
 
+      if (onClose) return onClose();
+      if (refetch) return refetch();
       setDeleteSuccess(true);
-      if(refetch) return refetch();
     } catch (err) {
       throw new Error(
         err instanceof Error ? err.message : "An unknown error occurred"

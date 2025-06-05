@@ -32,7 +32,10 @@ function AddAreaTrabajo({
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="mt-4 space-y-4 min-w-[350px]"
+        >
           <InputComponent
             name="nombre"
             label="Nombre del Area de Trabajo"
@@ -57,6 +60,7 @@ function AddAreaTrabajo({
           <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
             <button
               type="submit"
+              disabled={form.formState.isSubmitting}
               className={`inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto`}
             >
               {form.formState.isSubmitting ? "Registrando..." : "Registrar"}

@@ -110,15 +110,24 @@ export async function DELETE(
       },
     });
 
-    await prisma.vehiculo.update({
-      where: {
-        chapa,
-      },
+    const baja = await prisma.vehiculosBaja.create({
       data: {
-        isAvailable: false,
+        vehiculoChapa: chapa,
+        fecha_baja: fecha_fin,
+      },
+      include: {
+        vehiculo: {
+          select: {
+            chapa: true,
+            marca: true,
+            tipo: true,
+          },
+        },
       },
     });
-    return NextResponse.json(`Dado de baja el vehiculo de chapa: ${chapa}`, {
+    //`Dado de baja el vehiculo de chapa: ${chapa}`
+
+    return NextResponse.json(baja, {
       status: 200,
     });
   } catch (error) {

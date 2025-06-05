@@ -89,7 +89,7 @@ export function TarjetaCombustibleTable({
       reset: form.reset,
     });
 
-  const { onDelete } = useApiDelete();
+  const { onDelete } = useApiDelete({});
 
   const onDeleteFuncion = (id: string) => {
     onSubmitData({

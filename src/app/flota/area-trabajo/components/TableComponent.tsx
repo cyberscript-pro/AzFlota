@@ -64,7 +64,7 @@ export function AreaTrabajoTable({
     resolver: zodResolver(areaSchemaPost),
   });
 
-  const { onDelete } = useApiDelete();
+  const { onDelete } = useApiDelete({});
 
   const onDeleteFuncion = (id: string) => {
     onDelete({ url: `/api/areas-trabajo/${id}` });

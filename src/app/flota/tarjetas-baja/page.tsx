@@ -21,6 +21,7 @@ import { TarjetaBajaMapper } from "./mappers/tarjeta-baja.mapper";
 import { AreaTrabajoTable } from "./components/TableComponent";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
 import { TarjetaBaja } from "@/app/types/tarjetas-baja-types";
+import GenerateData from "./data/GenerateData";
 
 const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
@@ -65,7 +66,7 @@ function AreaTrabajoContent() {
   const [state, setState] = useState({
     isCreateAreaTrabajo: false,
     isReporte: false,
-    selectedValue: "pdf",
+    selectedValue: "excel",
     pageActual: 1,
     permisoLectura: false,
     permisoEscritura: false,
@@ -74,15 +75,16 @@ function AreaTrabajoContent() {
     isEditAreaTrabajo: false,
   });
 
+  const { generate } = GenerateData();
+
   const apiUrl = useMemo(
     () => `/api/tarjetas-combustible-baja?page=${state.pageActual}&limit=${10}`,
     [state.pageActual]
   );
 
-  const { loading, error, data, pagination, refetch } =
-    useApiGet<TarjetaBaja>({
-      url: apiUrl,
-    });
+  const { loading, error, data, pagination, refetch } = useApiGet<TarjetaBaja>({
+    url: apiUrl,
+  });
 
   const memoizedDataFront = React.useMemo(() => {
     return TarjetaBajaMapper.fromApiToFront(data).dataFront;
@@ -202,11 +204,11 @@ function AreaTrabajoContent() {
             selectedValue={state.selectedValue}
             onChange={handleChange}
             radioButtonProps={[
-              { title: "Reporte en PDF", name: "reporte", value: "pdf" },
               { title: "Reporte en Excel", name: "reporte", value: "excel" },
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))

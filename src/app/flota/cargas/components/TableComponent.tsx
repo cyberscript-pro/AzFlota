@@ -41,7 +41,7 @@ export function CargasTable({
     chapa: "",
   });
 
-  const { onDelete } = useApiDelete();
+  const { onDelete } = useApiDelete({});
 
   const onDeleteFuncion = (id: string) => {
     onDelete({ url: `/api/control-cargas/${id}`, refetch });

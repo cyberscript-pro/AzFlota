@@ -65,11 +65,7 @@ export function AreaTrabajoTable({
     resolver: zodResolver(areaSchemaPost),
   });
 
-  const { onDelete } = useApiDelete();
-
-  const onDeleteFuncion = (id: string) => {
-    onDelete({ url: `/api/areas-trabajo/${id}` });
-  };
+  const { onDelete } = useApiDelete({});
 
   return (
     <div className="w-full">
@@ -114,7 +110,7 @@ export function AreaTrabajoTable({
                   {data.tipo}
                 </TableCell>
                 <TableCell className="py-3 px-4 text-gray-700 w-[50px]">
-                  fecha de baja
+                  {data.baja}
                 </TableCell>
               </TableRow>
             ))}

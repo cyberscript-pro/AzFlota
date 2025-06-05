@@ -22,6 +22,7 @@ import { AreaTrabajoTable } from "./components/TableComponent";
 import SidebarDashboard from "@/app/components/SidebarDashboard";
 import { TarjetaBaja } from "@/app/types/tarjetas-baja-types";
 import { ChoferBaja } from "@/app/types/chofer-baja.types";
+import GenerateData from "./data/GenerateData";
 
 const Modal = dynamic(() => import("@/app/components/modal"), {
   loading: () => <LoadingSpinner />,
@@ -66,7 +67,7 @@ function AreaTrabajoContent() {
   const [state, setState] = useState({
     isCreateAreaTrabajo: false,
     isReporte: false,
-    selectedValue: "pdf",
+    selectedValue: "excel",
     pageActual: 1,
     permisoLectura: false,
     permisoEscritura: false,
@@ -74,6 +75,8 @@ function AreaTrabajoContent() {
     selectedAreaTrabajo: null as AreaTrabajoFront | null,
     isEditAreaTrabajo: false,
   });
+
+  const { generate } = GenerateData();
 
   const apiUrl = useMemo(
     () => `/api/choferes-despedidos?page=${state.pageActual}&limit=${10}`,
@@ -202,11 +205,11 @@ function AreaTrabajoContent() {
             selectedValue={state.selectedValue}
             onChange={handleChange}
             radioButtonProps={[
-              { title: "Reporte en PDF", name: "reporte", value: "pdf" },
               { title: "Reporte en Excel", name: "reporte", value: "excel" },
             ]}
             onClickReporte={() => {
               setState((prev) => ({ ...prev, isReporte: false }));
+              generate(state.selectedValue);
             }}
             onClickCancelar={() =>
               setState((prev) => ({ ...prev, isReporte: false }))

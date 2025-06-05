@@ -103,7 +103,7 @@ export function AreaTrabajoTable({
     resolver: zodResolver(vehiculoSchemaUpdate),
   });
 
-  const { onDelete } = useApiDelete();
+  const { onDelete } = useApiDelete({});
 
   const onSubmitData: SubmitHandler<{
     inicio: string;
