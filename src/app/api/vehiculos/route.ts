@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
         tarjeta: {
           select: {
             numero: true,
+            pin: true,
             estado: true,
             fecha_vencimiento: true,
             tipo: true,

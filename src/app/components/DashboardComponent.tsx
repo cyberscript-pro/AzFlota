@@ -23,6 +23,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TarjetaBaja } from "../types/tarjetas-baja-types";
 import { VehiculoBaja } from "../types/vehiculo-baja-types";
 import LoadingSpinner from "./loading";
+import { generarTablaEstilo } from "../dashboard/GenerateExcel";
 
 type DashboardComponentProps = {
   role?: string;
@@ -181,6 +182,15 @@ export default function DashboardComponent({
           <p className="text-gray-600">lunes, 7 de abril de 2025</p>
         </div>
         <div className="flex justify-center items-center">
+          <button
+            onClick={() =>
+              generarTablaEstilo({ vehiculos: vehiculosQuery.data })
+            }
+            className="mr-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
+          >
+            Generar Reporte
+          </button>
+
           <UserButton
             name={name}
             role={role}
