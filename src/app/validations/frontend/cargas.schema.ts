@@ -58,7 +58,7 @@ export const controlCargasSchema = z
   })
   .refine(
     async (data) => {
-      if (data.vehiculoChapa.length > 6 && data.vehiculoChapa.length < 8) {
+      if (data.vehiculoChapa.length >= 6 && data.vehiculoChapa.length < 8) {
         const response = await fetch(
           `/api/control-cargas/checking/date?chapa=${encodeURIComponent(
             data.vehiculoChapa
@@ -75,7 +75,7 @@ export const controlCargasSchema = z
   )
   .refine(
     async (data) => {
-      if (data.vehiculoChapa.length > 6 && data.vehiculoChapa.length < 8) {
+      if (data.vehiculoChapa.length >= 6 && data.vehiculoChapa.length < 8) {
         const response = await fetch(
           `/api/vehiculos/${encodeURIComponent(data.vehiculoChapa)}`
         );
